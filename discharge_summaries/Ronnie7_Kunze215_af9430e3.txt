@@ -1,0 +1,66 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Ronnie7 Kunze215
+    Date of Birth:       1984-04-21
+    Sex:                 Male
+    MRN:                 af9430e3-695f-affc-c41b-f5970ae62eb1
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 22, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      3 days
+    Attending Physician: Dr. Patel
+
+================================================================================
+
+CLINICAL COURSE:
+    Admitted for management of post-operative pain management. oxygen therapy and nebulized bronchodilators was initiated, resulting in symptomatic relief. Patient remained stable throughout 4-day admission. Discharged after clinical goals met.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 18-25 days
+    • Specialty: Orthopedics - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Glucose Monitor
+    Description:         Continuous glucose meter for diabetic patients in home care programs.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home.
+    Home care services arranged: As needed
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: af9430e3-695f-affc-c41b-f5970ae62eb1
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

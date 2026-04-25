@@ -1,0 +1,65 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Columbus656 Bartell116
+    Date of Birth:       1986-02-24
+    Sex:                 Male
+    MRN:                 66aa37ae-c3ca-1a9f-6a0a-9677319410cd
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 22, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      3 days
+    Attending Physician: Dr. Garcia
+
+================================================================================
+
+CLINICAL COURSE:
+    acute exacerbation of COPD required immediate hospitalization. After medication optimization and titration and close monitoring, patient achieved clinical improvement. uncontrolled hypertension was also managed. Discharged to home with outpatient follow-up.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 17-24 days
+    • Specialty: Pulmonology - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Shower Chair
+    Description:         Waterproof chair with back support and armrests for safe bathing.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home with home health services.
+    Home care services arranged: No
+    Visiting nurse evaluation: Scheduled
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 66aa37ae-c3ca-1a9f-6a0a-9677319410cd
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

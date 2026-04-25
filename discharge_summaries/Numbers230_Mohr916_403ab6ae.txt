@@ -1,0 +1,62 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Numbers230 Mohr916
+    Date of Birth:       1974-03-10
+    Sex:                 Male
+    MRN:                 403ab6ae-5687-6f94-b2cf-e754ececad0a
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 21, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      4 days
+    Attending Physician: Dr. Williams
+
+================================================================================
+
+CLINICAL COURSE:
+    sepsis from urinary tract infection required immediate hospitalization. After blood glucose management with sliding scale insulin and close monitoring, patient achieved clinical improvement. chronic obstructive pulmonary disease was also managed. Discharged to home with outpatient follow-up.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 6-13 days
+    • Specialty: Endocrinology - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Manual Wheelchair
+    Description:         Standard folding wheelchair with brakes for post-op and post-stroke mobility.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 403ab6ae-5687-6f94-b2cf-e754ececad0a
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

@@ -1,0 +1,67 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Stacie105 Dooley940
+    Date of Birth:       1992-11-09
+    Sex:                 Female
+    MRN:                 3f8dca81-462c-d582-e162-f1b5c6589526
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 23, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      2 days
+    Attending Physician: Dr. Martinez
+
+================================================================================
+
+CLINICAL COURSE:
+    acute pancreatitis required admission for broad-spectrum IV antibiotic therapy and optimization of atrial fibrillation management. Patient discharged after stable period.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 14-21 days
+    • Specialty: Orthopedics - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Nebulizer
+    Description:         Aerosol delivery device for respiratory medications (albuterol, etc.).
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home.
+    Home care services arranged: No
+    Visiting nurse evaluation: Not needed
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 3f8dca81-462c-d582-e162-f1b5c6589526
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

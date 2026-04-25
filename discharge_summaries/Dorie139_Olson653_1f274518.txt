@@ -1,0 +1,66 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Dorie139 Olson653
+    Date of Birth:       2012-03-21
+    Sex:                 Female
+    MRN:                 1f274518-c884-d43e-abef-ad1f28f6a6df
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 20, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      5 days
+    Attending Physician: Dr. Garcia
+
+================================================================================
+
+CLINICAL COURSE:
+    compound fracture with open reduction required admission for intensive rehabilitation protocols and optimization of depression management. Patient discharged after stable period.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 11-18 days
+    • Specialty: Infectious Disease - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Bedside Commode
+    Description:         Portable toilet seat for patients unable to reach standard bathroom safely.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 1f274518-c884-d43e-abef-ad1f28f6a6df
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

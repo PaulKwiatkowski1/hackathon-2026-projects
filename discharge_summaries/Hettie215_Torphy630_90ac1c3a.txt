@@ -1,0 +1,64 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Hettie215 Torphy630
+    Date of Birth:       2023-04-07
+    Sex:                 Female
+    MRN:                 90ac1c3a-25c7-704c-e83b-5f40689e166d
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 24, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      1 days
+    Attending Physician: Dr. Martinez
+
+================================================================================
+
+CLINICAL COURSE:
+    Initial presentation of acute pancreatitis responded well to continuous cardiac monitoring. Vitals stable (BP 133/89, HR 91). Patient educated on follow-up. Safe for discharge.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 5-12 days
+    • Specialty: Infectious Disease - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Oxygen Concentrator
+    Description:         Stationary oxygen concentrator (5L/min) for COPD and chronic respiratory disease management.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to assisted living.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 90ac1c3a-25c7-704c-e83b-5f40689e166d
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

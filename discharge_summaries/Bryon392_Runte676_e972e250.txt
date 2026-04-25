@@ -1,0 +1,66 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Bryon392 Runte676
+    Date of Birth:       2017-05-12
+    Sex:                 Male
+    MRN:                 e972e250-fba2-a39f-81e9-25f7df4f83a2
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 22, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      3 days
+    Attending Physician: Dr. Patel
+
+================================================================================
+
+CLINICAL COURSE:
+    acute diabetic ketoacidosis required immediate hospitalization. After continuous cardiac monitoring and close monitoring, patient achieved clinical improvement. obesity was also managed. Discharged to home with outpatient follow-up.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 17-24 days
+    • Specialty: Orthopedics - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Blood Pressure Monitor
+    Description:         Automated home blood pressure cuff for hypertension monitoring and Telehealth reporting.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home with home health services.
+    Home care services arranged: No
+    Visiting nurse evaluation: Scheduled
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: e972e250-fba2-a39f-81e9-25f7df4f83a2
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

@@ -1,0 +1,66 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Percy315 Doyle959
+    Date of Birth:       2025-09-08
+    Sex:                 Male
+    MRN:                 5b3bb272-e1fc-c353-10cd-b8abf4556fcc
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 20, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      5 days
+    Attending Physician: Dr. Garcia
+
+================================================================================
+
+CLINICAL COURSE:
+    Managed acute decompensated heart failure with pain management with opioid and non-opioid analgesics. Patient's functional status improved significantly. coronary artery disease well-controlled on current regimen. Ready for home recovery.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 20-27 days
+    • Specialty: Endocrinology - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Standard Walker
+    Description:         Four-legged walker with front wheels for gait stability and balance support.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home with home health services.
+    Home care services arranged: No
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 5b3bb272-e1fc-c353-10cd-b8abf4556fcc
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

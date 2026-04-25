@@ -1,0 +1,64 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Emanuel231 Hettinger594
+    Date of Birth:       2000-11-10
+    Sex:                 Male
+    MRN:                 86f92ce6-f621-f66d-f180-3b6785cc7622
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 21, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      4 days
+    Attending Physician: Dr. Martinez
+
+================================================================================
+
+CLINICAL COURSE:
+    Acute bowel obstruction requiring surgical intervention successfully managed with oxygen therapy and nebulized bronchodilators. Physical and occupational therapy consulted. Patient progressed well and met all discharge criteria.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 17-24 days
+    • Specialty: Infectious Disease - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Hospital Bed
+    Description:         Adjustable electric bed with side rails, Trendelenburg capability for post-op care.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: No
+    Visiting nurse evaluation: Scheduled
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 86f92ce6-f621-f66d-f180-3b6785cc7622
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

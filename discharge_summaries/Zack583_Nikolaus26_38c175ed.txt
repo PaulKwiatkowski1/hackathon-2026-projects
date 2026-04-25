@@ -1,0 +1,62 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Zack583 Nikolaus26
+    Date of Birth:       1968-06-10
+    Sex:                 Male
+    MRN:                 38c175ed-ece7-d7d6-30be-56880531ff57
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 21, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      4 days
+    Attending Physician: Dr. Patel
+
+================================================================================
+
+CLINICAL COURSE:
+    Complex case of post-operative pain management with anemia managed successfully with bed rest with physical therapy consultation. Multidisciplinary coordination ensured smooth discharge planning.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 21-28 days
+    • Specialty: Orthopedics - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Glucose Monitor
+    Description:         Continuous glucose meter for diabetic patients in home care programs.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to assisted living.
+    Home care services arranged: No
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 38c175ed-ece7-d7d6-30be-56880531ff57
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

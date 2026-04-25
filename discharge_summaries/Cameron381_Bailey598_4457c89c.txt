@@ -1,0 +1,65 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Cameron381 Bailey598
+    Date of Birth:       1973-06-25
+    Sex:                 Male
+    MRN:                 4457c89c-bc8a-ead1-95a0-f9ccd1ca32e3
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 20, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      5 days
+    Attending Physician: Dr. Chen
+
+================================================================================
+
+CLINICAL COURSE:
+    Acute fall with fractured femur successfully managed with IV hydration and electrolyte management. Physical and occupational therapy consulted. Patient progressed well and met all discharge criteria.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 20-27 days
+    • Specialty: Pulmonology - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Grab Bars
+    Description:         Wall-mounted safety rails for bathroom and hallways to prevent falls.
+    Vendor Type:         Home Care Accessories
+    Category:            Safety
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Scheduled
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 4457c89c-bc8a-ead1-95a0-f9ccd1ca32e3
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

@@ -1,0 +1,63 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Mónica985 Robles531
+    Date of Birth:       1969-01-07
+    Sex:                 Female
+    MRN:                 8774f49b-91cc-bd09-809d-cd3f1f68d735
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 21, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      4 days
+    Attending Physician: Dr. Martinez
+
+================================================================================
+
+CLINICAL COURSE:
+    Patient hospitalized for compound fracture with open reduction. Started on IV hydration and electrolyte management protocol immediately upon admission. Clinical status improved daily. Discharged after 6 days of therapy.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 17-24 days
+    • Specialty: Orthopedics - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   TENS Unit
+    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
+    Vendor Type:         Physical Therapy
+    Category:            Pain Management
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home.
+    Home care services arranged: No
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: 8774f49b-91cc-bd09-809d-cd3f1f68d735
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________

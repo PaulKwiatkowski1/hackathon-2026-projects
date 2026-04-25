@@ -1,0 +1,67 @@
+DISCHARGE SUMMARY
+
+================================================================================
+
+PATIENT IDENTIFICATION:
+    Name:                Maurice742 Brekke496
+    Date of Birth:       1989-06-20
+    Sex:                 Male
+    MRN:                 f1aa52b9-aded-3188-9386-012244805ebf
+
+ADMISSION/DISCHARGE INFORMATION:
+    Admission Date:      April 24, 2026
+    Discharge Date:      April 25, 2026
+    Length of Stay:      1 days
+    Attending Physician: Dr. Garcia
+
+================================================================================
+
+CLINICAL COURSE:
+    Managed post-operative pain management with oxygen therapy and nebulized bronchodilators. Patient's functional status improved significantly. depression well-controlled on current regimen. Ready for home recovery.
+
+================================================================================
+
+DISCHARGE PLAN:
+
+Medications:
+    • Medication 1: Continue as prescribed
+    • Medication 2: Continue as prescribed
+    • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
+    All prescriptions filled at discharge pharmacy.
+
+Follow-up Appointments:
+    • Primary Care: 18-25 days
+    • Specialty: Cardiology - 1-2 weeks
+    • Lab work: As ordered by primary care physician
+
+Durable Medical Equipment (DME):
+    Equipment Ordered:   Rollator Walker
+    Description:         Wheeled walker with seat and hand brakes for elderly patients with limited endurance.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
+    Expected Delivery:   3-5 business days
+
+Patient Disposition:
+    Patient discharged to home with home health services.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
+
+================================================================================
+
+ADDITIONAL NOTES:
+    • Comprehensive discharge education provided regarding medications, diet, activity
+    • Patient and caregiver demonstrated understanding of discharge instructions
+    • Activity restrictions and weight-bearing status clearly communicated
+    • Warning signs reviewed: seek emergency care if experiencing chest pain, shortness of breath, severe fever
+    • Follow-up immunizations status reviewed
+    • Completed advance directive documentation
+
+______________________________________________________________________________
+MRN: f1aa52b9-aded-3188-9386-012244805ebf
+Generated: 2026-04-25 14:41:06
+______________________________________________________________________________
