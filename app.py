@@ -1,8 +1,11 @@
 import json
 import os
+import random
 import re
 from datetime import datetime, timezone
 
+import altair as alt
+import pandas as pd
 import requests
 import streamlit as st
 from huggingface_hub import InferenceClient
@@ -22,6 +25,8 @@ MEDPLUM_TOKEN = get_secret("MEDPLUM_TOKEN", "YOUR_MEDPLUM_BEARER_TOKEN")
 MEDPLUM_BASE_URL = "https://api.medplum.com/fhir/R4"
 MEDPLUM_SERVICE_REQUEST_URL = "https://api.medplum.com/fhir/R4/ServiceRequest"
 MEDPLUM_PATIENT_URL = "https://api.medplum.com/fhir/R4/Patient"
+SUPABASE_URL = get_secret("SUPABASE_URL", "")
+SUPABASE_KEY = get_secret("SUPABASE_KEY", "")
 
 
 def _extract_mrn_from_text(text: str) -> str | None:
@@ -350,48 +355,141 @@ def sync_to_medplum(fhir_json: dict) -> bool:
 		return False
 
 
+@st.cache_data(ttl=120)
+def get_analytics_data() -> pd.DataFrame:
+	"""Query active equipment orders from Supabase and return a dataframe."""
+	if not SUPABASE_URL or not SUPABASE_KEY:
+		return pd.DataFrame()
+
+	headers = {
+		"apikey": SUPABASE_KEY,
+		"Authorization": f"Bearer {SUPABASE_KEY}",
+	}
+	url = (
+		f"{SUPABASE_URL}/rest/v1/equipment_orders"
+		"?select=id,patient_name,equipment_type,vendor_name,order_status,created_at,estimated_delivery_days"
+		"&order=id.desc"
+	)
+
+	response = requests.get(url, headers=headers, timeout=30)
+	response.raise_for_status()
+	rows = response.json()
+	return pd.DataFrame(rows)
+
+
+def add_mock_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
+	"""Generate demo coordinates around Austin and San Marcos for map rendering."""
+	if df.empty:
+		return df
+
+	points = []
+	for _, row in df.iterrows():
+		seed_value = int(row.get("id", 0)) if pd.notna(row.get("id")) else 0
+		rng = random.Random(seed_value)
+		if rng.random() < 0.5:
+			# Austin city center with a small random radius
+			lat = 30.2672 + rng.uniform(-0.08, 0.08)
+			lon = -97.7431 + rng.uniform(-0.08, 0.08)
+		else:
+			# San Marcos city center with a small random radius
+			lat = 29.8833 + rng.uniform(-0.06, 0.06)
+			lon = -97.9414 + rng.uniform(-0.06, 0.06)
+		points.append((lat, lon))
+
+	map_df = df.copy()
+	map_df["lat"] = [p[0] for p in points]
+	map_df["lon"] = [p[1] for p in points]
+	return map_df
+
+
 st.set_page_config(page_title="HomeBound Discharge Portal", layout="wide")
 
 st.title("🏥 HomeBound Discharge Portal")
 
-uploaded_file = st.file_uploader("Upload discharge summary (.txt)", type=["txt"])
+tab_physician, tab_analytics = st.tabs(["Physician Portal", "Analytics Command Center"])
 
-if uploaded_file is not None:
-	file_text = uploaded_file.getvalue().decode("utf-8", errors="replace")
-	if "extraction" not in st.session_state:
-		st.session_state["extraction"] = None
+with tab_physician:
+	uploaded_file = st.file_uploader("Upload discharge summary (.txt)", type=["txt"])
 
-	left_col, right_col = st.columns(2)
+	if uploaded_file is not None:
+		file_text = uploaded_file.getvalue().decode("utf-8", errors="replace")
+		if "extraction" not in st.session_state:
+			st.session_state["extraction"] = None
 
-	with left_col:
-		st.subheader("Uploaded Discharge Summary")
-		st.text_area(
-			"Summary Text",
-			value=file_text,
-			height=500,
-		)
+		left_col, right_col = st.columns(2)
 
-	with right_col:
-		st.subheader("AI Extraction")
-		st.info("Extraction results will appear here after processing.")
+		with left_col:
+			st.subheader("Uploaded Discharge Summary")
+			st.text_area(
+				"Summary Text",
+				value=file_text,
+				height=500,
+			)
 
-		if st.button("Process Discharge Summary"):
-			if not HF_TOKEN:
-				st.error("HF_TOKEN is missing. Add it to Streamlit secrets.")
+		with right_col:
+			st.subheader("AI Extraction")
+			st.info("Extraction results will appear here after processing.")
+
+			if st.button("Process Discharge Summary"):
+				if not HF_TOKEN:
+					st.error("HF_TOKEN is missing. Add it to Streamlit secrets.")
+				else:
+					try:
+						with st.spinner("Analyzing discharge summary with AI..."):
+							extraction = extract_dme_order(file_text)
+						st.session_state["extraction"] = extraction
+						st.success("Extraction completed.")
+
+						if MEDPLUM_TOKEN == "YOUR_MEDPLUM_BEARER_TOKEN":
+							st.warning("Extraction completed, but Medplum sync skipped because MEDPLUM_TOKEN is not configured.")
+						else:
+							with st.spinner("Syncing resources to Medplum..."):
+								sync_to_medplum(st.session_state["extraction"])
+					except Exception as exc:
+						st.error(f"Extraction failed: {exc}")
+
+			if st.session_state.get("extraction"):
+				st.json(st.session_state["extraction"])
+
+with tab_analytics:
+	st.subheader("Analytics Command Center")
+
+	if not SUPABASE_URL or not SUPABASE_KEY:
+		st.warning("Set SUPABASE_URL and SUPABASE_KEY in Streamlit secrets to enable analytics.")
+	else:
+		try:
+			analytics_df = get_analytics_data()
+			if analytics_df.empty:
+				st.info("No equipment orders found in Supabase.")
 			else:
-				try:
-					with st.spinner("Analyzing discharge summary with AI..."):
-						extraction = extract_dme_order(file_text)
-					st.session_state["extraction"] = extraction
-					st.success("Extraction completed.")
+				st.metric("Total Orders In Flight", int(len(analytics_df)))
 
-					if MEDPLUM_TOKEN == "YOUR_MEDPLUM_BEARER_TOKEN":
-						st.warning("Extraction completed, but Medplum sync skipped because MEDPLUM_TOKEN is not configured.")
-					else:
-						with st.spinner("Syncing resources to Medplum..."):
-							sync_to_medplum(st.session_state["extraction"])
-				except Exception as exc:
-					st.error(f"Extraction failed: {exc}")
+				st.markdown("#### Delivery Locations")
+				map_df = add_mock_delivery_coordinates(analytics_df)
+				st.map(map_df[["lat", "lon"]])
 
-		if st.session_state.get("extraction"):
-			st.json(st.session_state["extraction"])
+				st.markdown("#### Fulfillment Speed by Equipment Type")
+				chart_df = (
+					analytics_df.dropna(subset=["equipment_type", "estimated_delivery_days"])
+					.groupby("equipment_type", as_index=False)["estimated_delivery_days"]
+					.mean()
+				)
+				if chart_df.empty:
+					st.info("No delivery-day data available for charting yet.")
+				else:
+					bar_chart = (
+						alt.Chart(chart_df)
+						.mark_bar()
+						.encode(
+							x=alt.X("equipment_type:N", title="Equipment Type", sort="-y"),
+							y=alt.Y("estimated_delivery_days:Q", title="Estimated Delivery Days (avg)"),
+							tooltip=["equipment_type", "estimated_delivery_days"],
+						)
+						.properties(height=350)
+					)
+					st.altair_chart(bar_chart, use_container_width=True)
+
+				st.markdown("#### Live Feed: Most Recent 5 Orders")
+				st.dataframe(analytics_df.head(5), use_container_width=True)
+		except Exception as exc:
+			st.error(f"Failed to load analytics from Supabase: {exc}")
