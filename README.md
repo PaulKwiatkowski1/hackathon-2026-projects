@@ -1,114 +1,96 @@
-# HomeBound
+# Project HomeBound
 
-AI-Powered Care Coordination for Durable Medical Equipment (DME) workflows.
-
-HomeBound helps case managers reduce delays in post-acute care coordination by replacing fragmented fax-first processes with an AI-assisted orchestration layer. Our goal is to improve discharge continuity and reduce preventable 30-day readmissions.
-
-## Problem
-
-Case managers and care coordinators often rely on manual, fax-based DME workflows that create bottlenecks at discharge:
-
-- DME requests are sent through disconnected channels with limited status visibility.
-- Follow-ups with vendors are manual and time-consuming.
-- Documentation is spread across systems, increasing handoff risk.
-- Delays in equipment delivery can compromise post-discharge safety and increase 30-day readmission risk.
-
-In short, teams spend too much time chasing updates and too little time on patient-centered transitions.
-
-## Approach
-
-HomeBound uses AI-driven workflow orchestration to coordinate DME requests from intake to delivery:
-
-- Capture and normalize DME order details.
-- Use AI to interpret request context and route tasks.
-- Automate status tracking and escalation logic.
-- Keep care teams informed through a centralized operational view.
-- Structure clinical context in FHIR-compatible resources for interoperability.
-
-By reducing coordination lag and improving visibility, HomeBound supports earlier interventions that help prevent avoidable readmissions within 30 days of discharge.
-
-## Architecture
-
-HomeBound is built as an integrated orchestration stack:
-
-- Make.com: Workflow automation, event routing, and notifications.
-- Supabase: Backend database and operational state management.
-- Hugging Face OpenBioLLM-70B: Clinical language understanding for request interpretation and coordination support.
-- Medplum FHIR: Interoperable clinical data modeling and FHIR resource alignment.
-
-High-level flow:
-
-1. DME request is created and stored in Supabase.
-2. Make.com triggers orchestration scenarios.
-3. OpenBioLLM-70B assists with request interpretation and triage signals.
-4. Medplum FHIR structures patient and care-context data.
-5. Status updates are persisted and surfaced to case managers.
-   
-<img width="2374" height="8192" alt="HomeBound Architecture" src="https://github.com/user-attachments/assets/8564b1a8-05d2-4a98-9fd1-e6466a49d340" />
-
-## Data Sources
-
-We use Synthea synthetic data for development and demonstration:
-
-- Realistic but non-identifiable patient records.
-- Representative care transitions and chronic-condition scenarios.
-- Safe environment for testing DME coordination workflows and readmission-focused interventions.
-
-No real patient PHI is required for this prototype.
-
-## Limitations
-
-This project is a prototype and has important constraints:
-
-- Not a production clinical decision support system.
-- Readmission impact is directional and not yet validated in live deployments.
-- Limited external vendor integration depth in current scope.
-- FHIR mappings are prototype-level and require implementation hardening.
-- Regulatory, privacy, and security controls would need full enterprise review before real-world use.
-
-## Setup Instructions
-
-### 1. Clone the repository
-
-- Clone this project locally.
-- Move into the project directory.
-
-### 2. Configure Supabase
-
-- Create a Supabase project.
-- Open the SQL editor and run [db/schema.sql](db/schema.sql) to create the core DME tracking table.
-- Confirm that the equipment_orders table is created successfully.
-
-### 3. Configure Medplum
-
-- Create a Medplum project and obtain API credentials.
-- Define or map the FHIR resources used by your workflow.
-
-### 4. Configure Hugging Face model access
-
-- Create a Hugging Face access token with permissions for OpenBioLLM-70B usage.
-- Store token securely in your workflow environment variables.
-
-### 5. Build Make.com scenarios
-
-- Create scenarios for:
-  - New DME order intake.
-  - AI enrichment/triage step.
-  - Status synchronization and notification.
-  - Escalation for pending or delayed orders.
-- Connect Supabase, Hugging Face, and Medplum modules with required credentials.
-
-### 6. Run a test flow
-
-- Seed one or more synthetic patient/DME requests.
-- Execute scenarios end-to-end.
-- Validate status transitions and escalation behavior.
-
-## Team AI Avengers
-
-- Ace Brown
-- Paul Kwiatkowski
+**From Discharge Note to Delivered Equipment, Without the Fax Chaos.**
+HomeBound bridges the gap between messy, unstructured clinical documentation and real-world home-care logistics. We use AI to transform discharge summaries into structured, interoperable DME orders that can be routed, tracked, and actioned automatically.
 
 ---
 
-Built for the AI-Powered Care Coordination track at CareDevi Hackathon 2026, with a focus on safer transitions of care and lower 30-day readmissions.
+## **Architecture Diagram**
+
+![HomeBound Architecture](HomeBound%20Architecture.png)
+
+---
+
+## **The Tech Stack**
+
+- **Frontend:** Streamlit (Physician Portal)
+- **Clinical Engine:** Medplum (FHIR R4 Server)
+- **AI Agent:** OpenBioLLM-Llama3-8B (Hugging Face)
+- **Logistics Layer:** Jira Service Management
+- **Data/Insights:** Supabase
+
+---
+
+## **Codebase Navigation**
+
+Use this section as the fastest path to understanding the demo flow and engineering decisions.
+
+- [app.py](app.py): Main Streamlit application, LLM extraction logic, and Medplum sync workflow.
+- [smart_dme_factory.py](smart_dme_factory.py): Synthetic clinical note generator used for the 50-case demo set.
+- [discharge_summaries](discharge_summaries): 50 synthetically generated high-fidelity discharge records used to validate extraction and routing.
+
+```text
+caredevi-hackathon-2026-homebound/
+├── app.py
+├── smart_dme_factory.py 
+├── discharge_summaries/
+│   ├── ... 50 synthetic discharge notes ...
+├── db/
+│   └── schema.sql
+├── workflow/
+├── README.md
+└── ResponsibleAI.md
+```
+
+---
+
+## **Quick Start**
+
+### 1. Install dependencies
+
+Use the `python -m pip` pattern
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install streamlit requests huggingface_hub
+```
+
+### 2. Configure secrets
+
+Create `.streamlit/secrets.toml` with your keys:
+
+```toml
+HF_TOKEN = "your_huggingface_token"
+MEDPLUM_TOKEN = "your_medplum_bearer_token"
+```
+
+### 3. Launch the portal
+
+```bash
+python -m streamlit run app.py
+```
+
+### 4. Demo flow
+
+1. Upload a discharge summary in the Streamlit portal.
+2. Run AI extraction to produce structured clinical output.
+3. Sync to Medplum to store longitudinal patient/order context.
+4. Route logistics actions through Jira Service Management.
+
+---
+
+## **The Why**
+
+### **Why FHIR R4?**
+
+FHIR R4 gives HomeBound a common clinical language that is interoperable across systems. Rather than creating one-off payloads, we model core data as standards-based resources so patient context and order intent remain portable, auditable, and integration-ready.
+
+### **Why a Biomedical LLM instead of a generalist model?**
+
+Discharge notes are clinically dense and abbreviation-heavy. A specialized biomedical model (OpenBioLLM-Llama3-8B) improves extraction reliability for clinical entities such as MRN-linked context, care-course narrative, and DME order intent compared with general-purpose models not tuned for healthcare language.
+
+---
+
+## **Mission Alignment**
+
+Project HomeBound is built for the CareDevi 2026 Hackathon to reduce discharge friction and improve continuity of care by converting unstructured clinical documents into actionable home-care logistics.
