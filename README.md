@@ -1,152 +1,112 @@
-# CareDevi AI Innovation Hackathon 2026
+# HomeBound
 
-**April 25, 8:00 AM – April 26, 8:00 PM CDT**
-*(April 25, 6:45 PM – April 27, 6:45 AM NPT)*
+AI-Powered Care Coordination for Durable Medical Equipment (DME) workflows.
 
-Build impactful AI-driven solutions for real-world healthcare challenges. Scope tightly, ship working software, and document as you go.
+HomeBound helps case managers reduce delays in post-acute care coordination by replacing fragmented fax-first processes with an AI-assisted orchestration layer. Our goal is to improve discharge continuity and reduce preventable 30-day readmissions.
 
----
+## Problem
 
-## Schedule & Deadlines
+Case managers and care coordinators often rely on manual, fax-based DME workflows that create bottlenecks at discharge:
 
-All times are **Central Daylight Time (CDT)**. NPT = CDT + 10:45.
+- DME requests are sent through disconnected channels with limited status visibility.
+- Follow-ups with vendors are manual and time-consuming.
+- Documentation is spread across systems, increasing handoff risk.
+- Delays in equipment delivery can compromise post-discharge safety and increase 30-day readmission risk.
 
-> ⚠️ Missing the Saturday 8:30 AM check-in makes your team **ineligible for prizes**. The 4:00 PM Sunday cutoff has **no extensions**.
+In short, teams spend too much time chasing updates and too little time on patient-centered transitions.
 
-| Event | CDT | NPT |
-|---|---|---|
-| Check-in opens — post in #hackathon-demo-day | Sat Apr 25 · 7:15 AM | Sat Apr 25 · 6:00 PM |
-| Post check-in by this time | Sat Apr 25 · 8:15 AM | Sat Apr 25 · 7:00 PM |
-| **Check-in closes — late = ineligible** | **Sat Apr 25 · 8:30 AM** | **Sat Apr 25 · 7:15 PM** |
-| Opening session (overview, logistics, scoring, Q&A) | Sat Apr 25 · 8:45 AM | Sat Apr 25 · 7:30 PM |
-| Mentor breakout sessions | Sat Apr 25 · 8:45 AM | Sat Apr 25 · 7:30 PM |
-| **GitHub repo must be created** | **Sat Apr 25 · 9:30 AM** | **Sat Apr 25 · 8:15 PM** |
-| Hacking begins | Sat Apr 25 · 9:45 AM | Sat Apr 25 · 8:30 PM |
-| **Milestone commits window** | **Sat Apr 25 · 4:00–6:00 PM** | **Sun Apr 26 · 2:45–4:45 AM** |
-| Morning mentor check-in via Slack | Sun Apr 26 · 9:00–10:00 AM | Sun Apr 26 · 7:45–8:45 PM |
-| Set alarm — begin final packaging | Sun Apr 26 · 3:00 PM | Mon Apr 27 · 1:45 AM |
-| **HARD CUTOFF — no extensions** | **Sun Apr 26 · 4:00 PM** | **Mon Apr 27 · 2:45 AM** |
-| Demo presentations (3 min + 2 min Q&A) | Sun Apr 26 · 4:45 PM | Mon Apr 27 · 3:30 AM |
-| Awards ceremony & guest speaker | Sun Apr 26 · 6:00–7:00 PM | Mon Apr 27 · 4:45–5:45 AM |
+## Approach
 
----
+HomeBound uses AI-driven workflow orchestration to coordinate DME requests from intake to delivery:
 
-## Required Deliverables
+- Capture and normalize DME order details.
+- Use AI to interpret request context and route tasks.
+- Automate status tracking and escalation logic.
+- Keep care teams informed through a centralized operational view.
+- Structure clinical context in FHIR-compatible resources for interoperability.
 
-All four items are mandatory. Missing any one disqualifies your submission.
+By reducing coordination lag and improving visibility, HomeBound supports earlier interventions that help prevent avoidable readmissions within 30 days of discharge.
 
-| Deliverable | Requirements |
-|---|---|
-| **GitHub Repo** | Frequent, meaningful commits throughout the weekend. Commit history is tracked and scored. |
-| **README** | Problem, approach, architecture, data sources, limitations, setup instructions, team credits. |
-| **3-Min Demo** | Live or recorded. Show the user flow. Minimal slides — focus on the working product. 2-min Q&A follows. |
-| **Responsible AI Doc** | Data sources, model choices, bias considerations, failure cases. Required for all teams. |
+## Architecture
 
----
+HomeBound is built as an integrated orchestration stack:
 
-## Scoring
+- Make.com: Workflow automation, event routing, and notifications.
+- Supabase: Backend database and operational state management.
+- Hugging Face OpenBioLLM-70B: Clinical language understanding for request interpretation and coordination support.
+- Medplum FHIR: Interoperable clinical data modeling and FHIR resource alignment.
 
-### Mentor Feedback — 20%
+High-level flow:
 
-| Criterion | Weight |
-|---|---|
-| Milestone check-ins | 5% |
-| Commit history (consistent progress) | 5% |
-| Teamwork (Solo Participants not eligible for this marks) | 5% |
-| Responsible AI & design doc | 5% |
+1. DME request is created and stored in Supabase.
+2. Make.com triggers orchestration scenarios.
+3. OpenBioLLM-70B assists with request interpretation and triage signals.
+4. Medplum FHIR structures patient and care-context data.
+5. Status updates are persisted and surfaced to case managers.
 
-### Judge Feedback — 80%
+## Data Sources
 
-| Criterion | Weight | What judges look for |
-|---|---|---|
-| **Real-World Impact** | 25% | Clinical relevance, addresses actual healthcare pain points, potential to improve patient outcomes |
-| **Technical Innovation** | 15% | Novel use of AI/ML, architecture quality, scalability |
-| **User Experience** | 15% | Usability for clinicians/patients, workflow integration, accessibility, data handling |
-| **Presentation** | 10% | Clarity of pitch, demo quality, team communication |
-| **Feasibility** | 5% | Implementation realism, integration with existing systems, regulatory awareness |
+We use Synthea synthetic data for development and demonstration:
 
----
+- Realistic but non-identifiable patient records.
+- Representative care transitions and chronic-condition scenarios.
+- Safe environment for testing DME coordination workflows and readmission-focused interventions.
 
-## Project Repository Structure
+No real patient PHI is required for this prototype.
 
-Use the [hackathon template repo](https://github.com/caredevi-innovation-lab/hackathon-2026-projects) and create your project under `projects/`:
+## Limitations
 
-```
-projects/
-└── your-team-name/
-    ├── README.md            # Problem, approach, architecture, data sources, limitations, setup, team credits
-    ├── responsible-ai.md    # Data sources, model choices, bias considerations, failure cases
-    ├── src/                 # Source code — commit early and often
-    └── demo/                # Demo video or screenshots
-```
+This project is a prototype and has important constraints:
 
----
+- Not a production clinical decision support system.
+- Readmission impact is directional and not yet validated in live deployments.
+- Limited external vendor integration depth in current scope.
+- FHIR mappings are prototype-level and require implementation hardening.
+- Regulatory, privacy, and security controls would need full enterprise review before real-world use.
 
-## Submission Instructions
+## Setup Instructions
 
-### 1. Use this Repository Template
+### 1. Clone the repository
 
-Click the **Fork** button at the top-right of this page to create your own copy of this repository under your GitHub account.
+- Clone this project locally.
+- Move into the project directory.
 
-### 2. Create a Project Directory
+### 2. Configure Supabase
 
-In your forked repository, create a new directory for your project inside the `projects/` folder:
+- Create a Supabase project.
+- Open the SQL editor and run [db/schema.sql](db/schema.sql) to create the core DME tracking table.
+- Confirm that the equipment_orders table is created successfully.
 
-```
-projects/
-└── your-team-name/
-    ├── README.md            # Project description (required)
-    ├── responsible-ai.md    # Required for all teams
-    ├── src/                 # Your source code
-    └── demo/                # Demo video or screenshots
-```
+### 3. Configure Medplum
 
-### 3. Add a Project README
+- Create a Medplum project and obtain API credentials.
+- Define or map the FHIR resources used by your workflow.
 
-Your project `README.md` must include:
+### 4. Configure Hugging Face model access
 
-- **Project Name**
-- **Team Members** (names and GitHub handles)
-- **Problem Statement** – What problem are you solving?
-- **Solution** – Describe your solution and how it works.
-- **Tech Stack** – Technologies, frameworks, and tools used.
-- **Setup Instructions** – How to run your project locally.
-- **Demo** – Link to a demo video, live deployment, or screenshots.
+- Create a Hugging Face access token with permissions for OpenBioLLM-70B usage.
+- Store token securely in your workflow environment variables.
 
-### 4. Submit a Pull Request
+### 5. Build Make.com scenarios
 
-1. Commit and push all your changes to your forked repository.
-2. Navigate to the original repository (`caredevi-innovation-lab/hackathon-2026-projects`).
-3. Click **New Pull Request** and select your fork and branch as the source.
-4. Use the following title format:
-   ```
-   [Submission] Your Team Name – Project Name
-   ```
-5. In the PR description, briefly describe your project and link to your project's `README.md`.
-6. Submit before the hard deadline: **April 26, 2026 at 4:00 PM CDT (April 27, 2026 at 2:45 AM NPT)**.
+- Create scenarios for:
+  - New DME order intake.
+  - AI enrichment/triage step.
+  - Status synchronization and notification.
+  - Escalation for pending or delayed orders.
+- Connect Supabase, Hugging Face, and Medplum modules with required credentials.
 
-> ⚠️ Changes pushed after the deadline will not be counted. No extensions.
+### 6. Run a test flow
+
+- Seed one or more synthetic patient/DME requests.
+- Execute scenarios end-to-end.
+- Validate status transitions and escalation behavior.
+
+## Team AI Avengers
+
+- Ace Brown
+- Paul Kwiatkowski
 
 ---
 
-## Rules
-
-- GitHub repo must be created by **9:30 AM CDT Saturday** (set up during the 8:45 AM mentor breakout)
-- Milestone commits required during **4:00–6:00 PM CDT Saturday**
-- All four deliverables must be submitted before the **4:00 PM CDT Sunday hard cutoff**
-- A polished small project beats a broken ambitious one — scope tightly
-
----
-
-## Support Channels
-
-| Channel | Purpose |
-|---|---|
-| `#hackathon-help-support` | Technical support & questions |
-| `#hackathon-demo-day` | Official announcements & check-ins |
-| `#hackathon-team-formation` | Find teammates |
-| `#general` | Introductions & general conversation |
-
----
-
-Questions? **#hackathon-help-support** · Email: hackathon@caredevi.com
+Built for the AI-Powered Care Coordination track at CareDevi Hackathon 2026, with a focus on safer transitions of care and lower 30-day readmissions.
