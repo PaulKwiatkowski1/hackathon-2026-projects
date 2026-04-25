@@ -3,10 +3,10 @@
     "flow": [
         {
             "id": 1,
-            "module": "gateway:CustomMailHook",
+            "module": "gateway:CustomWebHook",
             "version": 1,
             "parameters": {
-                "hook": 2215102,
+                "hook": 2215711,
                 "maxResults": 1
             },
             "mapper": {},
@@ -18,24 +18,180 @@
                 "restore": {
                     "parameters": {
                         "hook": {
+                            "label": "FAX GATEWAY",
                             "data": {
-                                "editable": "false"
-                            },
-                            "label": "homebound fax"
+                                "editable": "true"
+                            }
                         }
                     }
                 },
                 "parameters": [
                     {
                         "name": "hook",
-                        "type": "hook:gateway-mailhook",
-                        "label": "Mailhook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
                         "required": true
                     },
                     {
                         "name": "maxResults",
                         "type": "number",
                         "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "resourceType",
+                        "label": "Resource type",
+                        "help": "",
+                        "type": "text",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "name": "name",
+                        "label": "Name",
+                        "help": "",
+                        "type": "array",
+                        "spec": {
+                            "type": "collection",
+                            "spec": [
+                                {
+                                    "name": "family",
+                                    "label": null,
+                                    "help": "",
+                                    "type": "text",
+                                    "default": null,
+                                    "required": false,
+                                    "multiline": false
+                                },
+                                {
+                                    "name": "given",
+                                    "label": null,
+                                    "help": "",
+                                    "type": "array",
+                                    "spec": {
+                                        "type": "text",
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    },
+                                    "required": false
+                                }
+                            ],
+                            "required": false
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "gender",
+                        "label": "Gender",
+                        "help": "",
+                        "type": "text",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "name": "birthDate",
+                        "label": "Birth date",
+                        "help": "",
+                        "type": "text",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "name": "id",
+                        "label": "ID",
+                        "help": "",
+                        "type": "text",
+                        "default": null,
+                        "required": false,
+                        "multiline": false
+                    },
+                    {
+                        "name": "meta",
+                        "label": "Meta",
+                        "help": "",
+                        "type": "collection",
+                        "spec": [
+                            {
+                                "name": "versionId",
+                                "label": "Version ID",
+                                "help": "",
+                                "type": "text",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "name": "lastUpdated",
+                                "label": "Last updated",
+                                "help": "",
+                                "type": "date",
+                                "required": false
+                            },
+                            {
+                                "name": "author",
+                                "label": "Author",
+                                "help": "",
+                                "type": "collection",
+                                "spec": [
+                                    {
+                                        "name": "reference",
+                                        "label": "Reference",
+                                        "help": "",
+                                        "type": "text",
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "display",
+                                        "label": "Display",
+                                        "help": "",
+                                        "type": "text",
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    }
+                                ],
+                                "required": false
+                            },
+                            {
+                                "name": "project",
+                                "label": "Project",
+                                "help": "",
+                                "type": "text",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "name": "compartment",
+                                "label": "Compartment",
+                                "help": "",
+                                "type": "array",
+                                "spec": {
+                                    "type": "collection",
+                                    "spec": [
+                                        {
+                                            "name": "reference",
+                                            "label": null,
+                                            "help": "",
+                                            "type": "text",
+                                            "default": null,
+                                            "required": false,
+                                            "multiline": false
+                                        }
+                                    ],
+                                    "required": false
+                                },
+                                "required": false
+                            }
+                        ],
+                        "required": false
                     }
                 ]
             }
@@ -55,7 +211,7 @@
                 "headers": [
                     {
                         "name": "Authorization",
-                        "value": "Bearer [api token]"
+                        "value": "Bearer 'API_KEY'"
                     },
                     {
                         "name": "Content-Type",
@@ -444,6 +600,9 @@
             "id": 13,
             "module": "builtin:BasicRouter",
             "version": 1,
+            "parameters": {
+                "else": 2
+            },
             "mapper": null,
             "metadata": {
                 "designer": {
@@ -455,212 +614,45 @@
                 {
                     "flow": [
                         {
-                            "id": 25,
-                            "module": "supabase:createARow",
-                            "version": 1,
-                            "parameters": {
-                                "__IMTCONN__": 8554799
-                            },
-                            "mapper": {
-                                "table": "equipment_orders",
-                                "snomed_code": "{{10.snomed_code}}",
-                                "patient_name": "{{10.patient_name}}",
-                                "equipment_type": "{{10.equipment_type}}"
-                            },
-                            "metadata": {
-                                "designer": {
-                                    "x": 1102,
-                                    "y": 72
-                                },
-                                "restore": {
-                                    "expect": {
-                                        "table": {
-                                            "mode": "chose",
-                                            "label": "equipment_orders",
-                                            "nested": [
-                                                {
-                                                    "help": "Note:\nThis is a Primary Key.<pk/>",
-                                                    "name": "id",
-                                                    "type": "integer",
-                                                    "label": "id",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "",
-                                                    "name": "patient_name",
-                                                    "type": "text",
-                                                    "label": "patient_name",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "",
-                                                    "name": "equipment_type",
-                                                    "type": "text",
-                                                    "label": "equipment_type",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "",
-                                                    "name": "snomed_code",
-                                                    "type": "text",
-                                                    "label": "snomed_code",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "",
-                                                    "name": "vendor_name",
-                                                    "type": "text",
-                                                    "label": "vendor_name",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "Defaults to Pending. ",
-                                                    "name": "order_status",
-                                                    "type": "text",
-                                                    "label": "order_status",
-                                                    "options": null,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "help": "Defaults to now(). ",
-                                                    "name": "created_at",
-                                                    "type": "text",
-                                                    "label": "created_at",
-                                                    "options": null,
-                                                    "required": false
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    "parameters": {
-                                        "__IMTCONN__": {
-                                            "data": {
-                                                "scoped": "true",
-                                                "connection": "supabase"
-                                            },
-                                            "label": "HomeBound-DB"
-                                        }
-                                    }
-                                },
-                                "parameters": [
-                                    {
-                                        "name": "__IMTCONN__",
-                                        "type": "account:supabase",
-                                        "label": "Connection",
-                                        "required": true
-                                    }
-                                ],
-                                "expect": [
-                                    {
-                                        "name": "table",
-                                        "type": "select",
-                                        "label": "Table",
-                                        "required": true
-                                    },
-                                    {
-                                        "name": "id",
-                                        "type": "integer"
-                                    },
-                                    {
-                                        "name": "patient_name",
-                                        "type": "text"
-                                    },
-                                    {
-                                        "name": "equipment_type",
-                                        "type": "text"
-                                    },
-                                    {
-                                        "name": "snomed_code",
-                                        "type": "text"
-                                    },
-                                    {
-                                        "name": "vendor_name",
-                                        "type": "text"
-                                    },
-                                    {
-                                        "name": "order_status",
-                                        "type": "text"
-                                    },
-                                    {
-                                        "name": "created_at",
-                                        "type": "text"
-                                    }
-                                ],
-                                "interface": [
-                                    {
-                                        "name": "id",
-                                        "type": "number",
-                                        "label": "id"
-                                    },
-                                    {
-                                        "name": "patient_name",
-                                        "type": "text",
-                                        "label": "patient_name"
-                                    },
-                                    {
-                                        "name": "equipment_type",
-                                        "type": "text",
-                                        "label": "equipment_type"
-                                    },
-                                    {
-                                        "name": "snomed_code",
-                                        "type": "text",
-                                        "label": "snomed_code"
-                                    },
-                                    {
-                                        "name": "vendor_name",
-                                        "type": "text",
-                                        "label": "vendor_name"
-                                    },
-                                    {
-                                        "name": "order_status",
-                                        "type": "text",
-                                        "label": "order_status"
-                                    },
-                                    {
-                                        "name": "created_at",
-                                        "type": "text",
-                                        "label": "created_at"
-                                    },
-                                    {
-                                        "name": "fhir_patient_id",
-                                        "type": "text",
-                                        "label": "fhir_patient_id"
-                                    },
-                                    {
-                                        "name": "fhir_service_request_id",
-                                        "type": "text",
-                                        "label": "fhir_service_request_id"
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                },
-                {
-                    "flow": [
-                        {
                             "id": 29,
                             "module": "supabase:createARow",
                             "version": 1,
                             "parameters": {
                                 "__IMTCONN__": 8554799
                             },
+                            "filter": {
+                                "name": "Respiratory",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{10.equipment_type}}",
+                                            "b": "Oxygen",
+                                            "o": "text:contain"
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            "a": "{{10.equipment_type}}",
+                                            "b": "CPAP",
+                                            "o": "text:contain"
+                                        }
+                                    ]
+                                ]
+                            },
                             "mapper": {
                                 "table": "equipment_orders",
+                                "id": "{{1.name[].given[]}}{{1.name[].family}}",
                                 "patient_name": "{{10.patient_name}}",
                                 "equipment_type": "{{10.equipment_type}}",
-                                "snomed_code": "{{10.snomed_code}}"
+                                "snomed_code": "{{10.snomed_code}}",
+                                "vendor_name": "Airgas",
+                                "fhir_patient_id": "{{1.id}}",
+                                "estimated_delivery_days": "1"
                             },
                             "metadata": {
                                 "designer": {
-                                    "x": 1085,
-                                    "y": 491
+                                    "x": 1102,
+                                    "y": -228
                                 },
                                 "restore": {
                                     "parameters": {
@@ -747,6 +739,14 @@
                                                     "label": "fhir_service_request_id",
                                                     "options": null,
                                                     "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "estimated_delivery_days",
+                                                    "type": "integer",
+                                                    "label": "estimated_delivery_days",
+                                                    "options": null,
+                                                    "required": false
                                                 }
                                             ],
                                             "label": "equipment_orders"
@@ -803,6 +803,10 @@
                                     {
                                         "name": "fhir_service_request_id",
                                         "type": "text"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "integer"
                                     }
                                 ],
                                 "interface": [
@@ -850,6 +854,500 @@
                                         "name": "fhir_service_request_id",
                                         "type": "text",
                                         "label": "fhir_service_request_id"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "number",
+                                        "label": "estimated_delivery_days"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 30,
+                            "module": "supabase:createARow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 8554799
+                            },
+                            "filter": {
+                                "name": "Mobility/Beds",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{10.equipment_type}}",
+                                            "b": "Bed",
+                                            "o": "text:contain"
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            "a": "{{10.equipment_type}}",
+                                            "b": "Wheelchair",
+                                            "o": "text:contain"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "table": "equipment_orders",
+                                "id": "{{1.name[].given[]}}{{1.name[].family}}",
+                                "patient_name": "{{10.patient_name}}",
+                                "equipment_type": "{{10.equipment_type}}",
+                                "snomed_code": "{{10.snomed_code}}",
+                                "vendor_name": "Hillrom",
+                                "fhir_patient_id": "{{1.id}}",
+                                "estimated_delivery_days": "3"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1102,
+                                    "y": 72
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "HomeBound-DB",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "supabase"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "table": {
+                                            "mode": "chose",
+                                            "nested": [
+                                                {
+                                                    "help": "Note:\nThis is a Primary Key.<pk/>",
+                                                    "name": "id",
+                                                    "type": "integer",
+                                                    "label": "id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "patient_name",
+                                                    "type": "text",
+                                                    "label": "patient_name",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "equipment_type",
+                                                    "type": "text",
+                                                    "label": "equipment_type",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "snomed_code",
+                                                    "type": "text",
+                                                    "label": "snomed_code",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "vendor_name",
+                                                    "type": "text",
+                                                    "label": "vendor_name",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "Defaults to Pending. ",
+                                                    "name": "order_status",
+                                                    "type": "text",
+                                                    "label": "order_status",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "Defaults to now(). ",
+                                                    "name": "created_at",
+                                                    "type": "text",
+                                                    "label": "created_at",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "fhir_patient_id",
+                                                    "type": "text",
+                                                    "label": "fhir_patient_id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "fhir_service_request_id",
+                                                    "type": "text",
+                                                    "label": "fhir_service_request_id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "estimated_delivery_days",
+                                                    "type": "integer",
+                                                    "label": "estimated_delivery_days",
+                                                    "options": null,
+                                                    "required": false
+                                                }
+                                            ],
+                                            "label": "equipment_orders"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:supabase",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "integer"
+                                    },
+                                    {
+                                        "name": "patient_name",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "equipment_type",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "snomed_code",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "vendor_name",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "order_status",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "created_at",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "fhir_patient_id",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "fhir_service_request_id",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "integer"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "number",
+                                        "label": "id"
+                                    },
+                                    {
+                                        "name": "patient_name",
+                                        "type": "text",
+                                        "label": "patient_name"
+                                    },
+                                    {
+                                        "name": "equipment_type",
+                                        "type": "text",
+                                        "label": "equipment_type"
+                                    },
+                                    {
+                                        "name": "snomed_code",
+                                        "type": "text",
+                                        "label": "snomed_code"
+                                    },
+                                    {
+                                        "name": "vendor_name",
+                                        "type": "text",
+                                        "label": "vendor_name"
+                                    },
+                                    {
+                                        "name": "order_status",
+                                        "type": "text",
+                                        "label": "order_status"
+                                    },
+                                    {
+                                        "name": "created_at",
+                                        "type": "text",
+                                        "label": "created_at"
+                                    },
+                                    {
+                                        "name": "fhir_patient_id",
+                                        "type": "text",
+                                        "label": "fhir_patient_id"
+                                    },
+                                    {
+                                        "name": "fhir_service_request_id",
+                                        "type": "text",
+                                        "label": "fhir_service_request_id"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "number",
+                                        "label": "estimated_delivery_days"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 31,
+                            "module": "supabase:createARow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 8554799
+                            },
+                            "mapper": {
+                                "table": "equipment_orders",
+                                "id": "{{1.name[].given[]}}{{1.name[].family}}",
+                                "patient_name": "{{10.patient_name}}",
+                                "equipment_type": "{{10.equipment_type}}",
+                                "snomed_code": "{{10.snomed_code}}",
+                                "vendor_name": "General Medical Supply",
+                                "fhir_patient_id": "{{1.id}}",
+                                "estimated_delivery_days": "5"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1102,
+                                    "y": 372
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "HomeBound-DB",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "supabase"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "table": {
+                                            "mode": "chose",
+                                            "nested": [
+                                                {
+                                                    "help": "Note:\nThis is a Primary Key.<pk/>",
+                                                    "name": "id",
+                                                    "type": "integer",
+                                                    "label": "id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "patient_name",
+                                                    "type": "text",
+                                                    "label": "patient_name",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "equipment_type",
+                                                    "type": "text",
+                                                    "label": "equipment_type",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "snomed_code",
+                                                    "type": "text",
+                                                    "label": "snomed_code",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "vendor_name",
+                                                    "type": "text",
+                                                    "label": "vendor_name",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "Defaults to Pending. ",
+                                                    "name": "order_status",
+                                                    "type": "text",
+                                                    "label": "order_status",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "Defaults to now(). ",
+                                                    "name": "created_at",
+                                                    "type": "text",
+                                                    "label": "created_at",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "fhir_patient_id",
+                                                    "type": "text",
+                                                    "label": "fhir_patient_id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "fhir_service_request_id",
+                                                    "type": "text",
+                                                    "label": "fhir_service_request_id",
+                                                    "options": null,
+                                                    "required": false
+                                                },
+                                                {
+                                                    "help": "",
+                                                    "name": "estimated_delivery_days",
+                                                    "type": "integer",
+                                                    "label": "estimated_delivery_days",
+                                                    "options": null,
+                                                    "required": false
+                                                }
+                                            ],
+                                            "label": "equipment_orders"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:supabase",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "integer"
+                                    },
+                                    {
+                                        "name": "patient_name",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "equipment_type",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "snomed_code",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "vendor_name",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "order_status",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "created_at",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "fhir_patient_id",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "fhir_service_request_id",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "integer"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "number",
+                                        "label": "id"
+                                    },
+                                    {
+                                        "name": "patient_name",
+                                        "type": "text",
+                                        "label": "patient_name"
+                                    },
+                                    {
+                                        "name": "equipment_type",
+                                        "type": "text",
+                                        "label": "equipment_type"
+                                    },
+                                    {
+                                        "name": "snomed_code",
+                                        "type": "text",
+                                        "label": "snomed_code"
+                                    },
+                                    {
+                                        "name": "vendor_name",
+                                        "type": "text",
+                                        "label": "vendor_name"
+                                    },
+                                    {
+                                        "name": "order_status",
+                                        "type": "text",
+                                        "label": "order_status"
+                                    },
+                                    {
+                                        "name": "created_at",
+                                        "type": "text",
+                                        "label": "created_at"
+                                    },
+                                    {
+                                        "name": "fhir_patient_id",
+                                        "type": "text",
+                                        "label": "fhir_patient_id"
+                                    },
+                                    {
+                                        "name": "fhir_service_request_id",
+                                        "type": "text",
+                                        "label": "fhir_service_request_id"
+                                    },
+                                    {
+                                        "name": "estimated_delivery_days",
+                                        "type": "number",
+                                        "label": "estimated_delivery_days"
                                     }
                                 ]
                             }
@@ -875,21 +1373,7 @@
             "freshVariables": false
         },
         "designer": {
-            "orphans": [
-                [
-                    {
-                        "id": 7,
-                        "module": "placeholder:Placeholder",
-                        "filter": null,
-                        "metadata": {
-                            "designer": {
-                                "x": -322,
-                                "y": -43
-                            }
-                        }
-                    }
-                ]
-            ]
+            "orphans": []
         },
         "zone": "us2.make.com",
         "notes": []
