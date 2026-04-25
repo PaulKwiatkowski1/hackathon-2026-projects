@@ -43,6 +43,8 @@ High-level flow:
 3. OpenBioLLM-70B assists with request interpretation and triage signals.
 4. Medplum FHIR structures patient and care-context data.
 5. Status updates are persisted and surfaced to case managers.
+   
+<img width="2374" height="8192" alt="HomeBound Architecture" src="https://github.com/user-attachments/assets/8564b1a8-05d2-4a98-9fd1-e6466a49d340" />
 
 ## Data Sources
 
