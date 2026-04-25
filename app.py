@@ -2,6 +2,7 @@ import json
 import os
 import random
 import re
+import hashlib
 from datetime import datetime, timezone
 
 import altair as alt
@@ -27,6 +28,8 @@ MEDPLUM_SERVICE_REQUEST_URL = "https://api.medplum.com/fhir/R4/ServiceRequest"
 MEDPLUM_PATIENT_URL = "https://api.medplum.com/fhir/R4/Patient"
 SUPABASE_URL = get_secret("SUPABASE_URL", "")
 SUPABASE_KEY = get_secret("SUPABASE_KEY", "")
+MAX_BATCH_FILES = 20
+MAX_FILE_SIZE_MB = 2
 
 
 def _extract_mrn_from_text(text: str) -> str | None:
@@ -402,6 +405,114 @@ def add_mock_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 	return map_df
 
 
+def _ensure_queue_state() -> None:
+	if "file_queue" not in st.session_state:
+		st.session_state["file_queue"] = []
+	if "queued_hashes" not in st.session_state:
+		st.session_state["queued_hashes"] = set()
+	if "job_counter" not in st.session_state:
+		st.session_state["job_counter"] = 1
+
+
+def _queue_uploaded_files(uploaded_files: list) -> None:
+	_ensure_queue_state()
+
+	if len(uploaded_files) > MAX_BATCH_FILES:
+		st.error(f"Please upload at most {MAX_BATCH_FILES} files per batch.")
+		return
+
+	added = 0
+	skipped = 0
+	for file_obj in uploaded_files:
+		if file_obj.size > MAX_FILE_SIZE_MB * 1024 * 1024:
+			skipped += 1
+			continue
+
+		raw_bytes = file_obj.getvalue()
+		file_hash = hashlib.sha256(raw_bytes).hexdigest()
+		if file_hash in st.session_state["queued_hashes"]:
+			skipped += 1
+			continue
+
+		file_text = raw_bytes.decode("utf-8", errors="replace")
+		job_id = st.session_state["job_counter"]
+		st.session_state["job_counter"] += 1
+
+		st.session_state["file_queue"].append(
+			{
+				"job_id": job_id,
+				"filename": file_obj.name,
+				"file_hash": file_hash,
+				"size_bytes": file_obj.size,
+				"status": "queued",
+				"error": "",
+				"queued_at": datetime.now(timezone.utc).isoformat(),
+				"processed_at": None,
+				"file_text": file_text,
+				"extraction": None,
+			}
+		)
+		st.session_state["queued_hashes"].add(file_hash)
+		added += 1
+
+	if added:
+		st.success(f"Queued {added} file(s).")
+	if skipped:
+		st.warning(f"Skipped {skipped} file(s) due to duplicates or size > {MAX_FILE_SIZE_MB}MB.")
+
+
+def _process_queued_jobs(max_jobs: int) -> None:
+	_ensure_queue_state()
+	jobs = [job for job in st.session_state["file_queue"] if job["status"] == "queued"]
+	if not jobs:
+		st.info("No queued files to process.")
+		return
+
+	if not HF_TOKEN:
+		st.error("HF_TOKEN is missing. Add it to Streamlit secrets before processing the queue.")
+		return
+
+	total = min(max_jobs, len(jobs))
+	progress = st.progress(0)
+
+	for idx, job in enumerate(jobs[:total], start=1):
+		job["status"] = "processing"
+		try:
+			extraction = extract_dme_order(job["file_text"])
+			job["extraction"] = extraction
+			st.session_state["extraction"] = extraction
+
+			if MEDPLUM_TOKEN != "YOUR_MEDPLUM_BEARER_TOKEN":
+				sync_to_medplum(extraction)
+
+			job["status"] = "done"
+			job["error"] = ""
+		except Exception as exc:
+			job["status"] = "failed"
+			job["error"] = str(exc)
+		finally:
+			job["processed_at"] = datetime.now(timezone.utc).isoformat()
+			progress.progress(idx / total)
+
+
+def _queue_overview_df() -> pd.DataFrame:
+	_ensure_queue_state()
+	rows = []
+	for job in st.session_state["file_queue"]:
+		rows.append(
+			{
+				"job_id": job["job_id"],
+				"filename": job["filename"],
+				"status": job["status"],
+				"size_kb": round(job["size_bytes"] / 1024, 1),
+				"queued_at": job["queued_at"],
+				"processed_at": job["processed_at"],
+				"error": job["error"],
+			}
+		)
+	return pd.DataFrame(rows)
+
+
 st.set_page_config(page_title="HomeBound Discharge Portal", layout="wide")
 
 st.title("🏥 HomeBound Discharge Portal")
@@ -409,47 +520,61 @@ st.title("🏥 HomeBound Discharge Portal")
 tab_physician, tab_analytics = st.tabs(["Physician Portal", "Analytics Command Center"])
 
 with tab_physician:
-	uploaded_file = st.file_uploader("Upload discharge summary (.txt)", type=["txt"])
+	_ensure_queue_state()
+	if "extraction" not in st.session_state:
+		st.session_state["extraction"] = None
 
-	if uploaded_file is not None:
-		file_text = uploaded_file.getvalue().decode("utf-8", errors="replace")
-		if "extraction" not in st.session_state:
-			st.session_state["extraction"] = None
+	st.caption(
+		f"Upload up to {MAX_BATCH_FILES} text files per batch. "
+		f"Files larger than {MAX_FILE_SIZE_MB}MB are skipped."
+	)
 
-		left_col, right_col = st.columns(2)
+	uploaded_files = st.file_uploader(
+		"Upload discharge summaries (.txt)",
+		type=["txt"],
+		accept_multiple_files=True,
+	)
 
-		with left_col:
-			st.subheader("Uploaded Discharge Summary")
-			st.text_area(
-				"Summary Text",
-				value=file_text,
-				height=500,
-			)
+	controls_col1, controls_col2, controls_col3 = st.columns(3)
+	with controls_col1:
+		if st.button("Queue Uploaded Files", type="primary", use_container_width=True):
+			if uploaded_files:
+				_queue_uploaded_files(uploaded_files)
+			else:
+				st.info("Please choose one or more files first.")
+	with controls_col2:
+		if st.button("Process Next File", use_container_width=True):
+			with st.spinner("Processing next queued file..."):
+				_process_queued_jobs(max_jobs=1)
+	with controls_col3:
+		if st.button("Process All Queued Files", use_container_width=True):
+			with st.spinner("Processing queued files..."):
+				_process_queued_jobs(max_jobs=10_000)
 
-		with right_col:
-			st.subheader("AI Extraction")
-			st.info("Extraction results will appear here after processing.")
+	queue_df = _queue_overview_df()
+	if queue_df.empty:
+		st.info("No files queued yet.")
+	else:
+		status_counts = queue_df["status"].value_counts().to_dict()
+		metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+		metric_col1.metric("Queued", int(status_counts.get("queued", 0)))
+		metric_col2.metric("Processing", int(status_counts.get("processing", 0)))
+		metric_col3.metric("Done", int(status_counts.get("done", 0)))
+		metric_col4.metric("Failed", int(status_counts.get("failed", 0)))
 
-			if st.button("Process Discharge Summary"):
-				if not HF_TOKEN:
-					st.error("HF_TOKEN is missing. Add it to Streamlit secrets.")
-				else:
-					try:
-						with st.spinner("Analyzing discharge summary with AI..."):
-							extraction = extract_dme_order(file_text)
-						st.session_state["extraction"] = extraction
-						st.success("Extraction completed.")
+		st.markdown("#### Processing Queue")
+		st.dataframe(queue_df.sort_values("job_id", ascending=False), use_container_width=True)
 
-						if MEDPLUM_TOKEN == "YOUR_MEDPLUM_BEARER_TOKEN":
-							st.warning("Extraction completed, but Medplum sync skipped because MEDPLUM_TOKEN is not configured.")
-						else:
-							with st.spinner("Syncing resources to Medplum..."):
-								sync_to_medplum(st.session_state["extraction"])
-					except Exception as exc:
-						st.error(f"Extraction failed: {exc}")
+		if st.button("Clear Completed / Failed", use_container_width=False):
+			st.session_state["file_queue"] = [
+				job for job in st.session_state["file_queue"] if job["status"] in {"queued", "processing"}
+			]
+			st.session_state["queued_hashes"] = {job["file_hash"] for job in st.session_state["file_queue"]}
+			st.success("Removed completed and failed jobs from the queue.")
 
-			if st.session_state.get("extraction"):
-				st.json(st.session_state["extraction"])
+	if st.session_state.get("extraction"):
+		st.markdown("#### Latest Extraction Output")
+		st.json(st.session_state["extraction"])
 
 with tab_analytics:
 	st.subheader("Analytics Command Center")
