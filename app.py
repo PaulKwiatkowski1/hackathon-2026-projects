@@ -380,16 +380,18 @@ if uploaded_file is not None:
 				st.error("HF_TOKEN is missing. Add it to Streamlit secrets.")
 			else:
 				try:
-					extraction = extract_dme_order(file_text)
+					with st.spinner("Analyzing discharge summary with AI..."):
+						extraction = extract_dme_order(file_text)
 					st.session_state["extraction"] = extraction
 					st.success("Extraction completed.")
+
+					if MEDPLUM_TOKEN == "YOUR_MEDPLUM_BEARER_TOKEN":
+						st.warning("Extraction completed, but Medplum sync skipped because MEDPLUM_TOKEN is not configured.")
+					else:
+						with st.spinner("Syncing resources to Medplum..."):
+							sync_to_medplum(st.session_state["extraction"])
 				except Exception as exc:
 					st.error(f"Extraction failed: {exc}")
 
 		if st.session_state.get("extraction"):
 			st.json(st.session_state["extraction"])
-			if st.button("Sync to Medplum"):
-				if MEDPLUM_TOKEN == "YOUR_MEDPLUM_BEARER_TOKEN":
-					st.error("MEDPLUM_TOKEN placeholder detected. Set a real Bearer token in Streamlit secrets.")
-				else:
-					sync_to_medplum(st.session_state["extraction"])
