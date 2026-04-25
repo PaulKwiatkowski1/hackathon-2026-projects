@@ -8,5 +8,6 @@ CREATE TABLE equipment_orders (
     order_status TEXT DEFAULT 'Pending',
     created_at TIMESTAMPTZ DEFAULT NOW(),
     fhir_patient_id TEXT,
-    fhir_resource_version TEXT
+    fhir_resource_version TEXT,
+    estimated_delivery_days INTEGER
 );
