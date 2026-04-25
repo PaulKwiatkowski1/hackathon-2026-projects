@@ -300,6 +300,7 @@ def sync_to_medplum(fhir_json: dict) -> bool:
 	headers = {
 		"Authorization": f"Bearer {MEDPLUM_TOKEN}",
 		"Content-Type": "application/fhir+json",
+		"X-Project-Id": "87daa0e1-c34c-4f14-bdbc-1e2719b371b7"
 	}
 
 	try:
