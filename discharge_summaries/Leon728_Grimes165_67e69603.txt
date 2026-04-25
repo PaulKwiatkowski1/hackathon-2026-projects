@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Leon728 Grimes165
     Date of Birth:       2022-08-26
     Sex:                 Male
+    Address:             1013 O'Connell Lane Suite 2, Lynn, MA, 01902
     MRN:                 67e69603-6dbd-5a8a-7d74-8e37c4c2208b
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 21, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      4 days
-    Attending Physician: Dr. Chen
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient with acute pancreatitis admitted for blood glucose management with sliding scale insulin. Nursing staff provided extensive education on self-care. Patient demonstrated understanding of discharge instructions.
+    Patient presented with acute respiratory infection complicated by coronary artery disease. Multi-disciplinary team managed with anticoagulation therapy initiation. Achieved adequate pain control (VAS 4). Ready for discharge.
 
 ================================================================================
 
@@ -29,24 +30,26 @@ Medications:
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 13-20 days
-    • Specialty: Infectious Disease - 1-2 weeks
+    • Primary Care: 15-22 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Oxygen Concentrator
-    Description:         Stationary oxygen concentrator (5L/min) for COPD and chronic respiratory disease management.
-    Vendor Type:         Clinical Respiratory
-    Category:            Respiratory
+    Equipment Ordered:   Glucose Monitor
+    Description:         Continuous glucose meter for diabetic patients in home care programs.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
-    Home care services arranged: No
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -60,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 67e69603-6dbd-5a8a-7d74-8e37c4c2208b
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

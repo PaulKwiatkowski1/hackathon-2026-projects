@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Florentino8 Ruecker817
     Date of Birth:       2013-07-11
     Sex:                 Male
+    Address:             117 Corwin Meadow, Boston, MA, 02113
     MRN:                 67a56a84-88a3-83e7-9e6d-2706e75df7c5
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 23, 2026
+    Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      2 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      3 days
+    Attending Physician: Dr. Chen
 
 ================================================================================
 
 CLINICAL COURSE:
-    Complex case of acute diabetic ketoacidosis with chronic kidney disease stage 3 managed successfully with transfusion and blood product management. Multidisciplinary coordination ensured smooth discharge planning.
+    Patient admitted for fall with fractured femur and was stabilized with anticoagulation therapy initiation. Hospital course was uncomplicated. Vital signs stabilized by hospital day 2. Patient discharged in stable condition.
 
 ================================================================================
 
@@ -27,24 +28,28 @@ Medications:
     • Medication 1: Continue as prescribed
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 16-23 days
-    • Specialty: Infectious Disease - 1-2 weeks
+    • Primary Care: 20-27 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Power Wheelchair
-    Description:         Electric wheelchair with joystick control for patients with upper limb weakness.
-    Vendor Type:         Mobility & Rehabilitation
-    Category:            Mobility
+    Equipment Ordered:   Patient Lift
+    Description:         Mechanical or electric lift device for safe patient transfer from bed to wheelchair.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to skilled nursing facility.
-    Home care services arranged: No
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to home with home health services.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -58,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 67a56a84-88a3-83e7-9e6d-2706e75df7c5
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

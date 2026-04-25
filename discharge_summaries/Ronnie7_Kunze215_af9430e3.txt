@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Ronnie7 Kunze215
     Date of Birth:       1984-04-21
     Sex:                 Male
+    Address:             393 Bins Fork Suite 64, Middleborough, MA, 00000
     MRN:                 af9430e3-695f-affc-c41b-f5970ae62eb1
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      3 days
-    Attending Physician: Dr. Patel
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Admitted for management of post-operative pain management. oxygen therapy and nebulized bronchodilators was initiated, resulting in symptomatic relief. Patient remained stable throughout 4-day admission. Discharged after clinical goals met.
+    post-surgical wound infection management required admission for bed rest with physical therapy consultation and optimization of depression management. Patient discharged after stable period.
 
 ================================================================================
 
@@ -34,19 +35,19 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 18-25 days
+    • Primary Care: 6-13 days
     • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Glucose Monitor
-    Description:         Continuous glucose meter for diabetic patients in home care programs.
-    Vendor Type:         Remote Monitoring
-    Category:            Monitoring
+    Equipment Ordered:   Pressure Relief Mattress
+    Description:         Air or gel mattress overlay for pressure ulcer prevention in immobile patients.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
+    Patient discharged to home with home health services.
     Home care services arranged: As needed
     Visiting nurse evaluation: Pending
 
@@ -62,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: af9430e3-695f-affc-c41b-f5970ae62eb1
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

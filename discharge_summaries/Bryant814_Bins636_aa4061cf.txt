@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Bryant814 Bins636
     Date of Birth:       1984-11-12
     Sex:                 Male
+    Address:             585 Armstrong Rue Unit 68, Walpole, MA, 02081
     MRN:                 aa4061cf-0f5e-b627-252d-9a705eac4e70
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 23, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      2 days
-    Attending Physician: Dr. Patel
+    Attending Physician: Dr. Williams
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient presented with post-stroke rehabilitation complicated by atrial fibrillation. Multi-disciplinary team managed with broad-spectrum IV antibiotic therapy. Achieved adequate pain control (VAS 3). Ready for discharge.
+    Patient admitted for compound fracture with open reduction and was stabilized with IV hydration and electrolyte management. Hospital course was uncomplicated. Vital signs stabilized by hospital day 2. Patient discharged in stable condition.
 
 ================================================================================
 
@@ -28,24 +29,28 @@ Medications:
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 8-15 days
-    • Specialty: Infectious Disease - 1-2 weeks
+    • Primary Care: 16-23 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Hospital Bed
-    Description:         Adjustable electric bed with side rails, Trendelenburg capability for post-op care.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   Rollator Walker
+    Description:         Wheeled walker with seat and hand brakes for elderly patients with limited endurance.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
+    Patient discharged to skilled nursing facility.
     Home care services arranged: As needed
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -59,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: aa4061cf-0f5e-b627-252d-9a705eac4e70
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Julianne852 Mueller846
     Date of Birth:       1979-05-11
     Sex:                 Female
+    Address:             986 Pouros Glen, Medford, MA, 02155
     MRN:                 20a97490-ae58-1d89-bf4b-c3bb929e2310
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 20, 2026
+    Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      5 days
+    Length of Stay:      3 days
     Attending Physician: Dr. Chen
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute atrial fibrillation with rate control required admission for pain management with opioid and non-opioid analgesics and optimization of atrial fibrillation management. Patient discharged after stable period.
+    post-stroke rehabilitation required admission for surgical intervention and post-operative wound care and optimization of chronic kidney disease stage 3 management. Patient discharged after stable period.
 
 ================================================================================
 
@@ -31,24 +32,25 @@ Medications:
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
     • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 15-22 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 17-24 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   CPAP Machine
-    Description:         Continuous positive airway pressure device for obstructive sleep apnea treatment.
-    Vendor Type:         Clinical Respiratory
-    Category:            Respiratory
+    Equipment Ordered:   Raised Toilet Seat
+    Description:         Elevated toilet seat riser to reduce hip flexion stress in post-op patients.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to skilled nursing facility.
-    Home care services arranged: As needed
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to home with home health services.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -62,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 20a97490-ae58-1d89-bf4b-c3bb929e2310
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

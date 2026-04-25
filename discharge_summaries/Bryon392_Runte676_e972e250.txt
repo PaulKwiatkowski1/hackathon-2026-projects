@@ -6,6 +6,7 @@ PATIENT IDENTIFICATION:
     Name:                Bryon392 Runte676
     Date of Birth:       2017-05-12
     Sex:                 Male
+    Address:             1088 Jaskolski Loaf, Chelmsford, MA, 00000
     MRN:                 e972e250-fba2-a39f-81e9-25f7df4f83a2
 
 ADMISSION/DISCHARGE INFORMATION:
@@ -17,7 +18,7 @@ ADMISSION/DISCHARGE INFORMATION:
 ================================================================================
 
 CLINICAL COURSE:
-    acute diabetic ketoacidosis required immediate hospitalization. After continuous cardiac monitoring and close monitoring, patient achieved clinical improvement. obesity was also managed. Discharged to home with outpatient follow-up.
+    Patient presented with acute pancreatitis complicated by chronic obstructive pulmonary disease. Multi-disciplinary team managed with medication optimization and titration. Achieved adequate pain control (VAS 5). Ready for discharge.
 
 ================================================================================
 
@@ -31,24 +32,25 @@ Medications:
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
     • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 17-24 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 16-23 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Blood Pressure Monitor
-    Description:         Automated home blood pressure cuff for hypertension monitoring and Telehealth reporting.
-    Vendor Type:         Remote Monitoring
-    Category:            Monitoring
+    Equipment Ordered:   Patient Lift
+    Description:         Mechanical or electric lift device for safe patient transfer from bed to wheelchair.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
-    Home care services arranged: No
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to home.
+    Home care services arranged: Yes
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -62,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: e972e250-fba2-a39f-81e9-25f7df4f83a2
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

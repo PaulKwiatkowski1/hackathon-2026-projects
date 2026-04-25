@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Britt177 Mueller846
     Date of Birth:       1981-03-18
     Sex:                 Male
+    Address:             1045 Konopelski Street Suite 28, Turners Falls, MA, 01376
     MRN:                 d7c1fce2-02be-45de-b6a5-d4a7222ad1dd
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      3 days
+    Attending Physician: Dr. Chen
 
 ================================================================================
 
 CLINICAL COURSE:
-    Presented with acute acute pancreatitis. Managed conservatively with oxygen therapy and nebulized bronchodilators over 4 days. Patient improved significantly and is ready for home-based care.
+    Patient admitted for post-stroke rehabilitation and was stabilized with surgical intervention and post-operative wound care. Hospital course was uncomplicated. Vital signs stabilized by hospital day 2. Patient discharged in stable condition.
 
 ================================================================================
 
@@ -33,21 +34,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 7-14 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 19-26 days
+    • Specialty: Infectious Disease - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Manual Wheelchair
-    Description:         Standard folding wheelchair with brakes for post-op and post-stroke mobility.
-    Vendor Type:         Mobility & Rehabilitation
-    Category:            Mobility
+    Equipment Ordered:   Portable Oxygen Tank
+    Description:         Portable oxygen cylinder (E-tank) with regulator for patient mobility.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
-    Home care services arranged: Yes
-    Visiting nurse evaluation: Pending
+    Patient discharged to assisted living.
+    Home care services arranged: No
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -61,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: d7c1fce2-02be-45de-b6a5-d4a7222ad1dd
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

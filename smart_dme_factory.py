@@ -149,7 +149,7 @@ DME_CATALOG = [
 
 
 def extract_patient_info(bundle_data: dict) -> tuple:
-    """Extract patient ID, name, DOB, and gender from FHIR bundle."""
+    """Extract patient ID, name, DOB, gender, and address from FHIR bundle."""
     try:
         patient_entry = bundle_data.get("entry", [{}])[0]
         patient_resource = patient_entry.get("resource", {})
@@ -166,17 +166,41 @@ def extract_patient_info(bundle_data: dict) -> tuple:
         
         birthdate = patient_resource.get("birthDate", "Unknown")
         gender = patient_resource.get("gender", "Unknown").capitalize()
+
+        # Build a single-line patient address if present.
+        address = "Unknown"
+        addresses = patient_resource.get("address", [])
+        if addresses and isinstance(addresses[0], dict):
+            addr = addresses[0]
+            line_parts = addr.get("line", [])
+            city = addr.get("city", "")
+            state = addr.get("state", "")
+            postal_code = addr.get("postalCode", "")
+            address_parts = [part for part in [", ".join(line_parts), city, state, postal_code] if part]
+            if address_parts:
+                address = ", ".join(address_parts)
         
-        return patient_id, patient_name, birthdate, gender, patient_entry
+        return patient_id, patient_name, birthdate, gender, address, patient_entry
     except (IndexError, KeyError, TypeError) as e:
         raise ValueError(f"Could not extract patient info: {e}")
+
+
+def extract_name_from_filename(input_file: Path) -> str:
+    """Extract a display name from source file and preserve numeric suffixes."""
+    parts = input_file.stem.split("_")
+    # Synthea filename pattern: Given[_Middle...]_Family_<uuid>
+    if len(parts) >= 3:
+        given = parts[0]
+        family = parts[-2]
+        return f"{given} {family}".strip()
+    return ""
 
 
 
 # Clinical Course Templates for Variety
 CLINICAL_COURSE_TEMPLATES = [
     "Patient admitted for {condition} and was stabilized with {intervention}. Hospital course was uncomplicated. Vital signs stabilized by hospital day 2. Patient discharged in stable condition.",
-    "Presented with acute {condition}. Managed conservatively with {intervention} over {days} days. Patient improved significantly and is ready for home-based care.",
+    "Presented with {condition}. Managed conservatively with {intervention} over {days} days. Patient improved significantly and is ready for home-based care.",
     "{condition} required immediate hospitalization. After {intervention} and close monitoring, patient achieved clinical improvement. {comorbidity} was also managed. Discharged to home with outpatient follow-up.",
     "Patient experienced {condition} and underwent {intervention}. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.",
     "Admitted for management of {condition}. {intervention} was initiated, resulting in symptomatic relief. Patient remained stable throughout {days}-day admission. Discharged after clinical goals met.",
@@ -264,8 +288,8 @@ def generate_clinical_course() -> str:
     )
 
 
-def generate_discharge_summary(patient_id: str, patient_name: str, birthdate: str, 
-                               gender: str, equipment: dict) -> str:
+def generate_discharge_summary(patient_id: str, patient_name: str, birthdate: str,
+                               gender: str, address: str, equipment: dict) -> str:
     """Generate a Heidi-style discharge summary with DME ordering."""
     
     # Calculate admission and discharge dates
@@ -291,6 +315,7 @@ PATIENT IDENTIFICATION:
     Name:                {patient_name}
     Date of Birth:       {birthdate}
     Sex:                 {gender}
+    Address:             {address}
     MRN:                 {patient_id}
 
 ADMISSION/DISCHARGE INFORMATION:
@@ -420,14 +445,19 @@ def main():
                 synthea_bundle = json.load(f)
             
             # Extract patient info
-            patient_id, patient_name, birthdate, gender, _ = extract_patient_info(synthea_bundle)
+            patient_id, patient_name, birthdate, gender, address, _ = extract_patient_info(synthea_bundle)
+
+            # Prefer filename-derived name so numeric suffixes are preserved for anonymity.
+            filename_name = extract_name_from_filename(input_file)
+            if filename_name:
+                patient_name = filename_name
             
             # Random equipment selection for this patient
             equipment = random.choice(DME_CATALOG)
             equipment_distribution[equipment["display"]] = equipment_distribution.get(equipment["display"], 0) + 1
             
             # Generate discharge summary
-            summary = generate_discharge_summary(patient_id, patient_name, birthdate, gender, equipment)
+            summary = generate_discharge_summary(patient_id, patient_name, birthdate, gender, address, equipment)
             
             # Write output
             output_file = output_folder / f"{patient_name.replace(' ', '_')}_{patient_id[:8]}.txt"

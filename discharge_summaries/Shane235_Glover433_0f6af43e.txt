@@ -6,6 +6,7 @@ PATIENT IDENTIFICATION:
     Name:                Shane235 Glover433
     Date of Birth:       2015-10-29
     Sex:                 Male
+    Address:             676 Ruecker Road Apt 44, Melrose, MA, 02176
     MRN:                 0f6af43e-64f8-4f7f-e813-1b821de7dd25
 
 ADMISSION/DISCHARGE INFORMATION:
@@ -17,7 +18,7 @@ ADMISSION/DISCHARGE INFORMATION:
 ================================================================================
 
 CLINICAL COURSE:
-    Initial presentation of acute coronary syndrome responded well to bed rest with physical therapy consultation. Vitals stable (BP 148/76, HR 76). Patient educated on follow-up. Safe for discharge.
+    Patient experienced post-stroke rehabilitation and underwent medication optimization and titration. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.
 
 ================================================================================
 
@@ -28,24 +29,28 @@ Medications:
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 12-19 days
-    • Specialty: Endocrinology - 1-2 weeks
+    • Primary Care: 9-16 days
+    • Specialty: Pulmonology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Patient Lift
-    Description:         Mechanical or electric lift device for safe patient transfer from bed to wheelchair.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   Blood Pressure Monitor
+    Description:         Automated home blood pressure cuff for hypertension monitoring and Telehealth reporting.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
-    Home care services arranged: As needed
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: No
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -59,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 0f6af43e-64f8-4f7f-e813-1b821de7dd25
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

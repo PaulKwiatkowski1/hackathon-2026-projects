@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Mónica985 Robles531
     Date of Birth:       1969-01-07
     Sex:                 Female
+    Address:             672 Blanda Skyway, Palmer, MA, 01095
     MRN:                 8774f49b-91cc-bd09-809d-cd3f1f68d735
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Martinez
+    Length of Stay:      1 days
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient hospitalized for compound fracture with open reduction. Started on IV hydration and electrolyte management protocol immediately upon admission. Clinical status improved daily. Discharged after 6 days of therapy.
+    Patient hospitalized for acute atrial fibrillation with rate control. Started on intensive rehabilitation protocols protocol immediately upon admission. Clinical status improved daily. Discharged after 7 days of therapy.
 
 ================================================================================
 
@@ -28,23 +29,26 @@ Medications:
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 17-24 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 11-18 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   TENS Unit
-    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
-    Vendor Type:         Physical Therapy
-    Category:            Pain Management
+    Equipment Ordered:   Oxygen Concentrator
+    Description:         Stationary oxygen concentrator (5L/min) for COPD and chronic respiratory disease management.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
-    Home care services arranged: No
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: As needed
     Visiting nurse evaluation: Pending
 
 ================================================================================
@@ -59,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 8774f49b-91cc-bd09-809d-cd3f1f68d735
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Chong355 Gibson10
     Date of Birth:       2017-12-08
     Sex:                 Male
+    Address:             723 McLaughlin Well, Watertown, MA, 02472
     MRN:                 f7906fe1-e96a-8f12-bd7b-6672e97a3c1c
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 22, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      3 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      5 days
+    Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute decompensated heart failure resolved with broad-spectrum IV antibiotic therapy after 7 days of hospitalization. No complications noted. Patient ambulatory at discharge.
+    Complex case of acute diabetic ketoacidosis with chronic obstructive pulmonary disease managed successfully with bed rest with physical therapy consultation. Multidisciplinary coordination ensured smooth discharge planning.
 
 ================================================================================
 
@@ -35,21 +36,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 5-12 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 21-28 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Pressure Relief Mattress
-    Description:         Air or gel mattress overlay for pressure ulcer prevention in immobile patients.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   Rollator Walker
+    Description:         Wheeled walker with seat and hand brakes for elderly patients with limited endurance.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
+    Patient discharged to home with home health services.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Scheduled
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -63,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: f7906fe1-e96a-8f12-bd7b-6672e97a3c1c
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

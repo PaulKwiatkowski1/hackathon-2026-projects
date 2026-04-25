@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Numbers230 Mohr916
     Date of Birth:       1974-03-10
     Sex:                 Male
+    Address:             397 Fadel Heights Unit 72, Barnstable, MA, 02601
     MRN:                 403ab6ae-5687-6f94-b2cf-e754ececad0a
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Williams
+    Length of Stay:      5 days
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    sepsis from urinary tract infection required immediate hospitalization. After blood glucose management with sliding scale insulin and close monitoring, patient achieved clinical improvement. chronic obstructive pulmonary disease was also managed. Discharged to home with outpatient follow-up.
+    Patient presented with acute coronary syndrome complicated by uncontrolled hypertension. Multi-disciplinary team managed with oxygen therapy and nebulized bronchodilators. Achieved adequate pain control (VAS 2). Ready for discharge.
 
 ================================================================================
 
@@ -30,21 +31,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 6-13 days
-    • Specialty: Endocrinology - 1-2 weeks
+    • Primary Care: 14-21 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Manual Wheelchair
-    Description:         Standard folding wheelchair with brakes for post-op and post-stroke mobility.
-    Vendor Type:         Mobility & Rehabilitation
-    Category:            Mobility
+    Equipment Ordered:   Oxygen Concentrator
+    Description:         Stationary oxygen concentrator (5L/min) for COPD and chronic respiratory disease management.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
+    Patient discharged to assisted living.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -58,5 +59,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 403ab6ae-5687-6f94-b2cf-e754ececad0a
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

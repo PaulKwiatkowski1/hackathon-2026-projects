@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Rhona164 Homenick806
     Date of Birth:       1964-11-15
     Sex:                 Female
+    Address:             739 Kiehn Estate Unit 47, Pepperell, MA, 01463
     MRN:                 67a637e5-27d2-ef27-b97a-c4ea4c13de7e
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      5 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    Initial presentation of acute exacerbation of COPD responded well to continuous cardiac monitoring. Vitals stable (BP 147/87, HR 81). Patient educated on follow-up. Safe for discharge.
+    acute diabetic ketoacidosis required admission for anticoagulation therapy initiation and optimization of chronic obstructive pulmonary disease management. Patient discharged after stable period.
 
 ================================================================================
 
@@ -31,25 +32,24 @@ Medications:
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
     • Medication 7: Continue as prescribed
-    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 6-13 days
+    • Primary Care: 13-20 days
     • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Pressure Relief Mattress
-    Description:         Air or gel mattress overlay for pressure ulcer prevention in immobile patients.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   Bedside Commode
+    Description:         Portable toilet seat for patients unable to reach standard bathroom safely.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to home with home health services.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -63,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 67a637e5-27d2-ef27-b97a-c4ea4c13de7e
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

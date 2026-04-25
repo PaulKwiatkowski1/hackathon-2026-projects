@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Riley817 Gleichner915
     Date of Birth:       1965-10-02
     Sex:                 Male
+    Address:             716 Windler Approach Apt 93, Worcester, MA, 01583
     MRN:                 be5925e0-1eaa-59c6-c012-3495ca9e2890
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
+    Length of Stay:      5 days
     Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient experienced post-operative pain management and underwent IV hydration and electrolyte management. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.
+    Patient experienced sepsis from urinary tract infection and underwent transfusion and blood product management. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.
 
 ================================================================================
 
@@ -30,21 +31,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 5-12 days
+    • Primary Care: 12-19 days
     • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Power Wheelchair
-    Description:         Electric wheelchair with joystick control for patients with upper limb weakness.
-    Vendor Type:         Mobility & Rehabilitation
-    Category:            Mobility
+    Equipment Ordered:   Shower Chair
+    Description:         Waterproof chair with back support and armrests for safe bathing.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
-    Home care services arranged: No
-    Visiting nurse evaluation: Pending
+    Patient discharged to home.
+    Home care services arranged: As needed
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -58,5 +59,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: be5925e0-1eaa-59c6-c012-3495ca9e2890
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Lindsay928 Brekke496
     Date of Birth:       1968-04-27
     Sex:                 Male
+    Address:             352 Schuppe Road, New Bedford, MA, 02740
     MRN:                 2838f1db-106d-dbfd-cf95-4af92dbb0a24
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Williams
+    Length of Stay:      5 days
+    Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    Presented with acute acute exacerbation of COPD. Managed conservatively with medication optimization and titration over 2 days. Patient improved significantly and is ready for home-based care.
+    post-stroke rehabilitation required immediate hospitalization. After bed rest with physical therapy consultation and close monitoring, patient achieved clinical improvement. chronic obstructive pulmonary disease was also managed. Discharged to home with outpatient follow-up.
 
 ================================================================================
 
@@ -27,24 +28,26 @@ Medications:
     • Medication 1: Continue as prescribed
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 21-28 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 9-16 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Oxygen Concentrator
-    Description:         Stationary oxygen concentrator (5L/min) for COPD and chronic respiratory disease management.
-    Vendor Type:         Clinical Respiratory
-    Category:            Respiratory
+    Equipment Ordered:   Crutches
+    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to home with home health services.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Not needed
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -58,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 2838f1db-106d-dbfd-cf95-4af92dbb0a24
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

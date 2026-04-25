@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Margarito178 Hilll811
     Date of Birth:       1975-11-27
     Sex:                 Male
+    Address:             1075 Littel Trace Unit 14, Springfield, MA, 01129
     MRN:                 3d8d67d4-62a1-32fd-4878-04b0ec39d0fd
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Chen
+    Length of Stay:      5 days
+    Attending Physician: Dr. Williams
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute respiratory infection required admission for intensive rehabilitation protocols and optimization of anemia management. Patient discharged after stable period.
+    Initial presentation of post-operative recovery from hip replacement responded well to transfusion and blood product management. Vitals stable (BP 158/72, HR 57). Patient educated on follow-up. Safe for discharge.
 
 ================================================================================
 
@@ -33,20 +34,20 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 11-18 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 21-28 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   TENS Unit
-    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
-    Vendor Type:         Physical Therapy
-    Category:            Pain Management
+    Equipment Ordered:   Shower Chair
+    Description:         Waterproof chair with back support and armrests for safe bathing.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
-    Home care services arranged: No
+    Patient discharged to home with home health services.
+    Home care services arranged: Yes
     Visiting nurse evaluation: Pending
 
 ================================================================================
@@ -61,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 3d8d67d4-62a1-32fd-4878-04b0ec39d0fd
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

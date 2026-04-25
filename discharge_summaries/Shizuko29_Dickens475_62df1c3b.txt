@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Shizuko29 Dickens475
     Date of Birth:       2013-05-15
     Sex:                 Female
+    Address:             342 Stehr Ville, South Hadley, MA, 00000
     MRN:                 62df1c3b-1310-8efe-7499-01499edd1452
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 21, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Chen
+    Length of Stay:      4 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute exacerbation of COPD management required blood glucose management with sliding scale insulin and careful monitoring. Patient demonstrated good compliance with therapy. Labs normalized by hospital day 6. Appropriate for home discharge.
+    Patient presented with acute coronary syndrome complicated by chronic kidney disease stage 3. Multi-disciplinary team managed with anticoagulation therapy initiation. Achieved adequate pain control (VAS 3). Ready for discharge.
 
 ================================================================================
 
@@ -31,25 +32,24 @@ Medications:
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
     • Medication 7: Continue as prescribed
-    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 5-12 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 10-17 days
+    • Specialty: Infectious Disease - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Hospital Bed
-    Description:         Adjustable electric bed with side rails, Trendelenburg capability for post-op care.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   CPAP Machine
+    Description:         Continuous positive airway pressure device for obstructive sleep apnea treatment.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
+    Patient discharged to assisted living.
     Home care services arranged: As needed
-    Visiting nurse evaluation: Scheduled
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -63,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 62df1c3b-1310-8efe-7499-01499edd1452
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

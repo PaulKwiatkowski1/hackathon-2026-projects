@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Stacie105 Dooley940
     Date of Birth:       1992-11-09
     Sex:                 Female
+    Address:             283 Fahey Byway, Springfield, MA, 01020
     MRN:                 3f8dca81-462c-d582-e162-f1b5c6589526
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 23, 2026
+    Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      2 days
-    Attending Physician: Dr. Martinez
+    Length of Stay:      1 days
+    Attending Physician: Dr. Patel
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute pancreatitis required admission for broad-spectrum IV antibiotic therapy and optimization of atrial fibrillation management. Patient discharged after stable period.
+    Initial presentation of post-surgical wound infection management responded well to IV hydration and electrolyte management. Vitals stable (BP 125/88, HR 56). Patient educated on follow-up. Safe for discharge.
 
 ================================================================================
 
@@ -35,15 +36,15 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 14-21 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 5-12 days
+    • Specialty: Pulmonology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Nebulizer
-    Description:         Aerosol delivery device for respiratory medications (albuterol, etc.).
-    Vendor Type:         Clinical Respiratory
-    Category:            Respiratory
+    Equipment Ordered:   Rollator Walker
+    Description:         Wheeled walker with seat and hand brakes for elderly patients with limited endurance.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
@@ -63,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 3f8dca81-462c-d582-e162-f1b5c6589526
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

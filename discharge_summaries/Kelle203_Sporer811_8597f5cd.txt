@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Kelle203 Sporer811
     Date of Birth:       2001-10-31
     Sex:                 Female
+    Address:             374 Grimes Rue Apt 62, Boston, MA, 02125
     MRN:                 8597f5cd-dc90-a955-d2fb-05bcdcc2984b
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 20, 2026
+    Admission Date:      April 21, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      5 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      4 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute pancreatitis required immediate hospitalization. After pain management with opioid and non-opioid analgesics and close monitoring, patient achieved clinical improvement. anemia was also managed. Discharged to home with outpatient follow-up.
+    Managed acute exacerbation of COPD with intensive rehabilitation protocols. Patient's functional status improved significantly. uncontrolled hypertension well-controlled on current regimen. Ready for home recovery.
 
 ================================================================================
 
@@ -33,19 +34,19 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 5-12 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 20-27 days
+    • Specialty: Pulmonology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Bedside Commode
-    Description:         Portable toilet seat for patients unable to reach standard bathroom safely.
-    Vendor Type:         Home Care Accessories
-    Category:            Bathroom
+    Equipment Ordered:   Power Wheelchair
+    Description:         Electric wheelchair with joystick control for patients with upper limb weakness.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to skilled nursing facility.
+    Patient discharged to assisted living.
     Home care services arranged: Yes
     Visiting nurse evaluation: Not needed
 
@@ -61,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 8597f5cd-dc90-a955-d2fb-05bcdcc2984b
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

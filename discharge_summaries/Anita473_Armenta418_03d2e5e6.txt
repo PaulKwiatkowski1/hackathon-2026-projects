@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Anita473 Armenta418
     Date of Birth:       1976-08-29
     Sex:                 Female
+    Address:             169 Hudson Manor, Natick, MA, 00000
     MRN:                 03d2e5e6-a126-d0de-0a38-3f0bad766b30
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      3 days
+    Attending Physician: Dr. Williams
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient with acute diabetic ketoacidosis admitted for anticoagulation therapy initiation. Nursing staff provided extensive education on self-care. Patient demonstrated understanding of discharge instructions.
+    Patient with acute atrial fibrillation with rate control admitted for blood glucose management with sliding scale insulin. Nursing staff provided extensive education on self-care. Patient demonstrated understanding of discharge instructions.
 
 ================================================================================
 
@@ -30,25 +31,24 @@ Medications:
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
-    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 9-16 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 6-13 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Pulse Oximeter
-    Description:         Finger-based oxygen saturation monitor for respiratory disease and post-operative monitoring.
-    Vendor Type:         Remote Monitoring
-    Category:            Monitoring
+    Equipment Ordered:   TENS Unit
+    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
+    Vendor Type:         Physical Therapy
+    Category:            Pain Management
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to skilled nursing facility.
     Home care services arranged: No
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -62,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 03d2e5e6-a126-d0de-0a38-3f0bad766b30
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

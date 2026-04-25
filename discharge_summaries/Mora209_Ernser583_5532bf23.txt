@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Mora209 Ernser583
     Date of Birth:       1989-06-10
     Sex:                 Female
+    Address:             201 Tromp Trail Unit 84, Fall River, MA, 02790
     MRN:                 5532bf23-7e81-eca1-5887-06204013d427
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      1 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    Presented with acute acute pancreatitis. Managed conservatively with transfusion and blood product management over 1 days. Patient improved significantly and is ready for home-based care.
+    Admitted for management of bowel obstruction requiring surgical intervention. intensive rehabilitation protocols was initiated, resulting in symptomatic relief. Patient remained stable throughout 1-day admission. Discharged after clinical goals met.
 
 ================================================================================
 
@@ -34,21 +35,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 15-22 days
-    • Specialty: Endocrinology - 1-2 weeks
+    • Primary Care: 12-19 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Crutches
-    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
-    Vendor Type:         Mobility & Rehabilitation
-    Category:            Mobility
+    Equipment Ordered:   Portable Oxygen Tank
+    Description:         Portable oxygen cylinder (E-tank) with regulator for patient mobility.
+    Vendor Type:         Clinical Respiratory
+    Category:            Respiratory
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
+    Patient discharged to assisted living.
     Home care services arranged: As needed
-    Visiting nurse evaluation: Not needed
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -62,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 5532bf23-7e81-eca1-5887-06204013d427
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

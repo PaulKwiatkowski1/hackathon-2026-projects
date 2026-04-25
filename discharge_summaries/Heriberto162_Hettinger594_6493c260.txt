@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Heriberto162 Hettinger594
     Date of Birth:       1993-09-21
     Sex:                 Male
+    Address:             527 Langosh Well, Worcester, MA, 01607
     MRN:                 6493c260-b7fd-dbd1-93c9-d08b2b6d4978
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      1 days
-    Attending Physician: Dr. Johnson
+    Attending Physician: Dr. Patel
 
 ================================================================================
 
 CLINICAL COURSE:
-    Complex case of compound fracture with open reduction with type 2 diabetes mellitus managed successfully with anticoagulation therapy initiation. Multidisciplinary coordination ensured smooth discharge planning.
+    Admitted for management of acute atrial fibrillation with rate control. intensive rehabilitation protocols was initiated, resulting in symptomatic relief. Patient remained stable throughout 1-day admission. Discharged after clinical goals met.
 
 ================================================================================
 
@@ -27,24 +28,26 @@ Medications:
     • Medication 1: Continue as prescribed
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 11-18 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 18-25 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Pulse Oximeter
-    Description:         Finger-based oxygen saturation monitor for respiratory disease and post-operative monitoring.
-    Vendor Type:         Remote Monitoring
-    Category:            Monitoring
+    Equipment Ordered:   Hospital Bed
+    Description:         Adjustable electric bed with side rails, Trendelenburg capability for post-op care.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to home with home health services.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Not needed
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -58,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 6493c260-b7fd-dbd1-93c9-d08b2b6d4978
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

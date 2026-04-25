@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Freeda113 Stamm704
     Date of Birth:       1986-01-12
     Sex:                 Female
+    Address:             250 Grady Underpass Suite 42, Freetown, MA, 00000
     MRN:                 27fbdb27-8270-859f-1c0a-7e1bb32d21f6
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      1 days
+    Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    sepsis from urinary tract infection resolved with oxygen therapy and nebulized bronchodilators after 7 days of hospitalization. No complications noted. Patient ambulatory at discharge.
+    compound fracture with open reduction management required anticoagulation therapy initiation and careful monitoring. Patient demonstrated good compliance with therapy. Labs normalized by hospital day 5. Appropriate for home discharge.
 
 ================================================================================
 
@@ -28,27 +29,24 @@ Medications:
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
-    • Medication 5: Continue as prescribed
-    • Medication 6: Continue as prescribed
-    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 15-22 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 18-25 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Grab Bars
-    Description:         Wall-mounted safety rails for bathroom and hallways to prevent falls.
-    Vendor Type:         Home Care Accessories
-    Category:            Safety
+    Equipment Ordered:   Patient Lift
+    Description:         Mechanical or electric lift device for safe patient transfer from bed to wheelchair.
+    Vendor Type:         Furniture & Logistics
+    Category:            Bed & Transfer
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
-    Home care services arranged: No
-    Visiting nurse evaluation: Pending
+    Patient discharged to home with home health services.
+    Home care services arranged: As needed
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -62,5 +60,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 27fbdb27-8270-859f-1c0a-7e1bb32d21f6
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

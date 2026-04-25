@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Tory770 Kilback373
     Date of Birth:       1969-01-12
     Sex:                 Male
+    Address:             747 Hansen Meadow, Bolton, MA, 00000
     MRN:                 a4f0c168-02ff-13b6-2c68-6a21d440915e
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 20, 2026
+    Admission Date:      April 23, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      5 days
-    Attending Physician: Dr. Johnson
+    Length of Stay:      2 days
+    Attending Physician: Dr. Williams
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient hospitalized for acute decompensated heart failure. Started on intensive rehabilitation protocols protocol immediately upon admission. Clinical status improved daily. Discharged after 4 days of therapy.
+    Complex case of acute respiratory infection with chronic obstructive pulmonary disease managed successfully with continuous cardiac monitoring. Multidisciplinary coordination ensured smooth discharge planning.
 
 ================================================================================
 
@@ -29,26 +30,24 @@ Medications:
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
-    • Medication 6: Continue as prescribed
-    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 9-16 days
-    • Specialty: Endocrinology - 1-2 weeks
+    • Primary Care: 11-18 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Raised Toilet Seat
-    Description:         Elevated toilet seat riser to reduce hip flexion stress in post-op patients.
-    Vendor Type:         Home Care Accessories
-    Category:            Bathroom
+    Equipment Ordered:   Crutches
+    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to skilled nursing facility.
-    Home care services arranged: No
-    Visiting nurse evaluation: Pending
+    Patient discharged to home.
+    Home care services arranged: As needed
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -62,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: a4f0c168-02ff-13b6-2c68-6a21d440915e
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Eleni953 Wisoky380
     Date of Birth:       1984-03-05
     Sex:                 Female
+    Address:             432 Hyatt Rapid Suite 26, New Bedford, MA, 02745
     MRN:                 a49d2226-6a7c-9aaa-7ec9-8974f3855274
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Chen
+    Length of Stay:      5 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    Admitted for management of acute pancreatitis. IV hydration and electrolyte management was initiated, resulting in symptomatic relief. Patient remained stable throughout 1-day admission. Discharged after clinical goals met.
+    Patient presented with sepsis from urinary tract infection complicated by uncontrolled hypertension. Multi-disciplinary team managed with oxygen therapy and nebulized bronchodilators. Achieved adequate pain control (VAS 3). Ready for discharge.
 
 ================================================================================
 
@@ -28,24 +29,27 @@ Medications:
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 16-23 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 6-13 days
+    • Specialty: Pulmonology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Grab Bars
-    Description:         Wall-mounted safety rails for bathroom and hallways to prevent falls.
-    Vendor Type:         Home Care Accessories
-    Category:            Safety
+    Equipment Ordered:   TENS Unit
+    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
+    Vendor Type:         Physical Therapy
+    Category:            Pain Management
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
+    Patient discharged to assisted living.
     Home care services arranged: No
-    Visiting nurse evaluation: Not needed
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -59,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: a49d2226-6a7c-9aaa-7ec9-8974f3855274
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

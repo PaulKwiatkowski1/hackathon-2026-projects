@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Dwight645 Leannon79
     Date of Birth:       1987-07-27
     Sex:                 Male
+    Address:             325 Mertz Spur, Beverly, MA, 01915
     MRN:                 d1294180-6932-166d-fc1a-8f9742115e8e
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Chen
+    Length of Stay:      5 days
+    Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute respiratory infection resolved with transfusion and blood product management after 3 days of hospitalization. No complications noted. Patient ambulatory at discharge.
+    Complex case of sepsis from urinary tract infection with obesity managed successfully with IV hydration and electrolyte management. Multidisciplinary coordination ensured smooth discharge planning.
 
 ================================================================================
 
@@ -27,24 +28,29 @@ Medications:
     • Medication 1: Continue as prescribed
     • Medication 2: Continue as prescribed
     • Medication 3: Continue as prescribed
+    • Medication 4: Continue as prescribed
+    • Medication 5: Continue as prescribed
+    • Medication 6: Continue as prescribed
+    • Medication 7: Continue as prescribed
+    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 21-28 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 10-17 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   TENS Unit
-    Description:         Transcutaneous electrical nerve stimulation device for chronic pain relief.
-    Vendor Type:         Physical Therapy
-    Category:            Pain Management
+    Equipment Ordered:   Crutches
+    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
-    Home care services arranged: Yes
-    Visiting nurse evaluation: Scheduled
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: No
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -58,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: d1294180-6932-166d-fc1a-8f9742115e8e
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

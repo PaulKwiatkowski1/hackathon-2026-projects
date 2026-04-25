@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Luke971 Lind531
     Date of Birth:       1960-11-26
     Sex:                 Male
+    Address:             454 Windler Way Unit 60, Grafton, MA, 00000
     MRN:                 3da7b42a-f389-477b-5006-e4171f99da08
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 21, 2026
+    Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      4 days
-    Attending Physician: Dr. Johnson
+    Length of Stay:      3 days
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Initial presentation of acute exacerbation of COPD responded well to transfusion and blood product management. Vitals stable (BP 118/72, HR 95). Patient educated on follow-up. Safe for discharge.
+    Admitted for management of severe pneumonia requiring hospitalization. IV hydration and electrolyte management was initiated, resulting in symptomatic relief. Patient remained stable throughout 6-day admission. Discharged after clinical goals met.
 
 ================================================================================
 
@@ -30,26 +31,24 @@ Medications:
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
-    • Medication 7: Continue as prescribed
-    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 17-24 days
-    • Specialty: Cardiology - 1-2 weeks
+    • Primary Care: 21-28 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Raised Toilet Seat
-    Description:         Elevated toilet seat riser to reduce hip flexion stress in post-op patients.
-    Vendor Type:         Home Care Accessories
-    Category:            Bathroom
+    Equipment Ordered:   Pulse Oximeter
+    Description:         Finger-based oxygen saturation monitor for respiratory disease and post-operative monitoring.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to skilled nursing facility.
+    Patient discharged to assisted living.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -63,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 3da7b42a-f389-477b-5006-e4171f99da08
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

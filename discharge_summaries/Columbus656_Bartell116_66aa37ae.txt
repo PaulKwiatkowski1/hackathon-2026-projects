@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Columbus656 Bartell116
     Date of Birth:       1986-02-24
     Sex:                 Male
+    Address:             660 Jacobson Avenue Suite 16, Rochester, MA, 00000
     MRN:                 66aa37ae-c3ca-1a9f-6a0a-9677319410cd
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      3 days
-    Attending Physician: Dr. Garcia
+    Attending Physician: Dr. Williams
 
 ================================================================================
 
 CLINICAL COURSE:
-    acute exacerbation of COPD required immediate hospitalization. After medication optimization and titration and close monitoring, patient achieved clinical improvement. uncontrolled hypertension was also managed. Discharged to home with outpatient follow-up.
+    Patient with acute respiratory infection admitted for transfusion and blood product management. Nursing staff provided extensive education on self-care. Patient demonstrated understanding of discharge instructions.
 
 ================================================================================
 
@@ -33,21 +34,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 17-24 days
+    • Primary Care: 16-23 days
     • Specialty: Pulmonology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Shower Chair
-    Description:         Waterproof chair with back support and armrests for safe bathing.
+    Equipment Ordered:   Raised Toilet Seat
+    Description:         Elevated toilet seat riser to reduce hip flexion stress in post-op patients.
     Vendor Type:         Home Care Accessories
     Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to home with home health services.
-    Home care services arranged: No
-    Visiting nurse evaluation: Scheduled
+    Home care services arranged: As needed
+    Visiting nurse evaluation: Pending
 
 ================================================================================
 
@@ -61,5 +62,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 66aa37ae-c3ca-1a9f-6a0a-9677319410cd
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

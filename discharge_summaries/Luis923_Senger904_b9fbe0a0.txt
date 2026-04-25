@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Luis923 Senger904
     Date of Birth:       1965-10-02
     Sex:                 Male
+    Address:             987 Sporer Promenade Suite 51, Worcester, MA, 01583
     MRN:                 b9fbe0a0-c38a-9226-d3e8-d8d004db4164
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 23, 2026
+    Admission Date:      April 20, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      2 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      5 days
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Managed post-stroke rehabilitation with surgical intervention and post-operative wound care. Patient's functional status improved significantly. depression well-controlled on current regimen. Ready for home recovery.
+    post-surgical wound infection management management required pain management with opioid and non-opioid analgesics and careful monitoring. Patient demonstrated good compliance with therapy. Labs normalized by hospital day 6. Appropriate for home discharge.
 
 ================================================================================
 
@@ -29,24 +30,23 @@ Medications:
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
-    • Medication 6: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 6-13 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 11-18 days
+    • Specialty: Endocrinology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   CPAP Machine
-    Description:         Continuous positive airway pressure device for obstructive sleep apnea treatment.
-    Vendor Type:         Clinical Respiratory
-    Category:            Respiratory
+    Equipment Ordered:   Shower Chair
+    Description:         Waterproof chair with back support and armrests for safe bathing.
+    Vendor Type:         Home Care Accessories
+    Category:            Bathroom
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to assisted living.
-    Home care services arranged: No
+    Patient discharged to skilled nursing facility.
+    Home care services arranged: As needed
     Visiting nurse evaluation: Not needed
 
 ================================================================================
@@ -61,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: b9fbe0a0-c38a-9226-d3e8-d8d004db4164
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

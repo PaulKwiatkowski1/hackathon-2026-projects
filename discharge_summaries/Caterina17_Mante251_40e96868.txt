@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Caterina17 Mante251
     Date of Birth:       2022-10-14
     Sex:                 Female
+    Address:             598 Donnelly Divide, Milton, MA, 02186
     MRN:                 40e96868-17cd-84dc-5ebd-d593befe782e
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 22, 2026
+    Admission Date:      April 21, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      3 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      4 days
+    Attending Physician: Dr. Chen
 
 ================================================================================
 
 CLINICAL COURSE:
-    Initial presentation of acute decompensated heart failure responded well to continuous cardiac monitoring. Vitals stable (BP 155/83, HR 62). Patient educated on follow-up. Safe for discharge.
+    Presented with post-operative pain management. Managed conservatively with transfusion and blood product management over 3 days. Patient improved significantly and is ready for home-based care.
 
 ================================================================================
 
@@ -29,17 +30,16 @@ Medications:
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
-    • Medication 6: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 11-18 days
-    • Specialty: Orthopedics - 1-2 weeks
+    • Primary Care: 18-25 days
+    • Specialty: Cardiology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Crutches
-    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Equipment Ordered:   Standard Walker
+    Description:         Four-legged walker with front wheels for gait stability and balance support.
     Vendor Type:         Mobility & Rehabilitation
     Category:            Mobility
     Expected Delivery:   3-5 business days
@@ -47,7 +47,7 @@ Durable Medical Equipment (DME):
 Patient Disposition:
     Patient discharged to skilled nursing facility.
     Home care services arranged: Yes
-    Visiting nurse evaluation: Scheduled
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -61,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 40e96868-17cd-84dc-5ebd-d593befe782e
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

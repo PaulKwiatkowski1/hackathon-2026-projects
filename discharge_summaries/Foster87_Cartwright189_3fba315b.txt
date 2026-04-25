@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Foster87 Cartwright189
     Date of Birth:       1981-03-18
     Sex:                 Male
+    Address:             384 Cartwright Underpass Apt 44, Turners Falls, MA, 01376
     MRN:                 3fba315b-9365-b1ae-e515-96956dedd323
 
 ADMISSION/DISCHARGE INFORMATION:
     Admission Date:      April 22, 2026
     Discharge Date:      April 25, 2026
     Length of Stay:      3 days
-    Attending Physician: Dr. Martinez
+    Attending Physician: Dr. Patel
 
 ================================================================================
 
 CLINICAL COURSE:
-    post-operative pain management resolved with medication optimization and titration after 5 days of hospitalization. No complications noted. Patient ambulatory at discharge.
+    post-operative pain management required admission for broad-spectrum IV antibiotic therapy and optimization of obesity management. Patient discharged after stable period.
 
 ================================================================================
 
@@ -31,25 +32,24 @@ Medications:
     • Medication 5: Continue as prescribed
     • Medication 6: Continue as prescribed
     • Medication 7: Continue as prescribed
-    • Medication 8: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 17-24 days
-    • Specialty: Pulmonology - 1-2 weeks
+    • Primary Care: 16-23 days
+    • Specialty: Orthopedics - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Manual Wheelchair
-    Description:         Standard folding wheelchair with brakes for post-op and post-stroke mobility.
+    Equipment Ordered:   Power Wheelchair
+    Description:         Electric wheelchair with joystick control for patients with upper limb weakness.
     Vendor Type:         Mobility & Rehabilitation
     Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
-    Home care services arranged: Yes
-    Visiting nurse evaluation: Pending
+    Patient discharged to home.
+    Home care services arranged: No
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -63,5 +63,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 3fba315b-9365-b1ae-e515-96956dedd323
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

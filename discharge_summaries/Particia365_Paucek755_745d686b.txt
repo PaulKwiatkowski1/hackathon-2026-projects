@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Particia365 Paucek755
     Date of Birth:       1962-01-02
     Sex:                 Female
+    Address:             784 Steuber Forge Unit 75, Stoneham, MA, 02180
     MRN:                 745d686b-a34a-a895-247a-787dccd43d21
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 22, 2026
+    Admission Date:      April 23, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      3 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      2 days
+    Attending Physician: Dr. Johnson
 
 ================================================================================
 
 CLINICAL COURSE:
-    Patient experienced fall with fractured femur and underwent bed rest with physical therapy consultation. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.
+    Patient hospitalized for bowel obstruction requiring surgical intervention. Started on anticoagulation therapy initiation protocol immediately upon admission. Clinical status improved daily. Discharged after 6 days of therapy.
 
 ================================================================================
 
@@ -31,20 +32,20 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 12-19 days
-    • Specialty: Infectious Disease - 1-2 weeks
+    • Primary Care: 21-28 days
+    • Specialty: Cardiology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Grab Bars
-    Description:         Wall-mounted safety rails for bathroom and hallways to prevent falls.
-    Vendor Type:         Home Care Accessories
-    Category:            Safety
+    Equipment Ordered:   Crutches
+    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home.
-    Home care services arranged: As needed
+    Patient discharged to assisted living.
+    Home care services arranged: No
     Visiting nurse evaluation: Scheduled
 
 ================================================================================
@@ -59,5 +60,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 745d686b-a34a-a895-247a-787dccd43d21
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

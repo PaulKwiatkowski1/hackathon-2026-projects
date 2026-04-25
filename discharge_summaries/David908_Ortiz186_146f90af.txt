@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                David908 Ortiz186
     Date of Birth:       1969-01-29
     Sex:                 Female
+    Address:             672 Mills Run, Lynn, MA, 01906
     MRN:                 146f90af-2cfb-f2a9-1bf5-998b37420c0d
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 23, 2026
+    Admission Date:      April 24, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      2 days
-    Attending Physician: Dr. Patel
+    Length of Stay:      1 days
+    Attending Physician: Dr. Garcia
 
 ================================================================================
 
 CLINICAL COURSE:
-    Presented with acute acute coronary syndrome. Managed conservatively with intensive rehabilitation protocols over 2 days. Patient improved significantly and is ready for home-based care.
+    Patient experienced acute diabetic ketoacidosis and underwent pain management with opioid and non-opioid analgesics. Recovery was steady without complications. Patient tolerating diet well by discharge. Now appropriate for discharge with home care support.
 
 ================================================================================
 
@@ -35,21 +36,21 @@ Medications:
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 10-17 days
-    • Specialty: Infectious Disease - 1-2 weeks
+    • Primary Care: 9-16 days
+    • Specialty: Cardiology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Pressure Relief Mattress
-    Description:         Air or gel mattress overlay for pressure ulcer prevention in immobile patients.
-    Vendor Type:         Furniture & Logistics
-    Category:            Bed & Transfer
+    Equipment Ordered:   Blood Pressure Monitor
+    Description:         Automated home blood pressure cuff for hypertension monitoring and Telehealth reporting.
+    Vendor Type:         Remote Monitoring
+    Category:            Monitoring
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
     Patient discharged to assisted living.
     Home care services arranged: As needed
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Scheduled
 
 ================================================================================
 
@@ -63,5 +64,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 146f90af-2cfb-f2a9-1bf5-998b37420c0d
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________

@@ -6,18 +6,19 @@ PATIENT IDENTIFICATION:
     Name:                Jospeh459 Williamson769
     Date of Birth:       2024-10-30
     Sex:                 Male
+    Address:             233 Jerde Crossing, Holyoke, MA, 01040
     MRN:                 229c8a72-738e-d0ce-fc20-76f8325b21bb
 
 ADMISSION/DISCHARGE INFORMATION:
-    Admission Date:      April 24, 2026
+    Admission Date:      April 23, 2026
     Discharge Date:      April 25, 2026
-    Length of Stay:      1 days
-    Attending Physician: Dr. Garcia
+    Length of Stay:      2 days
+    Attending Physician: Dr. Martinez
 
 ================================================================================
 
 CLINICAL COURSE:
-    Complex case of compound fracture with open reduction with anemia managed successfully with bed rest with physical therapy consultation. Multidisciplinary coordination ensured smooth discharge planning.
+    acute decompensated heart failure resolved with broad-spectrum IV antibiotic therapy after 6 days of hospitalization. No complications noted. Patient ambulatory at discharge.
 
 ================================================================================
 
@@ -29,26 +30,24 @@ Medications:
     • Medication 3: Continue as prescribed
     • Medication 4: Continue as prescribed
     • Medication 5: Continue as prescribed
-    • Medication 6: Continue as prescribed
-    • Medication 7: Continue as prescribed
     All prescriptions filled at discharge pharmacy.
 
 Follow-up Appointments:
-    • Primary Care: 8-15 days
-    • Specialty: Endocrinology - 1-2 weeks
+    • Primary Care: 19-26 days
+    • Specialty: Cardiology - 1-2 weeks
     • Lab work: As ordered by primary care physician
 
 Durable Medical Equipment (DME):
-    Equipment Ordered:   Raised Toilet Seat
-    Description:         Elevated toilet seat riser to reduce hip flexion stress in post-op patients.
-    Vendor Type:         Home Care Accessories
-    Category:            Bathroom
+    Equipment Ordered:   Crutches
+    Description:         Underarm crutches for non-weight-bearing gait after fracture or surgery.
+    Vendor Type:         Mobility & Rehabilitation
+    Category:            Mobility
     Expected Delivery:   3-5 business days
 
 Patient Disposition:
-    Patient discharged to home with home health services.
+    Patient discharged to home.
     Home care services arranged: As needed
-    Visiting nurse evaluation: Pending
+    Visiting nurse evaluation: Not needed
 
 ================================================================================
 
@@ -62,5 +61,5 @@ ADDITIONAL NOTES:
 
 ______________________________________________________________________________
 MRN: 229c8a72-738e-d0ce-fc20-76f8325b21bb
-Generated: 2026-04-25 14:41:06
+Generated: 2026-04-25 15:41:48
 ______________________________________________________________________________
