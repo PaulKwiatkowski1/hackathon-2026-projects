@@ -6,5 +6,7 @@ CREATE TABLE equipment_orders (
     snomed_code TEXT,
     vendor_name TEXT,
     order_status TEXT DEFAULT 'Pending',
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    fhir_patient_id TEXT,
+    fhir_resource_version TEXT
 );
