@@ -954,7 +954,6 @@ def _process_queued_jobs(max_jobs: int) -> None:
 	for job in st.session_state["file_queue"]:
 		if job["status"] == "done":
 			removed_done += 1
-			st.session_state["queued_hashes"].discard(job["file_hash"])
 			continue
 		remaining_jobs.append(job)
 
@@ -1015,7 +1014,6 @@ def _sync_ready_jobs() -> None:
 	for job in st.session_state["file_queue"]:
 		if job["status"] == "done":
 			removed_done += 1
-			st.session_state["queued_hashes"].discard(job["file_hash"])
 			continue
 		remaining_jobs.append(job)
 
@@ -1249,7 +1247,6 @@ with tab_physician:
 			finally:
 				st.session_state["processing_lock"] = False
 				st.session_state["process_requested"] = False
-				st.rerun()
 		else:
 			st.warning("Please upload one or more files to process.")
 			st.session_state["processing_lock"] = False
