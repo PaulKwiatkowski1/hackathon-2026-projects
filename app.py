@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 
 import altair as alt
 import pandas as pd
+import pydeck as pdk
 import requests
 import streamlit as st
 from huggingface_hub import InferenceClient
@@ -482,6 +483,86 @@ def sync_to_medplum(fhir_json: dict) -> bool:
 		return False
 
 
+def _status_color_rgba(order_status: str) -> list[int]:
+	normalized = str(order_status or "").strip().lower()
+	if normalized in {"delivered", "complete", "completed"}:
+		return [34, 197, 94, 190]  # green
+	if normalized in {"pending", "in progress", "processing"}:
+		return [249, 115, 22, 190]  # orange
+	if normalized in {"failed", "cancelled", "canceled"}:
+		return [239, 68, 68, 190]  # red
+	return [56, 189, 248, 185]  # clinical blue fallback
+
+
+HIGH_COMPLEXITY_EQUIPMENT_TERMS = {
+	"ventilator",
+	"oxygen concentrator",
+	"oxygen",
+	"cpap",
+	"bipap",
+	"hospital bed",
+	"suction",
+	"nebulizer",
+}
+
+URGENCY_TERMS = {
+	"urgent",
+	"stat",
+	"high risk",
+	"fall risk",
+	"respiratory distress",
+	"hypoxia",
+	"oxygen",
+	"readmission",
+	"decompensat",
+	"worsening",
+}
+
+
+def _compute_supply_chain_risk(extraction_payload: dict) -> dict:
+	"""Compute an actionable risk signal from extracted session-state payload."""
+	if not extraction_payload:
+		return {"score": 0, "level": "Low", "reasons": ["No extraction loaded."], "expedite": False}
+
+	service_request = extraction_payload.get("service_request", {}) if isinstance(extraction_payload, dict) else {}
+	code_text = str(service_request.get("code", {}).get("text", "")).lower()
+	notes = service_request.get("note", [])
+	clinical_course = str(_extract_note_value(notes, "Clinical Course") or "").lower()
+
+	score = 0
+	reasons = []
+
+	for term in HIGH_COMPLEXITY_EQUIPMENT_TERMS:
+		if term in code_text:
+			score += 30
+			reasons.append(f"High-complexity equipment detected: {term}.")
+			break
+
+	urgency_hits = [term for term in URGENCY_TERMS if term in clinical_course]
+	if urgency_hits:
+		score += min(45, 15 * len(urgency_hits))
+		reasons.append(f"Urgency signals in clinical course: {', '.join(sorted(set(urgency_hits[:4])))}.")
+
+	if "unknown" in code_text:
+		score += 20
+		reasons.append("Equipment classification is unknown; manual review recommended.")
+
+	if score >= 70:
+		level = "Critical"
+	elif score >= 45:
+		level = "High"
+	elif score >= 25:
+		level = "Moderate"
+	else:
+		level = "Low"
+
+	expedite = level in {"High", "Critical"}
+	if not reasons:
+		reasons.append("No major urgency or complexity signals found.")
+
+	return {"score": int(min(score, 100)), "level": level, "reasons": reasons, "expedite": expedite}
+
+
 @st.cache_data(ttl=120)
 def get_analytics_data() -> pd.DataFrame:
 	"""Query active equipment orders from Supabase and return a dataframe."""
@@ -675,10 +756,10 @@ def _state_demo_point(state_abbr: str, seed_value: str) -> tuple[float, float] |
 	return center[0] + jitter_lat, center[1] + jitter_lon
 
 
-def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
-	"""Return real coordinates, or city/state-level demo points from addresses."""
+def get_delivery_map_points(df: pd.DataFrame) -> pd.DataFrame:
+	"""Return mapped delivery points with status and UI metadata."""
 	if df.empty:
-		return pd.DataFrame(columns=["lat", "lon"])
+		return pd.DataFrame(columns=["lat", "lon", "order_status", "color", "patient_name", "equipment_type", "vendor_name"])
 
 	coordinate_column_pairs = [
 		("lat", "lon"),
@@ -695,18 +776,35 @@ def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 			map_df["lon"] = pd.to_numeric(map_df["lon"], errors="coerce")
 			map_df = map_df.dropna(subset=["lat", "lon"])
 			if not map_df.empty:
+				map_df["order_status"] = df.get("order_status", "Unknown").astype(str)
+				map_df["patient_name"] = df.get("patient_name", "Unknown").astype(str)
+				map_df["equipment_type"] = df.get("equipment_type", "Unknown").astype(str)
+				map_df["vendor_name"] = df.get("vendor_name", "Unknown").astype(str)
+				map_df["color"] = map_df["order_status"].apply(_status_color_rgba)
 				return map_df
 
 	address_columns = ["delivery_address", "address", "patient_address"]
 	address_col = next((col for col in address_columns if col in df.columns), None)
 	if not address_col:
-		return pd.DataFrame(columns=["lat", "lon"])
+		return pd.DataFrame(columns=["lat", "lon", "order_status", "color", "patient_name", "equipment_type", "vendor_name"])
 
 	map_rows = []
-	for idx, address_text in enumerate(df[address_col].dropna().astype(str).tolist()[:200], start=1):
+	for idx, (_, row) in enumerate(df.dropna(subset=[address_col]).head(200).iterrows(), start=1):
+		address_text = str(row[address_col])
 		address_point = _geocode_address(address_text)
 		if address_point:
-			map_rows.append({"lat": address_point[0], "lon": address_point[1]})
+			status_text = str(row.get("order_status", "Unknown"))
+			map_rows.append(
+				{
+					"lat": address_point[0],
+					"lon": address_point[1],
+					"order_status": status_text,
+					"color": _status_color_rgba(status_text),
+					"patient_name": str(row.get("patient_name", "Unknown")),
+					"equipment_type": str(row.get("equipment_type", "Unknown")),
+					"vendor_name": str(row.get("vendor_name", "Unknown")),
+				}
+			)
 			continue
 
 		city_name, state_abbr = _city_state_from_address(address_text)
@@ -717,10 +815,21 @@ def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 			point = _state_demo_point(state_abbr, f"{address_text}-{idx}")
 		if not point:
 			continue
-		map_rows.append({"lat": point[0], "lon": point[1]})
+		status_text = str(row.get("order_status", "Unknown"))
+		map_rows.append(
+			{
+				"lat": point[0],
+				"lon": point[1],
+				"order_status": status_text,
+				"color": _status_color_rgba(status_text),
+				"patient_name": str(row.get("patient_name", "Unknown")),
+				"equipment_type": str(row.get("equipment_type", "Unknown")),
+				"vendor_name": str(row.get("vendor_name", "Unknown")),
+			}
+		)
 
 	if not map_rows:
-		return pd.DataFrame(columns=["lat", "lon"])
+		return pd.DataFrame(columns=["lat", "lon", "order_status", "color", "patient_name", "equipment_type", "vendor_name"])
 
 	return pd.DataFrame(map_rows)
 
@@ -770,6 +879,8 @@ def _queue_uploaded_files(uploaded_files: list) -> None:
 				"processed_at": None,
 				"file_text": file_text,
 				"extraction": None,
+				"risk_level": "Unknown",
+				"risk_score": None,
 			}
 		)
 		st.session_state["queued_hashes"].add(file_hash)
@@ -792,27 +903,72 @@ def _process_queued_jobs(max_jobs: int) -> None:
 		st.error("HF_TOKEN is missing. Add it to Streamlit secrets before processing the queue.")
 		return
 
+	human_verified = st.session_state.get("human_verified", False)
+	delivery_confirmed = st.session_state.get("delivery_confirmed", False)
+	enable_sync = bool(st.session_state.get("enable_external_sync", True))
+
 	total = min(max_jobs, len(jobs))
 	progress = st.progress(0)
 
 	for idx, job in enumerate(jobs[:total], start=1):
 		job["status"] = "processing"
-		try:
-			extraction = extract_dme_order(job["file_text"])
-			job["extraction"] = extraction
-			st.session_state["extraction"] = extraction
+		with st.status(f"Job #{job['job_id']} - {job['filename']}", expanded=True) as job_status:
+			try:
+				job_status.write("Step 1/4: Extracting FHIR data from discharge summary...")
+				extraction = extract_dme_order(job["file_text"])
+				job["extraction"] = extraction
+				st.session_state["extraction"] = extraction
+				risk_signal = _compute_supply_chain_risk(extraction)
+				st.session_state["latest_risk"] = risk_signal
+				job["risk_level"] = risk_signal["level"]
+				job["risk_score"] = risk_signal["score"]
+				job_status.write("Step 2/4: Extraction complete and validated.")
+				if risk_signal["expedite"]:
+					job_status.write(
+						f"Risk Indicator: {risk_signal['level']} ({risk_signal['score']}/100) - Expedited review suggested."
+					)
+					st.toast("Expedited review suggested by Supply Chain Risk Indicator.")
 
-			if MEDPLUM_TOKEN != "YOUR_MEDPLUM_BEARER_TOKEN":
-				sync_to_medplum(extraction)
+				if enable_sync:
+					if not human_verified:
+						job_status.write("Step 3/4: Waiting for Human-in-the-Loop verification before sync.")
+						job["status"] = "failed"
+						job["error"] = "Human verification is required before external sync."
+						job_status.update(label=f"Job #{job['job_id']} requires verification", state="error")
+						continue
 
-			job["status"] = "done"
-			job["error"] = ""
-		except Exception as exc:
-			job["status"] = "failed"
-			job["error"] = str(exc)
-		finally:
-			job["processed_at"] = datetime.now(timezone.utc).isoformat()
-			progress.progress(idx / total)
+					if MEDPLUM_TOKEN != "YOUR_MEDPLUM_BEARER_TOKEN":
+						job_status.write("Step 3/4: Syncing Patient + ServiceRequest to Medplum...")
+						medplum_ok = sync_to_medplum(extraction)
+					else:
+						job_status.write("Step 3/4: Medplum sync skipped (token not configured).")
+						medplum_ok = True
+
+					job_status.write("Step 4/4: Jira sync check (not configured in this prototype).")
+					if medplum_ok:
+						st.toast(f"Background sync completed for {job['filename']}.")
+						if delivery_confirmed:
+							st.toast("Delivery Confirmed - great work, care team!")
+							st.balloons()
+					else:
+						job["status"] = "failed"
+						job["error"] = "External sync failed."
+						job_status.update(label=f"Job #{job['job_id']} failed during sync", state="error")
+						continue
+				else:
+					job_status.write("Step 3/4: External sync disabled; storing extraction only.")
+					job_status.write("Step 4/4: Complete.")
+
+				job["status"] = "done"
+				job["error"] = ""
+				job_status.update(label=f"Job #{job['job_id']} completed", state="complete")
+			except Exception as exc:
+				job["status"] = "failed"
+				job["error"] = str(exc)
+				job_status.update(label=f"Job #{job['job_id']} failed", state="error")
+			finally:
+				job["processed_at"] = datetime.now(timezone.utc).isoformat()
+				progress.progress(idx / total)
 
 	# Keep failed/queued items in the upload queue, but remove completed successes.
 	remaining_jobs = []
@@ -842,6 +998,8 @@ def _queue_overview_df() -> pd.DataFrame:
 				"queued_at": job["queued_at"],
 				"processed_at": job["processed_at"],
 				"error": job["error"],
+				"risk_level": job.get("risk_level", "Unknown"),
+				"risk_score": job.get("risk_score"),
 			}
 		)
 	return pd.DataFrame(rows)
@@ -863,27 +1021,67 @@ with tab_physician:
 	_ensure_queue_state()
 	if "extraction" not in st.session_state:
 		st.session_state["extraction"] = None
+	if "latest_risk" not in st.session_state:
+		st.session_state["latest_risk"] = None
+	if "processing_lock" not in st.session_state:
+		st.session_state["processing_lock"] = False
+
+	# Auto-release a stale lock if no job is actually processing.
+	if st.session_state["processing_lock"] and not any(
+		job["status"] == "processing" for job in st.session_state["file_queue"]
+	):
+		st.session_state["processing_lock"] = False
+
+	controls_locked = st.session_state["processing_lock"]
 
 	st.caption(
 		f"Upload up to {MAX_BATCH_FILES} text files per batch. "
 		f"Files larger than {MAX_FILE_SIZE_MB}MB are skipped."
 	)
 
+	verification_col, sync_col, final_col = st.columns([2.5, 1.5, 1.5])
+	with verification_col:
+		st.session_state["human_verified"] = st.checkbox(
+			"Human-in-the-Loop Verification Complete (Required before sync)",
+			value=st.session_state.get("human_verified", False),
+			help="Confirm chart review and extraction validation before writing to Medplum/Jira.",
+			disabled=controls_locked,
+		)
+	with sync_col:
+		st.session_state["enable_external_sync"] = st.checkbox(
+			"Enable Medplum/Jira Sync",
+			value=st.session_state.get("enable_external_sync", True),
+			disabled=controls_locked,
+		)
+	with final_col:
+		st.session_state["delivery_confirmed"] = st.checkbox(
+			"Delivery Confirmed",
+			value=st.session_state.get("delivery_confirmed", False),
+			help="Triggers celebration feedback after successful background sync.",
+			disabled=controls_locked,
+		)
+
 	uploaded_files = st.file_uploader(
 		"Upload discharge summaries (.txt)",
 		type=["txt"],
 		accept_multiple_files=True,
+		disabled=controls_locked,
 	)
 	has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
 
-	if st.button("Process All Files", type="primary", use_container_width=True):
+	if st.button("Process All Files", type="primary", use_container_width=True, disabled=controls_locked):
 		if uploaded_files:
 			_queue_uploaded_files(uploaded_files)
+			st.toast("Files added to processing queue.")
 			has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
 
 		if has_queued_jobs:
-			with st.spinner("Processing queued files..."):
-				_process_queued_jobs(max_jobs=10_000)
+			st.session_state["processing_lock"] = True
+			try:
+				with st.spinner("Processing queued files..."):
+					_process_queued_jobs(max_jobs=10_000)
+			finally:
+				st.session_state["processing_lock"] = False
 		else:
 			st.warning("Please upload one or more files to process.")
 
@@ -910,7 +1108,28 @@ with tab_physician:
 
 	if st.session_state.get("extraction"):
 		st.markdown("#### Latest Extraction Output")
-		st.json(st.session_state["extraction"])
+		risk = _compute_supply_chain_risk(st.session_state["extraction"])
+		st.session_state["latest_risk"] = risk
+		risk_col1, risk_col2 = st.columns([2, 1])
+		with risk_col1:
+			if risk["level"] in {"High", "Critical"}:
+				st.error(
+					f"Supply Chain Risk Indicator: {risk['level']} ({risk['score']}/100). "
+					"Expedited Review Recommended."
+				)
+			elif risk["level"] == "Moderate":
+				st.warning(f"Supply Chain Risk Indicator: {risk['level']} ({risk['score']}/100).")
+			else:
+				st.success(f"Supply Chain Risk Indicator: {risk['level']} ({risk['score']}/100).")
+		with risk_col2:
+			st.metric("Risk Score", f"{risk['score']}/100")
+
+		with st.expander("Why this risk was assigned", expanded=False):
+			for reason in risk["reasons"]:
+				st.write(f"- {reason}")
+
+		with st.expander("View extracted FHIR JSON payload", expanded=False):
+			st.json(st.session_state["extraction"])
 
 with tab_analytics:
 	st.subheader("Analytics Command Center")
@@ -928,14 +1147,46 @@ with tab_analytics:
 			if analytics_df.empty:
 				st.info("No equipment orders found in Supabase.")
 			else:
-				st.metric("Total Orders In Flight", int(len(analytics_df)))
+				total_orders = int(len(analytics_df))
+				avg_fulfillment = pd.to_numeric(analytics_df.get("estimated_delivery_days"), errors="coerce").mean()
+				active_vendors = int(analytics_df.get("vendor_name", pd.Series(dtype=str)).fillna("").astype(str).str.strip().ne("").sum())
+
+				kpi_col1, kpi_col2, kpi_col3 = st.columns(3)
+				kpi_col1.metric("Total Orders", total_orders)
+				kpi_col2.metric("Avg. Fulfillment Time", f"{avg_fulfillment:.1f} days" if pd.notna(avg_fulfillment) else "N/A")
+				kpi_col3.metric("Active Vendors", active_vendors)
 
 				st.markdown("#### Delivery Locations")
-				map_df = get_delivery_coordinates(analytics_df)
+				map_df = get_delivery_map_points(analytics_df)
 				if map_df.empty:
 					st.info("No mappable coordinates found. Add coordinates or U.S.-formatted addresses (e.g., ', TX 78701').")
 				else:
-					st.map(map_df[["lat", "lon"]])
+					initial_view = pdk.ViewState(
+						latitude=float(map_df["lat"].mean()),
+						longitude=float(map_df["lon"].mean()),
+						zoom=3.3,
+						pitch=25,
+					)
+					layer = pdk.Layer(
+						"ScatterplotLayer",
+						data=map_df,
+						get_position="[lon, lat]",
+						get_fill_color="color",
+						get_radius=18000,
+						pickable=True,
+					)
+					deck = pdk.Deck(
+						map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+						initial_view_state=initial_view,
+						layers=[layer],
+						tooltip={
+							"html": "<b>{patient_name}</b><br/>{equipment_type}<br/>Vendor: {vendor_name}<br/>Status: {order_status}",
+							"style": {"backgroundColor": "#f8fafc", "color": "#0f172a"},
+						},
+					)
+					st.pydeck_chart(deck, use_container_width=True)
+					with st.expander("Map debug data", expanded=False):
+						st.dataframe(map_df, use_container_width=True)
 
 				st.markdown("#### Fulfillment Speed by Equipment Type")
 				chart_df = (
@@ -959,9 +1210,12 @@ with tab_analytics:
 					st.altair_chart(bar_chart, use_container_width=True)
 
 				st.markdown("#### Live Feed: Most Recent 5 Orders")
-			live_feed_df = analytics_df.head(5).copy()
-			live_feed_df = live_feed_df.drop(columns=["delivery_address"], errors="ignore")
-			live_feed_df.index = live_feed_df.index + 1
-			st.dataframe(live_feed_df, use_container_width=True)
+				live_feed_df = analytics_df.head(5).copy()
+				live_feed_df = live_feed_df.drop(columns=["delivery_address"], errors="ignore")
+				live_feed_df.index = live_feed_df.index + 1
+				st.dataframe(live_feed_df, use_container_width=True)
+
+				with st.expander("Raw analytics/debug data", expanded=False):
+					st.dataframe(analytics_df, use_container_width=True)
 		except Exception as exc:
 			st.error(f"Failed to load analytics from Supabase: {exc}")
