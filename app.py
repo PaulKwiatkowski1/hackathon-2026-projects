@@ -1247,6 +1247,7 @@ with tab_physician:
 			finally:
 				st.session_state["processing_lock"] = False
 				st.session_state["process_requested"] = False
+				st.rerun()
 		else:
 			st.warning("Please upload one or more files to process.")
 			st.session_state["processing_lock"] = False
@@ -1260,7 +1261,6 @@ with tab_physician:
 			st.session_state["processing_lock"] = False
 			st.session_state["approval_requested"] = False
 			st.rerun()
-
 	queue_df = _queue_overview_df()
 	if queue_df.empty:
 		st.caption("Queue is empty.")
