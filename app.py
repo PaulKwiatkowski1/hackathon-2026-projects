@@ -1,6 +1,5 @@
 import json
 import os
-import random
 import re
 import hashlib
 from datetime import datetime, timezone
@@ -30,6 +29,129 @@ SUPABASE_URL = get_secret("SUPABASE_URL", "")
 SUPABASE_KEY = get_secret("SUPABASE_KEY", "")
 MAX_BATCH_FILES = 20
 MAX_FILE_SIZE_MB = 2
+SNOMED_SYSTEM_URL = "http://snomed.info/sct"
+SNOMED_CODE_EXTENSION_URL = "https://caredevi.health/fhir/StructureDefinition/snomed-code"
+
+# Curated starter mappings for common DME terms; fall back to LLM for unknowns.
+DME_SNOMED_CATALOG = [
+	{"keywords": ["wheelchair", "manual wheelchair"], "code": "19857005", "display": "Wheelchair"},
+	{"keywords": ["walker", "rollator"], "code": "225612007", "display": "Walking frame"},
+	{"keywords": ["cane", "walking cane"], "code": "467151000124108", "display": "Walking cane"},
+	{"keywords": ["crutches"], "code": "434182007", "display": "Crutches"},
+	{"keywords": ["hospital bed", "home hospital bed"], "code": "465378004", "display": "Hospital bed"},
+	{"keywords": ["oxygen", "oxygen concentrator"], "code": "336589003", "display": "Oxygen equipment"},
+	{"keywords": ["commode"], "code": "304215008", "display": "Commode chair"},
+	{"keywords": ["shower chair", "bath chair"], "code": "704442008", "display": "Shower chair"},
+	{"keywords": ["nebulizer"], "code": "401177003", "display": "Nebulizer device"},
+	{"keywords": ["cpap"], "code": "702003008", "display": "Continuous positive airway pressure device"},
+	{"keywords": ["bipap"], "code": "466349006", "display": "Bilevel positive airway pressure device"},
+	{"keywords": ["suction"], "code": "46717006", "display": "Suction apparatus"},
+	{"keywords": ["blood pressure", "bp monitor"], "code": "466093008", "display": "Blood pressure monitor"},
+	{"keywords": ["glucometer", "glucose meter"], "code": "438700008", "display": "Blood glucose meter"},
+]
+
+
+def _normalize_for_match(value: str) -> str:
+	return re.sub(r"\s+", " ", value.lower()).strip()
+
+
+def _parse_json_object_from_text(raw_text: str) -> dict:
+	try:
+		loaded = json.loads(raw_text)
+		return loaded if isinstance(loaded, dict) else {}
+	except json.JSONDecodeError:
+		brace_match = re.search(r"\{", raw_text)
+		end_brace_index = raw_text.rfind("}")
+		if not brace_match or end_brace_index == -1 or end_brace_index <= brace_match.start():
+			return {}
+		json_str = raw_text[brace_match.start() : end_brace_index + 1]
+		try:
+			loaded = json.loads(json_str)
+			return loaded if isinstance(loaded, dict) else {}
+		except json.JSONDecodeError:
+			return {}
+
+
+def _lookup_snomed_from_catalog(dme_equipment: str) -> tuple[str | None, str | None]:
+	normalized = _normalize_for_match(dme_equipment)
+	for candidate in DME_SNOMED_CATALOG:
+		if any(keyword in normalized for keyword in candidate["keywords"]):
+			return candidate["code"], candidate["display"]
+	return None, None
+
+
+def _infer_snomed_with_llm(dme_equipment: str) -> tuple[str | None, str | None]:
+	if not HF_TOKEN or not dme_equipment or dme_equipment == "unknown":
+		return None, None
+
+	client = InferenceClient(provider="featherless-ai", api_key=HF_TOKEN)
+	prompt = (
+		"Map the following durable medical equipment phrase to the single best SNOMED CT concept. "
+		"Return ONLY compact JSON with keys snomed_code, display, confidence. "
+		"confidence must be high, medium, or low.\n"
+		f"equipment: {dme_equipment}"
+	)
+
+	raw_content = client.text_generation(
+		prompt,
+		model=HF_MODEL_ID,
+		max_new_tokens=120,
+		temperature=0,
+	)
+
+	parsed = _parse_json_object_from_text(raw_content)
+	code = str(parsed.get("snomed_code", "")).strip()
+	display = str(parsed.get("display", "")).strip()
+	confidence = str(parsed.get("confidence", "")).strip().lower()
+
+	if not re.fullmatch(r"\d{6,18}", code):
+		return None, None
+	if confidence == "low":
+		return None, None
+	if not display:
+		display = dme_equipment
+
+	return code, display
+
+
+def resolve_snomed_for_dme(dme_equipment: str) -> tuple[str, str, str]:
+	"""Resolve SNOMED code for DME text using catalog first, then LLM fallback."""
+	code, display = _lookup_snomed_from_catalog(dme_equipment)
+	if code:
+		return code, display or dme_equipment, "catalog"
+
+	try:
+		code, display = _infer_snomed_with_llm(dme_equipment)
+	except Exception:
+		code, display = None, None
+
+	if code:
+		return code, display or dme_equipment, "llm"
+
+	return "unknown", dme_equipment, "unmapped"
+
+
+def _upsert_snomed_extension(service_request: dict, snomed_code: str, snomed_display: str, source: str) -> None:
+	extensions = [ext for ext in service_request.get("extension", []) if ext.get("url") != SNOMED_CODE_EXTENSION_URL]
+	if snomed_code != "unknown":
+		extensions.append(
+			{
+				"url": SNOMED_CODE_EXTENSION_URL,
+				"valueCoding": {
+					"system": SNOMED_SYSTEM_URL,
+					"code": snomed_code,
+					"display": snomed_display,
+				},
+			}
+		)
+	else:
+		extensions.append(
+			{
+				"url": SNOMED_CODE_EXTENSION_URL,
+				"valueString": f"unknown ({source})",
+			}
+		)
+	service_request["extension"] = extensions
 
 
 def _extract_mrn_from_text(text: str) -> str | None:
@@ -216,19 +338,7 @@ def extract_dme_order(text: str) -> dict:
 		temperature=0.1,
 	)
 
-	try:
-		parsed = json.loads(raw_content)
-	except json.JSONDecodeError:
-		brace_match = re.search(r"\{", raw_content)
-		end_brace_index = raw_content.rfind("}")
-		if not brace_match or end_brace_index == -1 or end_brace_index <= brace_match.start():
-			parsed = {}
-		else:
-			json_str = raw_content[brace_match.start() : end_brace_index + 1]
-			try:
-				parsed = json.loads(json_str)
-			except json.JSONDecodeError:
-				parsed = {}
+	parsed = _parse_json_object_from_text(raw_content)
 
 	mrn = (
 		parsed.get("subject", {}).get("identifier", {}).get("value")
@@ -268,6 +378,7 @@ def extract_dme_order(text: str) -> dict:
 
 	mrn = mrn or "unknown"
 	dme_equipment = _clean_dme_text(dme_equipment) or "unknown"
+	snomed_code, snomed_display, snomed_source = resolve_snomed_for_dme(dme_equipment)
 
 	subject_obj = {
 		"identifier": {
@@ -287,16 +398,29 @@ def extract_dme_order(text: str) -> dict:
 		notes.append({"text": f"Address: {patient_address}"})
 	if clinical_course:
 		notes.append({"text": f"Clinical Course: {clinical_course}"})
+	notes.append({"text": f"SNOMED Code: {snomed_code}"})
+	notes.append({"text": f"SNOMED Source: {snomed_source}"})
+
+	code_obj = {
+		"text": dme_equipment,
+	}
+	if snomed_code != "unknown":
+		code_obj["coding"] = [
+			{
+				"system": SNOMED_SYSTEM_URL,
+				"code": snomed_code,
+				"display": snomed_display,
+			}
+		]
 
 	service_request = {
 		"resourceType": "ServiceRequest",
 		"status": "active",
 		"intent": "order",
 		"subject": subject_obj,
-		"code": {
-			"text": dme_equipment,
-		},
+		"code": code_obj,
 	}
+	_upsert_snomed_extension(service_request, snomed_code, snomed_display, snomed_source)
 	if notes:
 		service_request["note"] = notes
 
@@ -380,29 +504,28 @@ def get_analytics_data() -> pd.DataFrame:
 	return pd.DataFrame(rows)
 
 
-def add_mock_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
-	"""Generate demo coordinates around Austin and San Marcos for map rendering."""
+def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
+	"""Return only real coordinates from analytics data when available."""
 	if df.empty:
-		return df
+		return pd.DataFrame(columns=["lat", "lon"])
 
-	points = []
-	for _, row in df.iterrows():
-		seed_value = int(row.get("id", 0)) if pd.notna(row.get("id")) else 0
-		rng = random.Random(seed_value)
-		if rng.random() < 0.5:
-			# Austin city center with a small random radius
-			lat = 30.2672 + rng.uniform(-0.08, 0.08)
-			lon = -97.7431 + rng.uniform(-0.08, 0.08)
-		else:
-			# San Marcos city center with a small random radius
-			lat = 29.8833 + rng.uniform(-0.06, 0.06)
-			lon = -97.9414 + rng.uniform(-0.06, 0.06)
-		points.append((lat, lon))
+	coordinate_column_pairs = [
+		("lat", "lon"),
+		("latitude", "longitude"),
+		("delivery_lat", "delivery_lon"),
+		("delivery_latitude", "delivery_longitude"),
+	]
 
-	map_df = df.copy()
-	map_df["lat"] = [p[0] for p in points]
-	map_df["lon"] = [p[1] for p in points]
-	return map_df
+	for lat_col, lon_col in coordinate_column_pairs:
+		if lat_col in df.columns and lon_col in df.columns:
+			map_df = df[[lat_col, lon_col]].copy()
+			map_df.columns = ["lat", "lon"]
+			map_df["lat"] = pd.to_numeric(map_df["lat"], errors="coerce")
+			map_df["lon"] = pd.to_numeric(map_df["lon"], errors="coerce")
+			map_df = map_df.dropna(subset=["lat", "lon"])
+			return map_df
+
+	return pd.DataFrame(columns=["lat", "lon"])
 
 
 def _ensure_queue_state() -> None:
@@ -534,26 +657,22 @@ with tab_physician:
 		type=["txt"],
 		accept_multiple_files=True,
 	)
+	has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
 
-	controls_col1, controls_col2, controls_col3 = st.columns(3)
-	with controls_col1:
-		if st.button("Queue Uploaded Files", type="primary", use_container_width=True):
-			if uploaded_files:
-				_queue_uploaded_files(uploaded_files)
-			else:
-				st.info("Please choose one or more files first.")
-	with controls_col2:
-		if st.button("Process Next File", use_container_width=True):
-			with st.spinner("Processing next queued file..."):
-				_process_queued_jobs(max_jobs=1)
-	with controls_col3:
-		if st.button("Process All Queued Files", use_container_width=True):
+	if st.button("Process All Files", type="primary", use_container_width=True):
+		if uploaded_files:
+			_queue_uploaded_files(uploaded_files)
+			has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
+
+		if has_queued_jobs:
 			with st.spinner("Processing queued files..."):
 				_process_queued_jobs(max_jobs=10_000)
+		else:
+			st.warning("Please upload one or more files to process.")
 
 	queue_df = _queue_overview_df()
 	if queue_df.empty:
-		st.info("No files queued yet.")
+		st.caption("Queue is empty.")
 	else:
 		status_counts = queue_df["status"].value_counts().to_dict()
 		metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
@@ -590,8 +709,11 @@ with tab_analytics:
 				st.metric("Total Orders In Flight", int(len(analytics_df)))
 
 				st.markdown("#### Delivery Locations")
-				map_df = add_mock_delivery_coordinates(analytics_df)
-				st.map(map_df[["lat", "lon"]])
+				map_df = get_delivery_coordinates(analytics_df)
+				if map_df.empty:
+					st.info("No real delivery coordinates available yet.")
+				else:
+					st.map(map_df[["lat", "lon"]])
 
 				st.markdown("#### Fulfillment Speed by Equipment Type")
 				chart_df = (
