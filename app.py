@@ -33,22 +33,28 @@ MAX_FILE_SIZE_MB = 2
 SNOMED_SYSTEM_URL = "http://snomed.info/sct"
 SNOMED_CODE_EXTENSION_URL = "https://caredevi.health/fhir/StructureDefinition/snomed-code"
 
-# Curated starter mappings for common DME terms; fall back to LLM for unknowns.
+# Runtime SNOMED mappings aligned with smart_dme_factory DME catalog.
 DME_SNOMED_CATALOG = [
-	{"keywords": ["wheelchair", "manual wheelchair"], "code": "19857005", "display": "Wheelchair"},
-	{"keywords": ["walker", "rollator"], "code": "225612007", "display": "Walking frame"},
-	{"keywords": ["cane", "walking cane"], "code": "467151000124108", "display": "Walking cane"},
-	{"keywords": ["crutches"], "code": "434182007", "display": "Crutches"},
-	{"keywords": ["hospital bed", "home hospital bed"], "code": "465378004", "display": "Hospital bed"},
-	{"keywords": ["oxygen", "oxygen concentrator"], "code": "336589003", "display": "Oxygen equipment"},
-	{"keywords": ["commode"], "code": "304215008", "display": "Commode chair"},
-	{"keywords": ["shower chair", "bath chair"], "code": "704442008", "display": "Shower chair"},
-	{"keywords": ["nebulizer"], "code": "401177003", "display": "Nebulizer device"},
-	{"keywords": ["cpap"], "code": "702003008", "display": "Continuous positive airway pressure device"},
-	{"keywords": ["bipap"], "code": "466349006", "display": "Bilevel positive airway pressure device"},
-	{"keywords": ["suction"], "code": "46717006", "display": "Suction apparatus"},
-	{"keywords": ["blood pressure", "bp monitor"], "code": "466093008", "display": "Blood pressure monitor"},
-	{"keywords": ["glucometer", "glucose meter"], "code": "438700008", "display": "Blood glucose meter"},
+	{"keywords": ["oxygen concentrator", "oxygen equipment"], "code": "426854004", "display": "Oxygen Concentrator"},
+	{"keywords": ["portable oxygen tank", "oxygen tank", "oxygen cylinder"], "code": "24882003", "display": "Portable Oxygen Tank"},
+	{"keywords": ["cpap", "cpap machine"], "code": "426371004", "display": "CPAP Machine"},
+	{"keywords": ["nebulizer"], "code": "468158002", "display": "Nebulizer"},
+	{"keywords": ["manual wheelchair", "wheelchair"], "code": "469315003", "display": "Manual Wheelchair"},
+	{"keywords": ["power wheelchair", "electric wheelchair"], "code": "14586004", "display": "Power Wheelchair"},
+	{"keywords": ["standard walker", "walker"], "code": "469143003", "display": "Standard Walker"},
+	{"keywords": ["rollator", "rollator walker"], "code": "26637000", "display": "Rollator Walker"},
+	{"keywords": ["crutches"], "code": "74139003", "display": "Crutches"},
+	{"keywords": ["hospital bed", "home hospital bed"], "code": "430533005", "display": "Hospital Bed"},
+	{"keywords": ["pressure relief mattress", "pressure mattress", "mattress overlay"], "code": "469168000", "display": "Pressure Relief Mattress"},
+	{"keywords": ["patient lift", "hoyer lift", "mechanical lift"], "code": "706664007", "display": "Patient Lift"},
+	{"keywords": ["shower chair", "bath chair"], "code": "303734007", "display": "Shower Chair"},
+	{"keywords": ["bedside commode", "commode"], "code": "464871007", "display": "Bedside Commode"},
+	{"keywords": ["raised toilet seat", "toilet seat riser"], "code": "464872000", "display": "Raised Toilet Seat"},
+	{"keywords": ["grab bars", "grab bar"], "code": "448737008", "display": "Grab Bars"},
+	{"keywords": ["blood pressure monitor", "bp monitor"], "code": "258057007", "display": "Blood Pressure Monitor"},
+	{"keywords": ["pulse oximeter", "oximeter"], "code": "59408008", "display": "Pulse Oximeter"},
+	{"keywords": ["glucose monitor", "glucometer", "glucose meter"], "code": "20947000", "display": "Glucose Monitor"},
+	{"keywords": ["tens unit", "transcutaneous electrical nerve stimulation"], "code": "303357003", "display": "TENS Unit"},
 ]
 
 
