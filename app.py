@@ -908,6 +908,11 @@ with tab_physician:
 
 with tab_analytics:
 	st.subheader("Analytics Command Center")
+	if st.button("Refresh Analytics Data", use_container_width=False):
+		get_analytics_data.clear()
+		_geocode_address.clear()
+		_geocode_city_state.clear()
+		st.rerun()
 
 	if not SUPABASE_URL or not SUPABASE_KEY:
 		st.warning("Set SUPABASE_URL and SUPABASE_KEY in Streamlit secrets to enable analytics.")
@@ -948,6 +953,9 @@ with tab_analytics:
 					st.altair_chart(bar_chart, use_container_width=True)
 
 				st.markdown("#### Live Feed: Most Recent 5 Orders")
-				st.dataframe(analytics_df.head(5), use_container_width=True)
+			live_feed_df = analytics_df.head(5).copy()
+			live_feed_df = live_feed_df.drop(columns=["delivery_address"], errors="ignore")
+			live_feed_df.index = live_feed_df.index + 1
+			st.dataframe(live_feed_df, use_container_width=True)
 		except Exception as exc:
 			st.error(f"Failed to load analytics from Supabase: {exc}")
