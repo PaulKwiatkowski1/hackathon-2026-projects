@@ -492,20 +492,163 @@ def get_analytics_data() -> pd.DataFrame:
 		"apikey": SUPABASE_KEY,
 		"Authorization": f"Bearer {SUPABASE_KEY}",
 	}
-	url = (
-		f"{SUPABASE_URL}/rest/v1/equipment_orders"
-		"?select=id,patient_name,equipment_type,vendor_name,order_status,created_at,estimated_delivery_days"
-		"&order=id.desc"
-	)
+	select_attempts = [
+		"id,patient_name,delivery_address,equipment_type,vendor_name,order_status,created_at,estimated_delivery_days,lat,lon,latitude,longitude,delivery_lat,delivery_lon,delivery_latitude,delivery_longitude",
+		"id,patient_name,delivery_address,equipment_type,vendor_name,order_status,created_at,estimated_delivery_days",
+		"id,patient_name,equipment_type,vendor_name,order_status,created_at,estimated_delivery_days",
+	]
 
-	response = requests.get(url, headers=headers, timeout=30)
-	response.raise_for_status()
-	rows = response.json()
-	return pd.DataFrame(rows)
+	last_error: Exception | None = None
+	for select_clause in select_attempts:
+		url = f"{SUPABASE_URL}/rest/v1/equipment_orders?select={select_clause}&order=id.desc"
+		response = requests.get(url, headers=headers, timeout=30)
+		if response.status_code == 400:
+			last_error = requests.HTTPError(f"{response.status_code} Client Error: {response.text}")
+			continue
+		response.raise_for_status()
+		rows = response.json()
+		return pd.DataFrame(rows)
+
+	if last_error:
+		raise last_error
+
+	return pd.DataFrame()
+
+
+STATE_CENTER_BY_ABBR = {
+	"AL": (32.806671, -86.791130), "AK": (61.370716, -152.404419), "AZ": (33.729759, -111.431221),
+	"AR": (34.969704, -92.373123), "CA": (36.116203, -119.681564), "CO": (39.059811, -105.311104),
+	"CT": (41.597782, -72.755371), "DE": (39.318523, -75.507141), "FL": (27.766279, -81.686783),
+	"GA": (33.040619, -83.643074), "HI": (21.094318, -157.498337), "ID": (44.240459, -114.478828),
+	"IL": (40.349457, -88.986137), "IN": (39.849426, -86.258278), "IA": (42.011539, -93.210526),
+	"KS": (38.526600, -96.726486), "KY": (37.668140, -84.670067), "LA": (31.169546, -91.867805),
+	"ME": (44.693947, -69.381927), "MD": (39.063946, -76.802101), "MA": (42.230171, -71.530106),
+	"MI": (43.326618, -84.536095), "MN": (45.694454, -93.900192), "MS": (32.741646, -89.678696),
+	"MO": (38.456085, -92.288368), "MT": (46.921925, -110.454353), "NE": (41.125370, -98.268082),
+	"NV": (38.313515, -117.055374), "NH": (43.452492, -71.563896), "NJ": (40.298904, -74.521011),
+	"NM": (34.840515, -106.248482), "NY": (42.165726, -74.948051), "NC": (35.630066, -79.806419),
+	"ND": (47.528912, -99.784012), "OH": (40.388783, -82.764915), "OK": (35.565342, -96.928917),
+	"OR": (44.572021, -122.070938), "PA": (40.590752, -77.209755), "RI": (41.680893, -71.511780),
+	"SC": (33.856892, -80.945007), "SD": (44.299782, -99.438828), "TN": (35.747845, -86.692345),
+	"TX": (31.054487, -97.563461), "UT": (40.150032, -111.862434), "VT": (44.045876, -72.710686),
+	"VA": (37.769337, -78.169968), "WA": (47.400902, -121.490494), "WV": (38.491226, -80.954453),
+	"WI": (44.268543, -89.616508), "WY": (42.755966, -107.302490), "DC": (38.907200, -77.036900),
+}
+
+def _derived_city_center(city_name: str, state_abbr: str) -> tuple[float, float] | None:
+	"""Generate a deterministic pseudo-center for any city/state pair within a state region."""
+	state_center = STATE_CENTER_BY_ABBR.get(state_abbr)
+	if not state_center:
+		return None
+
+	city_key = f"{city_name.upper()}, {state_abbr}"
+	city_hash = hashlib.sha256(city_key.encode("utf-8")).hexdigest()
+
+	# Keep each city consistently offset from its state center for demo-only plotting.
+	lat_offset = ((int(city_hash[:8], 16) / 0xFFFFFFFF) - 0.5) * 2.4
+	lon_offset = ((int(city_hash[8:16], 16) / 0xFFFFFFFF) - 0.5) * 2.4
+	return state_center[0] + lat_offset, state_center[1] + lon_offset
+
+
+@st.cache_data(ttl=60 * 60 * 24)
+def _geocode_city_state(city_name: str, state_abbr: str) -> tuple[float, float] | None:
+	"""Resolve a real city centroid using OpenStreetMap Nominatim."""
+	if not city_name or not state_abbr:
+		return None
+
+	headers = {
+		"User-Agent": "homebound-discharge-portal/1.0 (city-level map demo)",
+	}
+	params = {
+		"q": f"{city_name}, {state_abbr}, USA",
+		"format": "json",
+		"limit": 1,
+	}
+
+	try:
+		response = requests.get("https://nominatim.openstreetmap.org/search", params=params, headers=headers, timeout=12)
+		response.raise_for_status()
+		results = response.json()
+		if not results:
+			return None
+		return float(results[0]["lat"]), float(results[0]["lon"])
+	except Exception:
+		return None
+
+
+def _state_from_address(address_text: str) -> str | None:
+	if not address_text:
+		return None
+
+	upper_address = address_text.strip().upper()
+	state_match = re.search(r",\s*([A-Z]{2})\s*,?\s*(?:\d{5}(?:-\d{4})?)?\s*$", upper_address)
+	if state_match:
+		abbr = state_match.group(1)
+		if abbr in STATE_CENTER_BY_ABBR:
+			return abbr
+
+	# Fallback for loose formatting: find state abbreviation token anywhere in address.
+	for token in re.findall(r"\b[A-Z]{2}\b", upper_address):
+		if token in STATE_CENTER_BY_ABBR:
+			return token
+
+	return None
+
+
+def _city_state_from_address(address_text: str) -> tuple[str | None, str | None]:
+	if not address_text:
+		return None, None
+
+	state_abbr = _state_from_address(address_text)
+	if not state_abbr:
+		return None, None
+
+	parts = [part.strip() for part in address_text.split(",") if part.strip()]
+	city_name: str | None = None
+
+	# Typical formats: "street, city, ST, ZIP" or "street, city, ST ZIP".
+	for idx in range(len(parts) - 1, -1, -1):
+		if re.search(rf"\b{state_abbr}\b", parts[idx].upper()):
+			if idx - 1 >= 0:
+				city_name = parts[idx - 1]
+			break
+
+	if city_name:
+		city_name = re.sub(r"\s+", " ", city_name).strip()
+
+	if not city_name:
+		return None, state_abbr
+
+	return city_name, state_abbr
+
+
+def _city_demo_point(city_name: str, state_abbr: str, seed_value: str) -> tuple[float, float] | None:
+	city_key = f"{city_name.upper()}, {state_abbr}"
+	city_center = _geocode_city_state(city_name, state_abbr) or _derived_city_center(city_name, state_abbr)
+	if not city_center:
+		return None
+
+	# Deterministic city-level jitter so same city appears clustered but not stacked.
+	seed_hash = hashlib.sha256(f"{city_key}-{seed_value}".encode("utf-8")).hexdigest()
+	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 0.25
+	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 0.25
+	return city_center[0] + jitter_lat, city_center[1] + jitter_lon
+
+
+def _state_demo_point(state_abbr: str, seed_value: str) -> tuple[float, float] | None:
+	center = STATE_CENTER_BY_ABBR.get(state_abbr)
+	if not center:
+		return None
+
+	# Deterministic jitter so repeated records in a state do not overlap exactly.
+	seed_hash = hashlib.sha256(seed_value.encode("utf-8")).hexdigest()
+	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 1.2
+	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 1.2
+	return center[0] + jitter_lat, center[1] + jitter_lon
 
 
 def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
-	"""Return only real coordinates from analytics data when available."""
+	"""Return real coordinates, or city/state-level demo points from addresses."""
 	if df.empty:
 		return pd.DataFrame(columns=["lat", "lon"])
 
@@ -523,9 +666,30 @@ def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 			map_df["lat"] = pd.to_numeric(map_df["lat"], errors="coerce")
 			map_df["lon"] = pd.to_numeric(map_df["lon"], errors="coerce")
 			map_df = map_df.dropna(subset=["lat", "lon"])
-			return map_df
+			if not map_df.empty:
+				return map_df
 
-	return pd.DataFrame(columns=["lat", "lon"])
+	address_columns = ["delivery_address", "address", "patient_address"]
+	address_col = next((col for col in address_columns if col in df.columns), None)
+	if not address_col:
+		return pd.DataFrame(columns=["lat", "lon"])
+
+	map_rows = []
+	for idx, address_text in enumerate(df[address_col].dropna().astype(str).tolist()[:200], start=1):
+		city_name, state_abbr = _city_state_from_address(address_text)
+		point = None
+		if city_name and state_abbr:
+			point = _city_demo_point(city_name, state_abbr, f"{address_text}-{idx}")
+		if not point and state_abbr:
+			point = _state_demo_point(state_abbr, f"{address_text}-{idx}")
+		if not point:
+			continue
+		map_rows.append({"lat": point[0], "lon": point[1]})
+
+	if not map_rows:
+		return pd.DataFrame(columns=["lat", "lon"])
+
+	return pd.DataFrame(map_rows)
 
 
 def _ensure_queue_state() -> None:
@@ -616,6 +780,20 @@ def _process_queued_jobs(max_jobs: int) -> None:
 		finally:
 			job["processed_at"] = datetime.now(timezone.utc).isoformat()
 			progress.progress(idx / total)
+
+	# Keep failed/queued items in the upload queue, but remove completed successes.
+	remaining_jobs = []
+	removed_done = 0
+	for job in st.session_state["file_queue"]:
+		if job["status"] == "done":
+			removed_done += 1
+			st.session_state["queued_hashes"].discard(job["file_hash"])
+			continue
+		remaining_jobs.append(job)
+
+	st.session_state["file_queue"] = remaining_jobs
+	if removed_done:
+		st.success(f"Processed and removed {removed_done} completed file(s) from the upload queue.")
 
 
 def _queue_overview_df() -> pd.DataFrame:
@@ -711,7 +889,7 @@ with tab_analytics:
 				st.markdown("#### Delivery Locations")
 				map_df = get_delivery_coordinates(analytics_df)
 				if map_df.empty:
-					st.info("No real delivery coordinates available yet.")
+					st.info("No mappable coordinates found. Add coordinates or U.S.-formatted addresses (e.g., ', TX 78701').")
 				else:
 					st.map(map_df[["lat", "lon"]])
 
