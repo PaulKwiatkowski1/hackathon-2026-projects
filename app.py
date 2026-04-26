@@ -30,7 +30,7 @@ MEDPLUM_PATIENT_URL = "https://api.medplum.com/fhir/R4/Patient"
 SUPABASE_URL = get_secret("SUPABASE_URL", "")
 SUPABASE_KEY = get_secret("SUPABASE_KEY", "")
 MAX_BATCH_FILES = 20
-MAX_FILE_SIZE_MB = 2
+MAX_FILE_SIZE_MB = 200
 SNOMED_SYSTEM_URL = "http://snomed.info/sct"
 SNOMED_CODE_EXTENSION_URL = "https://caredevi.health/fhir/StructureDefinition/snomed-code"
 
