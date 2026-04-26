@@ -7,7 +7,7 @@ HomeBound bridges the gap between messy, unstructured clinical documentation and
 
 ## **Architecture Diagram**
 
-![HomeBound Architecture](HomeBound%20Architecture.png)
+<img width="6040" height="4846" alt="HomeBound Architecture V2" src="https://github.com/user-attachments/assets/e92e352a-28a5-4559-8955-6d357b925fb7" />
 
 ---
 
