@@ -851,6 +851,12 @@ st.set_page_config(page_title="HomeBound Discharge Portal", layout="wide")
 
 st.title("🏥 HomeBound Discharge Portal")
 
+st.sidebar.caption(
+	"⚠️ **Disclaimer:** This tool is a hackathon prototype for informational purposes only. "
+	"AI-extracted data should be verified by a clinician. All patient data is synthetic (Synthea). "
+	"Map data is aggregated for HIPAA compliance."
+)
+
 tab_physician, tab_analytics = st.tabs(["Physician Portal", "Analytics Command Center"])
 
 with tab_physician:
