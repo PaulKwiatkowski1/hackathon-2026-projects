@@ -3,6 +3,7 @@ import os
 import re
 import hashlib
 from datetime import datetime, timezone
+from pathlib import Path
 
 import altair as alt
 import pandas as pd
@@ -909,8 +910,6 @@ def _process_queued_jobs(max_jobs: int) -> None:
 		st.error("HF_TOKEN is missing. Add it to Streamlit secrets before processing the queue.")
 		return
 
-	enable_sync = bool(st.session_state.get("enable_external_sync", True))
-
 	total = min(max_jobs, len(jobs))
 	progress = st.progress(0)
 
@@ -933,14 +932,9 @@ def _process_queued_jobs(max_jobs: int) -> None:
 					)
 					st.toast("Expedited review suggested by Supply Chain Risk Indicator.")
 
-				if enable_sync:
-					job_status.write("Step 3/4: Awaiting case manager approval before external sync.")
-					job_status.write("Step 4/4: Ready for review.")
-					job["status"] = "ready_for_review"
-				else:
-					job_status.write("Step 3/4: External sync disabled; storing extraction only.")
-					job_status.write("Step 4/4: Complete.")
-					job["status"] = "done"
+				job_status.write("Step 3/4: Awaiting case manager approval before external sync.")
+				job_status.write("Step 4/4: Ready for review.")
+				job["status"] = "ready_for_review"
 				job["error"] = ""
 				if job["status"] == "ready_for_review":
 					job_status.update(label=f"Job #{job['job_id']} ready for approval", state="running")
@@ -974,10 +968,6 @@ def _sync_ready_jobs() -> None:
 	jobs = [job for job in st.session_state["file_queue"] if job["status"] == "ready_for_review"]
 	if not jobs:
 		st.info("No reviewed files are waiting for approval.")
-		return
-
-	if not bool(st.session_state.get("enable_external_sync", True)):
-		st.error("External sync is disabled. Enable Medplum/Jira Sync to approve and send.")
 		return
 
 	total = len(jobs)
@@ -1066,9 +1056,123 @@ def _request_approval_sync() -> None:
 	st.session_state["approval_requested"] = True
 
 
-st.set_page_config(page_title="HomeBound Discharge Portal", layout="wide")
+def _resolve_brand_asset(filename: str) -> str | None:
+	"""Resolve branding assets across common local folders."""
+	base_dir = Path(__file__).resolve().parent
+	candidates = [
+		base_dir / "materials" / filename,
+		base_dir / "diagrams" / filename,
+		base_dir / "assets" / filename,
+		base_dir.parent / "materials" / filename,
+		base_dir.parent / "logos" / filename,
+	]
+	for path in candidates:
+		if path.exists():
+			return str(path)
+	return None
 
-st.title("🏥 HomeBound Discharge Portal")
+
+def _apply_brand_theme() -> None:
+	st.markdown(
+		"""
+		<style>
+		:root {
+			--hb-blue: #60a5fa;
+			--hb-navy: #0b1220;
+			--hb-slate: #cbd5e1;
+			--hb-surface: #111827;
+			--hb-border: #334155;
+			--hb-text: #e5e7eb;
+		}
+		.stApp {
+			background: radial-gradient(circle at 20% 0%, #1e293b 0%, #0f172a 45%, #0b1220 100%);
+		}
+		.block-container {
+			padding-top: 4.2rem;
+			max-width: 1220px;
+			color: var(--hb-text);
+		}
+		.hb-hero {
+			background: rgba(15, 23, 42, 0.82);
+			border: 1px solid var(--hb-border);
+			border-radius: 16px;
+			padding: 1rem 1.25rem;
+			box-shadow: 0 10px 26px rgba(2, 6, 23, 0.45);
+			margin-bottom: 1rem;
+		}
+		.hb-eyebrow {
+			font-size: 0.78rem;
+			font-weight: 700;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--hb-blue);
+			margin-bottom: 0.25rem;
+		}
+		.hb-title {
+			font-size: 1.55rem;
+			font-weight: 700;
+			color: #f8fafc;
+			line-height: 1.2;
+			margin: 0;
+		}
+		.hb-subtitle {
+			color: #dbeafe;
+			margin-top: 0.35rem;
+			font-size: 0.95rem;
+		}
+		[data-testid="stImage"] img {
+			background: rgba(15, 23, 42, 0.75);
+			border: 1px solid var(--hb-border);
+			border-radius: 12px;
+			padding: 0.4rem;
+		}
+		p, li, label, [data-testid="stMarkdownContainer"] {
+			color: var(--hb-text);
+		}
+		.stButton > button {
+			border-radius: 10px;
+			font-weight: 600;
+			border: 1px solid #334155;
+			background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+			color: #f8fafc;
+		}
+		[data-testid="stMetricValue"] {
+			color: #f8fafc;
+		}
+		[data-testid="stMetricLabel"] {
+			color: #cbd5e1;
+		}
+		</style>
+		""",
+		unsafe_allow_html=True,
+	)
+
+
+def _render_brand_header() -> None:
+	full_logo = _resolve_brand_asset("homebound-full-logo.png")
+	icon_logo = _resolve_brand_asset("homebound-icon.png")
+	col_logo, col_text = st.columns([1.3, 3.2])
+	with col_logo:
+		if full_logo:
+			st.image(full_logo, use_container_width=True)
+		elif icon_logo:
+			st.image(icon_logo, width=88)
+	with col_text:
+		st.markdown(
+			"""
+			<div class="hb-hero">
+				<div class="hb-eyebrow">CareDevi 2026 Hackathon</div>
+				<h1 class="hb-title">HomeBound Discharge Portal</h1>
+				<div class="hb-subtitle">AI-powered, FHIR-native logistics for post-discharge DME delivery.</div>
+			</div>
+			""",
+			unsafe_allow_html=True,
+		)
+
+
+st.set_page_config(page_title="HomeBound Discharge Portal", page_icon="🏥", layout="wide")
+_apply_brand_theme()
+_render_brand_header()
 
 st.sidebar.caption(
 	"⚠️ **Disclaimer:** This tool is a hackathon prototype for informational purposes only. "
@@ -1104,15 +1208,7 @@ with tab_physician:
 		f"Files larger than {MAX_FILE_SIZE_MB}MB are skipped."
 	)
 
-	approval_col, sync_col = st.columns([3, 2])
-	with approval_col:
-		st.info("Review extracted JSON first, then use 'Approve & Send to Services' to perform external sync.")
-	with sync_col:
-		st.session_state["enable_external_sync"] = st.checkbox(
-			"Enable Medplum/Jira Sync",
-			value=st.session_state.get("enable_external_sync", True),
-			disabled=controls_locked,
-		)
+	st.info("Review extracted JSON first, then use 'Approve & Send to Services' to perform external sync.")
 
 	uploaded_files = st.file_uploader(
 		"Upload discharge summaries (.txt)",
