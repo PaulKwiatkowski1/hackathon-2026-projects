@@ -903,8 +903,6 @@ def _process_queued_jobs(max_jobs: int) -> None:
 		st.error("HF_TOKEN is missing. Add it to Streamlit secrets before processing the queue.")
 		return
 
-	human_verified = st.session_state.get("human_verified", False)
-	delivery_confirmed = st.session_state.get("delivery_confirmed", False)
 	enable_sync = bool(st.session_state.get("enable_external_sync", True))
 
 	total = min(max_jobs, len(jobs))
@@ -930,38 +928,18 @@ def _process_queued_jobs(max_jobs: int) -> None:
 					st.toast("Expedited review suggested by Supply Chain Risk Indicator.")
 
 				if enable_sync:
-					if not human_verified:
-						job_status.write("Step 3/4: Waiting for Human-in-the-Loop verification before sync.")
-						job["status"] = "failed"
-						job["error"] = "Human verification is required before external sync."
-						job_status.update(label=f"Job #{job['job_id']} requires verification", state="error")
-						continue
-
-					if MEDPLUM_TOKEN != "YOUR_MEDPLUM_BEARER_TOKEN":
-						job_status.write("Step 3/4: Syncing Patient + ServiceRequest to Medplum...")
-						medplum_ok = sync_to_medplum(extraction)
-					else:
-						job_status.write("Step 3/4: Medplum sync skipped (token not configured).")
-						medplum_ok = True
-
-					job_status.write("Step 4/4: Jira sync check (not configured in this prototype).")
-					if medplum_ok:
-						st.toast(f"Background sync completed for {job['filename']}.")
-						if delivery_confirmed:
-							st.toast("Delivery Confirmed - great work, care team!")
-							st.balloons()
-					else:
-						job["status"] = "failed"
-						job["error"] = "External sync failed."
-						job_status.update(label=f"Job #{job['job_id']} failed during sync", state="error")
-						continue
+					job_status.write("Step 3/4: Awaiting case manager approval before external sync.")
+					job_status.write("Step 4/4: Ready for review.")
+					job["status"] = "ready_for_review"
 				else:
 					job_status.write("Step 3/4: External sync disabled; storing extraction only.")
 					job_status.write("Step 4/4: Complete.")
-
-				job["status"] = "done"
+					job["status"] = "done"
 				job["error"] = ""
-				job_status.update(label=f"Job #{job['job_id']} completed", state="complete")
+				if job["status"] == "ready_for_review":
+					job_status.update(label=f"Job #{job['job_id']} ready for approval", state="running")
+				else:
+					job_status.update(label=f"Job #{job['job_id']} completed", state="complete")
 			except Exception as exc:
 				job["status"] = "failed"
 				job["error"] = str(exc)
@@ -985,6 +963,71 @@ def _process_queued_jobs(max_jobs: int) -> None:
 		st.success(f"Processed and removed {removed_done} completed file(s) from the upload queue.")
 
 
+def _sync_ready_jobs() -> None:
+	_ensure_queue_state()
+	jobs = [job for job in st.session_state["file_queue"] if job["status"] == "ready_for_review"]
+	if not jobs:
+		st.info("No reviewed files are waiting for approval.")
+		return
+
+	if not bool(st.session_state.get("enable_external_sync", True)):
+		st.error("External sync is disabled. Enable Medplum/Jira Sync to approve and send.")
+		return
+
+	total = len(jobs)
+	progress = st.progress(0)
+
+	for idx, job in enumerate(jobs, start=1):
+		job["status"] = "processing"
+		with st.status(f"Approval #{job['job_id']} - {job['filename']}", expanded=True) as job_status:
+			try:
+				extraction = job.get("extraction")
+				if not extraction:
+					job["status"] = "failed"
+					job["error"] = "Missing extraction payload for approval sync."
+					job_status.update(label=f"Approval #{job['job_id']} failed", state="error")
+					continue
+
+				if MEDPLUM_TOKEN != "YOUR_MEDPLUM_BEARER_TOKEN":
+					job_status.write("Step 1/2: Syncing Patient + ServiceRequest to Medplum...")
+					medplum_ok = sync_to_medplum(extraction)
+				else:
+					job_status.write("Step 1/2: Medplum sync skipped (token not configured).")
+					medplum_ok = True
+
+				job_status.write("Step 2/2: Jira/Make sync check (not configured in this prototype).")
+				if medplum_ok:
+					job["status"] = "done"
+					job["error"] = ""
+					st.toast(f"Approved and synced {job['filename']}.")
+					st.balloons()
+					job_status.update(label=f"Approval #{job['job_id']} completed", state="complete")
+				else:
+					job["status"] = "failed"
+					job["error"] = "External sync failed."
+					job_status.update(label=f"Approval #{job['job_id']} failed during sync", state="error")
+			except Exception as exc:
+				job["status"] = "failed"
+				job["error"] = str(exc)
+				job_status.update(label=f"Approval #{job['job_id']} failed", state="error")
+			finally:
+				job["processed_at"] = datetime.now(timezone.utc).isoformat()
+				progress.progress(idx / total)
+
+	remaining_jobs = []
+	removed_done = 0
+	for job in st.session_state["file_queue"]:
+		if job["status"] == "done":
+			removed_done += 1
+			st.session_state["queued_hashes"].discard(job["file_hash"])
+			continue
+		remaining_jobs.append(job)
+
+	st.session_state["file_queue"] = remaining_jobs
+	if removed_done:
+		st.success(f"Approved and removed {removed_done} synced file(s) from the upload queue.")
+
+
 def _queue_overview_df() -> pd.DataFrame:
 	_ensure_queue_state()
 	rows = []
@@ -1003,6 +1046,18 @@ def _queue_overview_df() -> pd.DataFrame:
 			}
 		)
 	return pd.DataFrame(rows)
+
+
+def _request_processing() -> None:
+	"""Lock controls immediately and mark extraction processing for this rerun."""
+	st.session_state["processing_lock"] = True
+	st.session_state["process_requested"] = True
+
+
+def _request_approval_sync() -> None:
+	"""Lock controls immediately and mark approval sync for this rerun."""
+	st.session_state["processing_lock"] = True
+	st.session_state["approval_requested"] = True
 
 
 st.set_page_config(page_title="HomeBound Discharge Portal", layout="wide")
@@ -1025,11 +1080,15 @@ with tab_physician:
 		st.session_state["latest_risk"] = None
 	if "processing_lock" not in st.session_state:
 		st.session_state["processing_lock"] = False
+	if "process_requested" not in st.session_state:
+		st.session_state["process_requested"] = False
+	if "approval_requested" not in st.session_state:
+		st.session_state["approval_requested"] = False
 
 	# Auto-release a stale lock if no job is actually processing.
 	if st.session_state["processing_lock"] and not any(
 		job["status"] == "processing" for job in st.session_state["file_queue"]
-	):
+	) and not st.session_state.get("process_requested", False) and not st.session_state.get("approval_requested", False):
 		st.session_state["processing_lock"] = False
 
 	controls_locked = st.session_state["processing_lock"]
@@ -1039,25 +1098,13 @@ with tab_physician:
 		f"Files larger than {MAX_FILE_SIZE_MB}MB are skipped."
 	)
 
-	verification_col, sync_col, final_col = st.columns([2.5, 1.5, 1.5])
-	with verification_col:
-		st.session_state["human_verified"] = st.checkbox(
-			"Human-in-the-Loop Verification Complete (Required before sync)",
-			value=st.session_state.get("human_verified", False),
-			help="Confirm chart review and extraction validation before writing to Medplum/Jira.",
-			disabled=controls_locked,
-		)
+	approval_col, sync_col = st.columns([3, 2])
+	with approval_col:
+		st.info("Review extracted JSON first, then use 'Approve & Send to Services' to perform external sync.")
 	with sync_col:
 		st.session_state["enable_external_sync"] = st.checkbox(
 			"Enable Medplum/Jira Sync",
 			value=st.session_state.get("enable_external_sync", True),
-			disabled=controls_locked,
-		)
-	with final_col:
-		st.session_state["delivery_confirmed"] = st.checkbox(
-			"Delivery Confirmed",
-			value=st.session_state.get("delivery_confirmed", False),
-			help="Triggers celebration feedback after successful background sync.",
 			disabled=controls_locked,
 		)
 
@@ -1069,35 +1116,76 @@ with tab_physician:
 	)
 	has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
 
-	if st.button("Process All Files", type="primary", use_container_width=True, disabled=controls_locked):
+	st.button(
+		"Process All Files",
+		type="primary",
+		use_container_width=True,
+		disabled=controls_locked,
+		on_click=_request_processing,
+	)
+
+	ready_for_review_count = sum(1 for job in st.session_state["file_queue"] if job["status"] == "ready_for_review")
+	st.button(
+		f"Approve & Send to Services ({ready_for_review_count})",
+		type="secondary",
+		use_container_width=True,
+		disabled=controls_locked or ready_for_review_count == 0,
+		on_click=_request_approval_sync,
+		help="Sends reviewed extraction payloads to Medplum/Jira integrations.",
+	)
+
+	if st.session_state.get("process_requested", False):
 		if uploaded_files:
 			_queue_uploaded_files(uploaded_files)
 			st.toast("Files added to processing queue.")
 			has_queued_jobs = any(job["status"] == "queued" for job in st.session_state["file_queue"])
 
 		if has_queued_jobs:
-			st.session_state["processing_lock"] = True
 			try:
 				with st.spinner("Processing queued files..."):
 					_process_queued_jobs(max_jobs=10_000)
 			finally:
 				st.session_state["processing_lock"] = False
+				st.session_state["process_requested"] = False
+				st.rerun()
 		else:
 			st.warning("Please upload one or more files to process.")
+			st.session_state["processing_lock"] = False
+			st.session_state["process_requested"] = False
+
+	if st.session_state.get("approval_requested", False):
+		try:
+			with st.spinner("Syncing approved files to external services..."):
+				_sync_ready_jobs()
+		finally:
+			st.session_state["processing_lock"] = False
+			st.session_state["approval_requested"] = False
+			st.rerun()
 
 	queue_df = _queue_overview_df()
 	if queue_df.empty:
 		st.caption("Queue is empty.")
 	else:
 		status_counts = queue_df["status"].value_counts().to_dict()
-		metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+		metric_col1, metric_col2, metric_col3, metric_col4, metric_col5 = st.columns(5)
 		metric_col1.metric("Queued", int(status_counts.get("queued", 0)))
 		metric_col2.metric("Processing", int(status_counts.get("processing", 0)))
-		metric_col3.metric("Done", int(status_counts.get("done", 0)))
-		metric_col4.metric("Failed", int(status_counts.get("failed", 0)))
+		metric_col3.metric("Ready for Review", int(status_counts.get("ready_for_review", 0)))
+		metric_col4.metric("Done", int(status_counts.get("done", 0)))
+		metric_col5.metric("Failed", int(status_counts.get("failed", 0)))
 
 		st.markdown("#### Processing Queue")
 		st.dataframe(queue_df.sort_values("job_id", ascending=False), use_container_width=True)
+
+		review_jobs = [job for job in st.session_state["file_queue"] if job["status"] == "ready_for_review"]
+		if review_jobs:
+			st.markdown("#### Ready for Review: Extracted FHIR JSON")
+			for job in sorted(review_jobs, key=lambda j: j["job_id"], reverse=True):
+				with st.expander(f"Review Job #{job['job_id']} - {job['filename']}", expanded=False):
+					if job.get("extraction"):
+						st.json(job["extraction"])
+					else:
+						st.warning("No extraction payload found for this job.")
 
 		if st.button("Clear Completed / Failed", use_container_width=False):
 			st.session_state["file_queue"] = [
