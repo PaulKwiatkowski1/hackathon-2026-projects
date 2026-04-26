@@ -563,6 +563,34 @@ def _geocode_city_state(city_name: str, state_abbr: str) -> tuple[float, float] 
 		"q": f"{city_name}, {state_abbr}, USA",
 		"format": "json",
 		"limit": 1,
+		"countrycodes": "us",
+	}
+
+	try:
+		response = requests.get("https://nominatim.openstreetmap.org/search", params=params, headers=headers, timeout=12)
+		response.raise_for_status()
+		results = response.json()
+		if not results:
+			return None
+		return float(results[0]["lat"]), float(results[0]["lon"])
+	except Exception:
+		return None
+
+
+@st.cache_data(ttl=60 * 60 * 24)
+def _geocode_address(address_text: str) -> tuple[float, float] | None:
+	"""Resolve full address to coordinates for tighter map placement."""
+	if not address_text:
+		return None
+
+	headers = {
+		"User-Agent": "homebound-discharge-portal/1.0 (address-level map demo)",
+	}
+	params = {
+		"q": f"{address_text}, USA",
+		"format": "json",
+		"limit": 1,
+		"countrycodes": "us",
 	}
 
 	try:
@@ -630,8 +658,8 @@ def _city_demo_point(city_name: str, state_abbr: str, seed_value: str) -> tuple[
 
 	# Deterministic city-level jitter so same city appears clustered but not stacked.
 	seed_hash = hashlib.sha256(f"{city_key}-{seed_value}".encode("utf-8")).hexdigest()
-	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 0.25
-	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 0.25
+	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 0.06
+	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 0.06
 	return city_center[0] + jitter_lat, city_center[1] + jitter_lon
 
 
@@ -642,8 +670,8 @@ def _state_demo_point(state_abbr: str, seed_value: str) -> tuple[float, float] |
 
 	# Deterministic jitter so repeated records in a state do not overlap exactly.
 	seed_hash = hashlib.sha256(seed_value.encode("utf-8")).hexdigest()
-	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 1.2
-	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 1.2
+	jitter_lat = ((int(seed_hash[:4], 16) / 65535) - 0.5) * 0.45
+	jitter_lon = ((int(seed_hash[4:8], 16) / 65535) - 0.5) * 0.45
 	return center[0] + jitter_lat, center[1] + jitter_lon
 
 
@@ -676,6 +704,11 @@ def get_delivery_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 
 	map_rows = []
 	for idx, address_text in enumerate(df[address_col].dropna().astype(str).tolist()[:200], start=1):
+		address_point = _geocode_address(address_text)
+		if address_point:
+			map_rows.append({"lat": address_point[0], "lon": address_point[1]})
+			continue
+
 		city_name, state_abbr = _city_state_from_address(address_text)
 		point = None
 		if city_name and state_abbr:
