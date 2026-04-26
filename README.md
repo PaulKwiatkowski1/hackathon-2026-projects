@@ -1,4 +1,4 @@
-# HomeBound: The AI-Powered Closed-Loop Logistics Hub
+# HomeBound: The AI-Powered Logistics Hub
 
 **From discharge note to delivered DME with full clinical visibility, operational accountability, and real-time status intelligence.**
 
