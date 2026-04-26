@@ -1,0 +1,1478 @@
+{
+    "name": "Jira DME Delivered Update",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2217334,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "Jira Shipped Webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "tlsType": "",
+                "proxyKeychain": "",
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "https://api.medplum.com/oauth2/token",
+                "method": "post",
+                "contentType": "urlEncoded",
+                "shareCookies": false,
+                "parseResponse": true,
+                "allowRedirects": true,
+                "stopOnHttpError": true,
+                "urlEncodedBodyContent": [
+                    {
+                        "name": "grant_type",
+                        "value": "client_credentials"
+                    },
+                    {
+                        "name": "client_id",
+                        "value": "98746cbd-a471-40ff-8b91-7dcdb86ed923"
+                    },
+                    {
+                        "name": "client_secret",
+                        "value": "'SECRET KEY'"
+                    }
+                ],
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 356,
+                    "y": -206
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "contentType": {
+                            "label": "application/x-www-form-urlencodedEnter form data as key-value pairs encoded in the URL style."
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "urlEncodedBodyContent": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null,
+                                null
+                            ]
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "tlsType": {
+                            "label": "Empty"
+                        },
+                        "proxyKeychain": {
+                            "label": "Choose a key"
+                        },
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "urlEncodedBodyContent",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Field"
+                        },
+                        "type": "array",
+                        "label": "Body content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "type": "any",
+                        "label": "Data"
+                    },
+                    {
+                        "name": "statusCode",
+                        "type": "number",
+                        "label": "Status Code"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "type": "text",
+                                "label": "Content-Length"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "type": "text",
+                                "label": "Content-Encoding"
+                            },
+                            {
+                                "name": "content-type",
+                                "type": "text",
+                                "label": "Content-Type"
+                            },
+                            {
+                                "name": "server",
+                                "type": "text",
+                                "label": "Server"
+                            },
+                            {
+                                "name": "cache-control",
+                                "type": "text",
+                                "label": "Cache-Control"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "spec": {
+                                    "type": "text"
+                                },
+                                "type": "array",
+                                "label": "Set-Cookie"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Headers"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "tlsType": "",
+                "proxyKeychain": "",
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "https://api.medplum.com/fhir/R4/ServiceRequest/{{1.medplum_id}}",
+                "method": "patch",
+                "headers": [
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer {{3.data.access_token}}"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json-patch+json"
+                    },
+                    {
+                        "name": "X-Project-Id",
+                        "value": "87daa0e1-c34c-4f14-bdbc-1e2719b371b7"
+                    }
+                ],
+                "contentType": "json",
+                "inputMethod": "jsonString",
+                "shareCookies": false,
+                "parseResponse": true,
+                "allowRedirects": true,
+                "stopOnHttpError": true,
+                "jsonStringBodyContent": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"/status\",\r\n    \"value\": \"completed\"\r\n  }\r\n]",
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 693,
+                    "y": 30
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "PATCH"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null,
+                                null
+                            ]
+                        },
+                        "contentType": {
+                            "label": "application/jsonEnter data in the JSON format, as a string or using a data structure."
+                        },
+                        "inputMethod": {
+                            "label": "JSON stringEnter the JSON body as a raw text string. If values contain JSON reserved characters, you must escape them manually."
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "tlsType": {
+                            "label": "Empty"
+                        },
+                        "proxyKeychain": {
+                            "label": "Choose a key"
+                        },
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "inputMethod",
+                        "type": "select",
+                        "label": "Body input method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "dataStructure",
+                                "jsonString"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "jsonStringBodyContent",
+                        "type": "text",
+                        "label": "Body content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "type": "any",
+                        "label": "Data"
+                    },
+                    {
+                        "name": "statusCode",
+                        "type": "number",
+                        "label": "Status Code"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "type": "text",
+                                "label": "Content-Length"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "type": "text",
+                                "label": "Content-Encoding"
+                            },
+                            {
+                                "name": "content-type",
+                                "type": "text",
+                                "label": "Content-Type"
+                            },
+                            {
+                                "name": "server",
+                                "type": "text",
+                                "label": "Server"
+                            },
+                            {
+                                "name": "cache-control",
+                                "type": "text",
+                                "label": "Cache-Control"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "spec": {
+                                    "type": "text"
+                                },
+                                "type": "array",
+                                "label": "Set-Cookie"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Headers"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "module": "supabase:searchRows",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8554799
+            },
+            "mapper": {
+                "limit": "1",
+                "table": "equipment_orders",
+                "search": [
+                    [
+                        {
+                            "a": "id",
+                            "b": "{{1.supabase_id}}",
+                            "o": "text:eq."
+                        }
+                    ]
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1076,
+                    "y": -255
+                },
+                "restore": {
+                    "expect": {
+                        "table": {
+                            "mode": "chose",
+                            "label": "equipment_orders",
+                            "nested": [
+                                {
+                                    "name": "search",
+                                    "type": "filter",
+                                    "label": "Search criteria",
+                                    "options": {
+                                        "logic": "and",
+                                        "store": [
+                                            {
+                                                "label": "id",
+                                                "value": "id"
+                                            },
+                                            {
+                                                "label": "fhir_patient_id",
+                                                "value": "fhir_patient_id"
+                                            },
+                                            {
+                                                "label": "fhir_service_request_id",
+                                                "value": "fhir_service_request_id"
+                                            },
+                                            {
+                                                "label": "jira_ticket_key",
+                                                "value": "jira_ticket_key"
+                                            },
+                                            {
+                                                "label": "patient_name",
+                                                "value": "patient_name"
+                                            },
+                                            {
+                                                "label": "equipment_type",
+                                                "value": "equipment_type"
+                                            },
+                                            {
+                                                "label": "snomed_code",
+                                                "value": "snomed_code"
+                                            },
+                                            {
+                                                "label": "vendor_name",
+                                                "value": "vendor_name"
+                                            },
+                                            {
+                                                "label": "order_status",
+                                                "value": "order_status"
+                                            },
+                                            {
+                                                "label": "estimated_delivery_days",
+                                                "value": "estimated_delivery_days"
+                                            },
+                                            {
+                                                "label": "created_at",
+                                                "value": "created_at"
+                                            },
+                                            {
+                                                "label": "fhir_resource_version",
+                                                "value": "fhir_resource_version"
+                                            },
+                                            {
+                                                "label": "delivery_address",
+                                                "value": "delivery_address"
+                                            }
+                                        ],
+                                        "operators": [
+                                            {
+                                                "label": "Text",
+                                                "options": [
+                                                    {
+                                                        "label": "Equals",
+                                                        "value": "text:eq."
+                                                    },
+                                                    {
+                                                        "label": "Does not equal",
+                                                        "value": "text:neq."
+                                                    },
+                                                    {
+                                                        "label": "Contains (case sensitive)",
+                                                        "value": "text:like."
+                                                    },
+                                                    {
+                                                        "label": "Contains (case insensitive)",
+                                                        "value": "text:ilike."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Numbers",
+                                                "options": [
+                                                    {
+                                                        "label": "Equals",
+                                                        "value": "number:eq."
+                                                    },
+                                                    {
+                                                        "label": "Does not equal",
+                                                        "value": "number:neq."
+                                                    },
+                                                    {
+                                                        "label": "Greater than",
+                                                        "value": "number:gt."
+                                                    },
+                                                    {
+                                                        "label": "Less than",
+                                                        "value": "number:lt."
+                                                    },
+                                                    {
+                                                        "label": "Greater than or equal to",
+                                                        "value": "number:gte."
+                                                    },
+                                                    {
+                                                        "label": "Less than or equal to",
+                                                        "value": "number:lte."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Date",
+                                                "options": [
+                                                    {
+                                                        "label": "Equals",
+                                                        "value": "date:eq."
+                                                    },
+                                                    {
+                                                        "label": "Does not equal",
+                                                        "value": "date:neq."
+                                                    },
+                                                    {
+                                                        "label": "Later than",
+                                                        "value": "date:gt."
+                                                    },
+                                                    {
+                                                        "label": "Earlier than",
+                                                        "value": "date:lt."
+                                                    },
+                                                    {
+                                                        "label": "Later than or equal to",
+                                                        "value": "date:gte."
+                                                    },
+                                                    {
+                                                        "label": "Earlier than or equal to",
+                                                        "value": "date:lte."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Boolean",
+                                                "options": [
+                                                    {
+                                                        "label": "Equals",
+                                                        "value": "boolean:eq."
+                                                    },
+                                                    {
+                                                        "label": "Does not equal",
+                                                        "value": "boolean:neq."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "supabase"
+                            },
+                            "label": "HomeBound-DB"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:supabase",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "search",
+                        "type": "filter",
+                        "label": "Search criteria",
+                        "options": {
+                            "logic": "and",
+                            "store": [
+                                {
+                                    "label": "id",
+                                    "value": "id"
+                                },
+                                {
+                                    "label": "fhir_patient_id",
+                                    "value": "fhir_patient_id"
+                                },
+                                {
+                                    "label": "fhir_service_request_id",
+                                    "value": "fhir_service_request_id"
+                                },
+                                {
+                                    "label": "jira_ticket_key",
+                                    "value": "jira_ticket_key"
+                                },
+                                {
+                                    "label": "patient_name",
+                                    "value": "patient_name"
+                                },
+                                {
+                                    "label": "equipment_type",
+                                    "value": "equipment_type"
+                                },
+                                {
+                                    "label": "snomed_code",
+                                    "value": "snomed_code"
+                                },
+                                {
+                                    "label": "vendor_name",
+                                    "value": "vendor_name"
+                                },
+                                {
+                                    "label": "order_status",
+                                    "value": "order_status"
+                                },
+                                {
+                                    "label": "estimated_delivery_days",
+                                    "value": "estimated_delivery_days"
+                                },
+                                {
+                                    "label": "created_at",
+                                    "value": "created_at"
+                                },
+                                {
+                                    "label": "fhir_resource_version",
+                                    "value": "fhir_resource_version"
+                                },
+                                {
+                                    "label": "delivery_address",
+                                    "value": "delivery_address"
+                                }
+                            ],
+                            "operators": [
+                                {
+                                    "label": "Text",
+                                    "options": [
+                                        {
+                                            "label": "Equals",
+                                            "value": "text:eq."
+                                        },
+                                        {
+                                            "label": "Does not equal",
+                                            "value": "text:neq."
+                                        },
+                                        {
+                                            "label": "Contains (case sensitive)",
+                                            "value": "text:like."
+                                        },
+                                        {
+                                            "label": "Contains (case insensitive)",
+                                            "value": "text:ilike."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "Numbers",
+                                    "options": [
+                                        {
+                                            "label": "Equals",
+                                            "value": "number:eq."
+                                        },
+                                        {
+                                            "label": "Does not equal",
+                                            "value": "number:neq."
+                                        },
+                                        {
+                                            "label": "Greater than",
+                                            "value": "number:gt."
+                                        },
+                                        {
+                                            "label": "Less than",
+                                            "value": "number:lt."
+                                        },
+                                        {
+                                            "label": "Greater than or equal to",
+                                            "value": "number:gte."
+                                        },
+                                        {
+                                            "label": "Less than or equal to",
+                                            "value": "number:lte."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "Date",
+                                    "options": [
+                                        {
+                                            "label": "Equals",
+                                            "value": "date:eq."
+                                        },
+                                        {
+                                            "label": "Does not equal",
+                                            "value": "date:neq."
+                                        },
+                                        {
+                                            "label": "Later than",
+                                            "value": "date:gt."
+                                        },
+                                        {
+                                            "label": "Earlier than",
+                                            "value": "date:lt."
+                                        },
+                                        {
+                                            "label": "Later than or equal to",
+                                            "value": "date:gte."
+                                        },
+                                        {
+                                            "label": "Earlier than or equal to",
+                                            "value": "date:lte."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "Boolean",
+                                    "options": [
+                                        {
+                                            "label": "Equals",
+                                            "value": "boolean:eq."
+                                        },
+                                        {
+                                            "label": "Does not equal",
+                                            "value": "boolean:neq."
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "number",
+                        "label": "id"
+                    },
+                    {
+                        "name": "fhir_patient_id",
+                        "type": "text",
+                        "label": "fhir_patient_id"
+                    },
+                    {
+                        "name": "fhir_service_request_id",
+                        "type": "text",
+                        "label": "fhir_service_request_id"
+                    },
+                    {
+                        "name": "jira_ticket_key",
+                        "type": "text",
+                        "label": "jira_ticket_key"
+                    },
+                    {
+                        "name": "patient_name",
+                        "type": "text",
+                        "label": "patient_name"
+                    },
+                    {
+                        "name": "equipment_type",
+                        "type": "text",
+                        "label": "equipment_type"
+                    },
+                    {
+                        "name": "snomed_code",
+                        "type": "text",
+                        "label": "snomed_code"
+                    },
+                    {
+                        "name": "vendor_name",
+                        "type": "text",
+                        "label": "vendor_name"
+                    },
+                    {
+                        "name": "order_status",
+                        "type": "text",
+                        "label": "order_status"
+                    },
+                    {
+                        "name": "estimated_delivery_days",
+                        "type": "number",
+                        "label": "estimated_delivery_days"
+                    },
+                    {
+                        "name": "created_at",
+                        "type": "text",
+                        "label": "created_at"
+                    },
+                    {
+                        "name": "fhir_resource_version",
+                        "type": "text",
+                        "label": "fhir_resource_version"
+                    },
+                    {
+                        "name": "delivery_address",
+                        "type": "text",
+                        "label": "delivery_address"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "supabase:upsertARecord",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8554799
+            },
+            "mapper": {
+                "id": "{{1.supabase_id}}",
+                "table": "equipment_orders",
+                "order_status": "Delivered",
+                "fhir_patient_id": "{{8.fhir_patient_id}}",
+                "estimated_delivery_days": "{{round((formatDate(now; \"X\") - formatDate(parseDate(1.created_at; \"YYYY-MM-DDTHH:mm:ss.SSSZZ\"); \"X\")) / 86400)}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1563,
+                    "y": 39
+                },
+                "restore": {
+                    "expect": {
+                        "table": {
+                            "mode": "chose",
+                            "label": "equipment_orders",
+                            "nested": [
+                                {
+                                    "help": "Note:\nThis is a Primary Key.<pk/>",
+                                    "name": "id",
+                                    "type": "integer",
+                                    "label": "id",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "fhir_patient_id",
+                                    "type": "text",
+                                    "label": "fhir_patient_id",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "fhir_service_request_id",
+                                    "type": "text",
+                                    "label": "fhir_service_request_id",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "jira_ticket_key",
+                                    "type": "text",
+                                    "label": "jira_ticket_key",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "patient_name",
+                                    "type": "text",
+                                    "label": "patient_name",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "equipment_type",
+                                    "type": "text",
+                                    "label": "equipment_type",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "snomed_code",
+                                    "type": "text",
+                                    "label": "snomed_code",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "vendor_name",
+                                    "type": "text",
+                                    "label": "vendor_name",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "Defaults to Pending. ",
+                                    "name": "order_status",
+                                    "type": "text",
+                                    "label": "order_status",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "estimated_delivery_days",
+                                    "type": "integer",
+                                    "label": "estimated_delivery_days",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "Defaults to now(). ",
+                                    "name": "created_at",
+                                    "type": "text",
+                                    "label": "created_at",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "fhir_resource_version",
+                                    "type": "text",
+                                    "label": "fhir_resource_version",
+                                    "options": null,
+                                    "required": false
+                                },
+                                {
+                                    "help": "",
+                                    "name": "delivery_address",
+                                    "type": "text",
+                                    "label": "delivery_address",
+                                    "options": null,
+                                    "required": false
+                                }
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "supabase"
+                            },
+                            "label": "HomeBound-DB"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:supabase",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "fhir_patient_id",
+                        "type": "text"
+                    },
+                    {
+                        "name": "fhir_service_request_id",
+                        "type": "text"
+                    },
+                    {
+                        "name": "jira_ticket_key",
+                        "type": "text"
+                    },
+                    {
+                        "name": "patient_name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "equipment_type",
+                        "type": "text"
+                    },
+                    {
+                        "name": "snomed_code",
+                        "type": "text"
+                    },
+                    {
+                        "name": "vendor_name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "order_status",
+                        "type": "text"
+                    },
+                    {
+                        "name": "estimated_delivery_days",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "created_at",
+                        "type": "text"
+                    },
+                    {
+                        "name": "fhir_resource_version",
+                        "type": "text"
+                    },
+                    {
+                        "name": "delivery_address",
+                        "type": "text"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "number",
+                        "label": "id"
+                    },
+                    {
+                        "name": "fhir_patient_id",
+                        "type": "text",
+                        "label": "fhir_patient_id"
+                    },
+                    {
+                        "name": "fhir_service_request_id",
+                        "type": "text",
+                        "label": "fhir_service_request_id"
+                    },
+                    {
+                        "name": "jira_ticket_key",
+                        "type": "text",
+                        "label": "jira_ticket_key"
+                    },
+                    {
+                        "name": "patient_name",
+                        "type": "text",
+                        "label": "patient_name"
+                    },
+                    {
+                        "name": "equipment_type",
+                        "type": "text",
+                        "label": "equipment_type"
+                    },
+                    {
+                        "name": "snomed_code",
+                        "type": "text",
+                        "label": "snomed_code"
+                    },
+                    {
+                        "name": "vendor_name",
+                        "type": "text",
+                        "label": "vendor_name"
+                    },
+                    {
+                        "name": "order_status",
+                        "type": "text",
+                        "label": "order_status"
+                    },
+                    {
+                        "name": "estimated_delivery_days",
+                        "type": "number",
+                        "label": "estimated_delivery_days"
+                    },
+                    {
+                        "name": "created_at",
+                        "type": "text",
+                        "label": "created_at"
+                    },
+                    {
+                        "name": "fhir_resource_version",
+                        "type": "text",
+                        "label": "fhir_resource_version"
+                    },
+                    {
+                        "name": "delivery_address",
+                        "type": "text",
+                        "label": "delivery_address"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
